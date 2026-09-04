@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Early Warning Hazard Alerts Desk – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div>
+        <i class="fas fa-satellite-dish"></i> <strong>REAL-TIME HAZARD & PRESERVATION EARLY WARNING DESK</strong>
+      </div>
+      <div>
+        <span><i class="fas fa-check-circle" style="color:#10b981;"></i> Automated Diagnostic Rules: ACTIVE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-draw-polygon"></i> Encroachments</a></li>
+          <li><a href="/alerts.html" class="nav-link active"><i class="fas fa-bell"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <div id="nav-auth-container"></div>
+        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 2.5rem 0;">
+    <div class="container">
+      
+      <!-- Top Title & Filter Bar -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+          <span class="section-tag" style="color:var(--accent);"><i class="fas fa-bell"></i> Early Warning System</span>
+          <h1 class="section-title">National Hazard & Preservation Alerts Desk</h1>
+          <p class="section-desc">Automated alert signals triggered by structural stress, severe environmental telemetry, tourist saturation, and buffer zone violations.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem; background:var(--bg-card); padding:0.5rem 1rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <label style="font-size:0.85rem; font-weight:700; color:var(--primary);"><i class="fas fa-filter"></i> Priority Filter:</label>
+          <select id="priority-filter-select" class="form-control" style="width:140px; padding:0.35rem 0.6rem; font-size:0.85rem;">
+            <option value="all">All Alerts</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Live Alerts Container -->
+      <div id="alerts-desk-container" class="alerts-list" style="margin-bottom:3rem;">
+        <div style="text-align:center; padding:3rem; color:var(--text-muted);">
+          <i class="fas fa-spinner fa-spin" style="font-size:1.5rem; color:var(--primary);"></i>
+          <p style="margin-top:0.5rem;">Connecting to early warning telemetry stream...</p>
+        </div>
+      </div>
+
+      <!-- Diagnostic Engine Details Card -->
+      <div class="kpi-card" style="text-align:left; padding:1.75rem;">
+        <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary); margin-bottom:0.5rem;">
+          <i class="fas fa-microchip"></i> Early Warning Trigger Matrix & Rule Engine
+        </h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+          Alerts are automatically triggered based on real-time preservation thresholds:
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; font-size:0.82rem;">
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm);">
+            <strong style="color:var(--risk-crit);"><i class="fas fa-exclamation-circle"></i> Structural Distress:</strong>
+            <p style="margin-top:0.25rem; color:var(--text-main);">Triggered when multiple crack widening reports or subsidence are detected.</p>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm);">
+            <strong style="color:var(--risk-high);"><i class="fas fa-users-slash"></i> Tourist Saturation:</strong>
+            <p style="margin-top:0.25rem; color:var(--text-main);">Triggered when peak footfall exceeds 120% of designated daily carrying capacity.</p>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm);">
+            <strong style="color:var(--risk-mod);"><i class="fas fa-smog"></i> Environmental Degradation:</strong>
+            <p style="margin-top:0.25rem; color:var(--text-main);">Triggered when AQI &gt; 250, SO2/NO2 exceeds 40 &micro;g/m&sup3;, or microclimate humidity &gt; 80%.</p>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm);">
+            <strong style="color:var(--accent);"><i class="fas fa-draw-polygon"></i> Buffer Encroachment:</strong>
+            <p style="margin-top:0.25rem; color:var(--text-main);">Triggered upon detection of unapproved masonry or excavation in 100m prohibited zone.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 0.75rem;">
+            <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+            <div>
+              <span class="brand-text">HERITAGEVERSE</span>
+              <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            Early warning disaster risk and structural degradation surveillance for national monuments.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Surveillance Tools</h4>
+          <ul class="footer-links">
+            <li><a href="/sites.html">Monitored Heritage Sites</a></li>
+            <li><a href="/encroachment.html">Buffer Zone Encroachments</a></li>
+            <li><a href="/report.html">Citizen Incident Reporting</a></li>
+            <li><a href="/track.html">Public Incident Tracker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Emergency Protocols</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+            Critical priority alerts trigger immediate automated dispatch notifications to the respective ASI Circle Conservation Assistant and local district disaster administration.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; Archaeological Survey & Preservation Intelligence.</span>
+        <span>Disaster Risk & Early Warning Network</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    async function loadAlerts(priority = 'all') {
+      const container = document.getElementById('alerts-desk-container');
+      container.innerHTML = `<div style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem; color:var(--primary);"></i> Loading alerts...</div>`;
+
+      try {
+        const endpoint = priority && priority !== 'all' ? `/api/alerts?priority=${priority}` : '/api/alerts';
+        const res = await APIClient.get(endpoint);
+        const alerts = res.data || [];
+
+        if (alerts.length === 0) {
+          container.innerHTML = `<div class="kpi-card" style="padding:2.5rem; text-align:center; color:var(--text-muted);"><i class="fas fa-check-circle" style="font-size:2rem; color:var(--risk-low); margin-bottom:0.5rem; display:block;"></i>No active hazard alerts matching the selected filter. All monitored parameters nominal.</div>`;
+          return;
+        }
+
+        container.innerHTML = alerts.map(a => `
+          <div class="alert-card priority-${a.priority}" style="text-align:left;">
+            <div>
+              <span class="risk-badge risk-${a.priority.toLowerCase()}">${a.priority} Priority</span>
+            </div>
+            <div>
+              <div style="font-size:0.75rem; color:var(--accent); font-weight:700; letter-spacing:0.5px;">
+                ${a.alert_uid} &bull; ${a.alert_type} &bull; <i class="fas fa-clock"></i> ${a.created_at || 'Recent'}
+              </div>
+              <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary); margin:0.2rem 0;">
+                <a href="/site-detail.html?id=${a.heritage_site_id}">${a.heritage_site_name || 'Monument'}</a> — ${a.title}
+              </h3>
+              <p style="font-size:0.88rem; color:var(--text-main); margin-bottom:0.5rem;">${a.description}</p>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.8rem; background:var(--bg-card-alt); padding:0.65rem 0.85rem; border-radius:var(--radius-sm); margin-bottom:0.5rem;">
+                <div><strong>Trigger Reason:</strong> <span style="color:var(--text-main);">${a.trigger_reason}</span></div>
+                <div><strong>Assigned Custodian:</strong> <span style="color:var(--text-main);">${a.assigned_to || 'National Monitoring Cell'}</span></div>
+                <div style="grid-column:span 2;">
+                  <strong style="color:var(--accent);">Recommended Mitigation:</strong> ${a.recommended_action}
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem; align-items:flex-end;">
+              <span class="badge" style="background:var(--bg-card-alt); font-size:0.75rem; font-weight:700; color:var(--primary);">${a.status}</span>
+              <a href="/site-detail.html?id=${a.heritage_site_id}" class="btn btn-secondary btn-sm" style="font-size:0.75rem; padding:0.35rem 0.75rem;">
+                Site Dossier <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        console.error('[Alerts Desk] Error:', err);
+        container.innerHTML = `<div class="kpi-card" style="padding:2rem; text-align:center; color:var(--accent);">Failed to load alerts. Please check connectivity.</div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAlerts();
+      const select = document.getElementById('priority-filter-select');
+      if (select) {
+        select.addEventListener('change', (e) => loadAlerts(e.target.value));
+      }
+    });
+  </script>
+</body>
+</html>

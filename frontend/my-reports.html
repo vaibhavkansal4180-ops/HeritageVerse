@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Submitted Preservation Reports – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div>
+        <i class="fas fa-clipboard-list"></i> CITIZEN PRESERVATION TRACKING PORTAL
+      </div>
+      <div>
+        <span><i class="fas fa-user-shield"></i> Monitored under Archaeological Survey of India (ASI) standards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-draw-polygon"></i> Encroachments</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-bell"></i> Early Warnings</a></li>
+          <li><a href="/my-reports.html" class="nav-link active"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="/report.html" class="btn btn-primary btn-sm"><i class="fas fa-bullhorn"></i> Submit Incident</a>
+        <div id="nav-auth-container"></div>
+        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 3rem 0;">
+    <div class="container" style="max-width: 960px;">
+      
+      <!-- Section Header -->
+      <div style="margin-bottom: 2rem;">
+        <span class="section-tag"><i class="fas fa-tasks"></i> Citizen Tracking</span>
+        <h1 class="section-title">My Submitted Preservation Reports</h1>
+        <p class="section-desc">Track real-time conservation status, AI damage assessment results, and official archaeological remarks on your reported incidents.</p>
+      </div>
+
+      <!-- Quick Tracking ID Search Box -->
+      <div class="kpi-card" style="padding: 1.5rem 1.75rem; margin-bottom: 2rem; text-align: left; background: var(--bg-card-alt);">
+        <h3 style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--primary); margin-bottom: 0.5rem;">
+          <i class="fas fa-search-location"></i> Look Up Any Report by Tracking UID
+        </h3>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">Have a tracking reference from another report or device? Enter the UID below.</p>
+        <form id="fast-track-form" style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <input type="text" id="track-uid-input" class="form-control" placeholder="e.g. HV-2026-64A19F" style="flex:1; min-width:220px;" required>
+          <button type="submit" class="btn btn-primary btn-sm">
+            <i class="fas fa-search"></i> Track Status
+          </button>
+        </form>
+      </div>
+
+      <!-- User Reports Feed -->
+      <div id="my-reports-list">
+        <div style="text-align:center; padding:3rem;">
+          <i class="fas fa-spinner fa-spin" style="font-size:1.75rem; color:var(--primary);"></i>
+          <p style="color:var(--text-muted); margin-top:0.75rem;">Loading your logged reports...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 0.75rem;">
+            <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+            <div>
+              <span class="brand-text">HERITAGEVERSE</span>
+              <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            A unified national platform empowering citizens and conservators with transparent incident tracking.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Citizen Watch</h4>
+          <ul class="footer-links">
+            <li><a href="/report.html">Report Damage or Vandalism</a></li>
+            <li><a href="/track.html">Public Incident Tracker</a></li>
+            <li><a href="/sites.html">Monitored Heritage Sites</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Accountability</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+            Every report is cryptographically timestamped and assigned a tracking UID for complete public transparency.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; Citizen Heritage Watch Module</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/reports.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      CitizenWatch.loadMyReports();
+      CitizenWatch.bindEvents();
+    });
+  </script>
+</body>
+</html>

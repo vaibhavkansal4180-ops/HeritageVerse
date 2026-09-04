@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protected Buffer Zone & Encroachment Desk – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div>
+        <i class="fas fa-shield-alt"></i> <strong>AMASR ACT BUFFER ZONE COMPLIANCE & SATELLITE TELEMETRY</strong>
+      </div>
+      <div>
+        <span><i class="fas fa-satellite"></i> Sentinel-2 & High-Res Drone Monitoring</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link active"><i class="fas fa-draw-polygon"></i> Encroachments</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-bell"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-my-reports-link" style="display:none;"><a href="/my-reports.html" class="nav-link"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link" style="color:var(--accent);"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="/report.html" class="btn btn-accent btn-sm"><i class="fas fa-bullhorn"></i> Report Incident</a>
+        <div id="nav-auth-container">
+          <a href="/login.html" class="auth-btn"><i class="fas fa-user-shield"></i> Login</a>
+        </div>
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Header Banner -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:1.75rem;">
+        <div>
+          <span style="font-size:0.75rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px;"><i class="fas fa-draw-polygon"></i> Perimeter & Buffer Security</span>
+          <h1 class="page-title" style="margin-top:0.15rem;">Protected Buffer Zone & Encroachment Desk</h1>
+          <p class="page-subtitle">Multi-temporal satellite optical change surveillance within statutory AMASR Act 100m Prohibited & 300m Regulated zones.</p>
+        </div>
+        <a href="/report.html" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Report Illegal Construction</a>
+      </div>
+
+      <!-- Regulatory Framework Notice Box -->
+      <div class="card" style="padding:1.25rem 1.5rem; margin-bottom:2rem; background:var(--bg-card-alt); border-left:4px solid var(--accent);">
+        <div style="display:flex; gap:1rem; align-items:flex-start;">
+          <i class="fas fa-balance-scale" style="font-size:1.4rem; color:var(--accent); margin-top:0.15rem; flex-shrink:0;"></i>
+          <div>
+            <h3 style="font-family:var(--font-sans); font-size:0.95rem; font-weight:700; color:var(--primary); margin-bottom:0.25rem;">
+              Statutory Protection Mandate: AMASR (Amendment and Validation) Act, 2010
+            </h3>
+            <p style="font-size:0.84rem; color:var(--text-main); line-height:1.5;">
+              <strong>100m Prohibited Area:</strong> All new modern construction and mining are strictly prohibited around Centrally Protected Monuments.<br>
+              <strong>300m Regulated Area:</strong> Construction or major structural modification requires prior statutory clearance from the National Monuments Authority (NMA).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Temporal Visual Observations (Balanced 2-Column Responsive Cards) -->
+      <div style="margin-bottom:2.5rem;">
+        <h2 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary); margin-bottom:1rem;">
+          <i class="fas fa-satellite"></i> Active Monitored Encroachments & Multi-Temporal Evidence
+        </h2>
+        <div id="encroachments-cards-container" class="encroachment-grid">
+          <div style="text-align:center; padding:3rem; grid-column:1/-1;">
+            <i class="fas fa-spinner fa-spin" style="font-size:1.75rem; color:var(--primary); margin-bottom:0.75rem;"></i>
+            <p style="color:var(--text-muted);">Loading multi-temporal satellite comparisons...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Observation Ledger -->
+      <div class="card" style="padding:1.5rem; margin-bottom:2.5rem;">
+        <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary); margin-bottom:0.25rem;">
+          <i class="fas fa-table"></i> National Buffer Zone Inspection Log
+        </h3>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1rem;">
+          Official surveillance ledger recording verified boundary breaches, unpermitted masonry, and administrative enforcement notices.
+        </p>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Monument</th>
+                <th>Buffer Zone</th>
+                <th>Observed Activity</th>
+                <th>Risk Level</th>
+                <th>Survey Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="encroachment-table-body">
+              <tr>
+                <td colspan="6" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading inspection log...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom:0.75rem;">
+            <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+            <div>
+              <span class="brand-text" style="color:#FFFFFF;">HERITAGEVERSE</span>
+              <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:#B4C4BF; line-height:1.6;">
+            Dedicated boundary compliance monitoring system powered by optical satellite change detection, drone surveys, and field validation.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="/sites.html">Monitored Heritage Sites</a></li>
+            <li><a href="/alerts.html">Early Warning Hazard Alerts</a></li>
+            <li><a href="/report.html">Citizen Heritage Watch</a></li>
+            <li><a href="/track.html">Track Incident Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal Framework</h4>
+          <p style="font-size:0.85rem; color:#B4C4BF; line-height:1.6;">
+            AMASR Act 1958 & Amendment 2010. Unauthorised construction in prohibited buffer zones is a cognizable offence punishable with imprisonment and statutory demolition.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; Archaeological Survey & Preservation Intelligence.</span>
+        <span>Perimeter & Buffer Security Module</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    async function loadEncroachments() {
+      const cardsContainer = document.getElementById('encroachments-cards-container');
+      const tableBody = document.getElementById('encroachment-table-body');
+
+      try {
+        const res = await APIClient.get('/api/preservation/encroachments');
+        const items = res.data || [];
+
+        if (items.length === 0) {
+          cardsContainer.innerHTML = `<div class="card" style="grid-column:1/-1; padding:2rem; text-align:center; color:var(--text-muted);">No active encroachment observations recorded. All statutory buffer zones intact.</div>`;
+          tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No observations found.</td></tr>`;
+          return;
+        }
+
+        // Render balanced 2-column visual comparison cards
+        cardsContainer.innerHTML = items.map(enc => {
+          const risk = (enc.risk_level || 'Low').toLowerCase();
+          const baselineImg = enc.baseline_image_url || '/assets/images/heritage-placeholder.svg';
+          const latestImg = enc.latest_image_url || '/assets/images/heritage-placeholder.svg';
+
+          return `
+            <div class="encroachment-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+                <div>
+                  <span class="zone-pill"><i class="fas fa-draw-polygon"></i> ${enc.monitored_zone}</span>
+                  <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary); margin:0.35rem 0 0.15rem 0;">
+                    <a href="/site-detail.html?id=${enc.heritage_site_id}">${enc.heritage_site_name || 'Monument'}</a>
+                  </h3>
+                </div>
+                <span class="risk-badge risk-${risk}">${enc.risk_level} Risk</span>
+              </div>
+
+              <p style="font-size:0.86rem; color:var(--text-main); line-height:1.5; margin-bottom:0.5rem;">
+                <strong>Detected Change:</strong> ${enc.detected_change}
+              </p>
+
+              <!-- Side-by-Side Multi-Temporal Imagery with 16:9 Aspect Ratio -->
+              <div class="comparison-wrapper">
+                <div class="comparison-pane">
+                  <img src="${baselineImg}" alt="Baseline Survey" loading="lazy" onerror="handleImageError(this)">
+                  <span class="comparison-badge"><i class="fas fa-history"></i> Baseline: ${enc.baseline_date || 'Baseline'}</span>
+                </div>
+                <div class="comparison-pane">
+                  <img src="${latestImg}" alt="Recent Survey" loading="lazy" onerror="handleImageError(this)">
+                  <span class="comparison-badge" style="background:var(--accent);"><i class="fas fa-satellite"></i> Recent: ${enc.latest_date || 'Latest'}</span>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-dim); margin-top:auto; border-top:1px solid var(--border-subtle); padding-top:0.75rem;">
+                <div>
+                  <strong>Area:</strong> ${enc.change_area_sqm ? enc.change_area_sqm + ' m²' : 'Identified'} &bull; 
+                  <strong>Status:</strong> <span style="color:var(--primary); font-weight:600;">${enc.verified_by_admin ? 'Admin Verified' : 'Under Investigation'}</span>
+                </div>
+                <a href="/site-detail.html?id=${enc.heritage_site_id}" class="btn btn-secondary btn-sm" style="font-size:0.78rem; padding:0.3rem 0.75rem;">
+                  Site Dossier <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Render table rows
+        tableBody.innerHTML = items.map(enc => {
+          const risk = (enc.risk_level || 'Low').toLowerCase();
+          return `
+            <tr>
+              <td>
+                <strong style="color:var(--primary); font-size:0.9rem;">${enc.heritage_site_name || 'Monument'}</strong>
+              </td>
+              <td>
+                <span class="zone-pill" style="font-size:0.7rem;">${enc.monitored_zone}</span>
+              </td>
+              <td style="font-size:0.85rem; max-width:280px;">
+                ${enc.detected_change}
+              </td>
+              <td>
+                <span class="risk-badge risk-${risk}">${enc.risk_level}</span>
+              </td>
+              <td style="font-size:0.82rem; color:var(--text-muted);">
+                ${enc.latest_date || 'N/A'}
+              </td>
+              <td>
+                <a href="/site-detail.html?id=${enc.heritage_site_id}" class="btn btn-secondary btn-sm" style="font-size:0.75rem; padding:0.25rem 0.6rem;">
+                  Dossier
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('[Encroachments] Error:', err);
+        cardsContainer.innerHTML = `<div class="card" style="grid-column:1/-1; padding:2rem; text-align:center; color:var(--accent);">Failed to load encroachment data. Please refresh.</div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadEncroachments);
+  </script>
+</body>
+</html>

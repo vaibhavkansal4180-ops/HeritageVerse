@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conservation Command Center & Intelligence Desk – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    .admin-table th {
+      background: var(--bg-card-alt);
+      color: var(--primary);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--border-subtle);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+    .admin-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+    .admin-table tr:hover td {
+      background: rgba(23, 63, 53, 0.02);
+    }
+    .chart-container {
+      position: relative;
+      height: 240px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div>
+        <i class="fas fa-shield-alt"></i> <strong>GOVERNMENT & ARCHAEOLOGICAL CONSERVATION PORTAL</strong> &bull; RESTRICTED INTELLIGENCE ACCESS
+      </div>
+      <div>
+        <span style="font-size:0.75rem;"><i class="fas fa-server"></i> System Status: Operational (Telemetry Feed Live)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-draw-polygon"></i> Encroachments</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-bell"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li><a href="/admin.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <div id="nav-auth-container"></div>
+        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 2.5rem 0;">
+    <div class="container">
+      
+      <!-- Top Title & Badge -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+          <span class="section-tag" style="color:var(--accent);"><i class="fas fa-shield-alt"></i> Archaeological Command Center</span>
+          <h1 class="section-title" style="font-size:2.2rem; margin-bottom:0.25rem;">National Preservation Intelligence Desk</h1>
+          <p class="section-desc">Real-time health telemetry, AI preliminary damage inspection triage, early warnings dispatch, and protected buffer zone monitoring.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem;">
+          <a href="/report.html" class="btn btn-secondary btn-sm"><i class="fas fa-bullhorn"></i> Submit Incident</a>
+          <a href="/sites.html" class="btn btn-primary btn-sm"><i class="fas fa-search"></i> Site Registry</a>
+        </div>
+      </div>
+
+      <!-- KPI Metrics Grid -->
+      <div class="kpi-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-bottom: 2rem;">
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-landmark kpi-icon"></i>
+          <div class="kpi-number" id="stat-total-sites">0</div>
+          <div class="kpi-title">Monitored Sites</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-heart-pulse kpi-icon" style="color:var(--risk-low);"></i>
+          <div class="kpi-number" id="stat-healthy-sites" style="color:var(--risk-low);">0</div>
+          <div class="kpi-title">Stable / Healthy</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-exclamation-triangle kpi-icon" style="color:var(--risk-mod);"></i>
+          <div class="kpi-number" id="stat-attention-sites" style="color:var(--risk-mod);">0</div>
+          <div class="kpi-title">Attention (60-74)</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-triangle-exclamation kpi-icon" style="color:var(--risk-high);"></i>
+          <div class="kpi-number" id="stat-high-risk-sites" style="color:var(--risk-high);">0</div>
+          <div class="kpi-title">High Risk (40-59)</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-radiation kpi-icon" style="color:var(--risk-crit);"></i>
+          <div class="kpi-number" id="stat-critical-sites" style="color:var(--risk-crit);">0</div>
+          <div class="kpi-title">Critical (&lt;40)</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-bell kpi-icon" style="color:var(--accent);"></i>
+          <div class="kpi-number" id="stat-active-alerts" style="color:var(--accent);">0</div>
+          <div class="kpi-title">Active Alerts</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-bullhorn kpi-icon"></i>
+          <div class="kpi-number" id="stat-open-reports">0</div>
+          <div class="kpi-title">Open Reports</div>
+        </div>
+        <div class="kpi-card" style="padding:1.25rem 1rem;">
+          <i class="fas fa-draw-polygon kpi-icon" style="color:var(--primary);"></i>
+          <div class="kpi-number" id="stat-encroachments">0</div>
+          <div class="kpi-title">Buffer Encroachments</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="chart-grid">
+        <div class="kpi-card" style="text-align:left; padding:1.5rem;">
+          <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary); margin-bottom:0.25rem;">
+            <i class="fas fa-chart-pie"></i> Heritage Health Index Distribution
+          </h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">National monument status breakdown (Healthy &ge;75 &bull; Attention 60-74 &bull; High Risk 40-59 &bull; Critical &lt;40)</p>
+          <div class="chart-container">
+            <canvas id="health-dist-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="kpi-card" style="text-align:left; padding:1.5rem;">
+          <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary); margin-bottom:0.25rem;">
+            <i class="fas fa-chart-bar"></i> Incident Categories (Citizen Watch Reports)
+          </h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Structural cracks, moisture/seepage, vegetation, pollution, and buffer zone encroachments</p>
+          <div class="chart-container">
+            <canvas id="categories-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Early Warning Alerts Desk -->
+      <div class="kpi-card" style="text-align:left; padding:1.75rem; margin-bottom:2.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.75rem;">
+          <div>
+            <h2 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary);">
+              <i class="fas fa-bell" style="color:var(--accent);"></i> Early Warning Hazard Alerts Desk
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.85rem;">Algorithmic trigger notifications generated from environmental thresholds, visitor surge, and rapid deterioration.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);"><i class="fas fa-filter"></i> Priority:</label>
+            <select id="admin-alert-priority-filter" class="form-control" style="width:140px; padding:0.4rem 0.6rem; font-size:0.85rem;">
+              <option value="all">All Priorities</option>
+              <option value="Critical">Critical Only</option>
+              <option value="High">High Only</option>
+              <option value="Medium">Medium Only</option>
+              <option value="Low">Low Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="admin-alerts-container" class="alerts-list">
+          <div style="text-align:center; padding:2rem; color:var(--text-muted);">
+            <i class="fas fa-spinner fa-spin"></i> Loading early warning alerts...
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Citizen Preservation Reports Moderation -->
+      <div class="kpi-card" style="text-align:left; padding:1.75rem; margin-bottom:2.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.75rem;">
+          <div>
+            <h2 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary);">
+              <i class="fas fa-clipboard-check"></i> Citizen Heritage Watch Incident Moderation
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.85rem;">Review crowdsourced damage evidence with automated AI preliminary severity scoring and official conservation actions.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);"><i class="fas fa-filter"></i> Filter Status:</label>
+            <select id="admin-report-status-filter" class="form-control" style="width:160px; padding:0.4rem 0.6rem; font-size:0.85rem;">
+              <option value="all">All Statuses</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Verified">Verified</option>
+              <option value="Action Required">Action Required</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Tracking UID</th>
+                <th>Monitored Site & Location</th>
+                <th>Incident Type</th>
+                <th>Severity & AI Conf.</th>
+                <th>Logged Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-reports-tbody">
+              <tr>
+                <td colspan="7" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading reports...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section: Protected Buffer Zone Encroachment Observations -->
+      <div class="kpi-card" style="text-align:left; padding:1.75rem; margin-bottom:2.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.75rem;">
+          <div>
+            <h2 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary);">
+              <i class="fas fa-draw-polygon" style="color:var(--accent);"></i> AMASR Act Buffer Zone Encroachment Observations
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.85rem;">Multi-temporal satellite & drone observation logs across 100m Prohibited & 300m Regulated buffer zones.</p>
+          </div>
+          <div>
+            <a href="/encroachment.html" class="btn btn-secondary btn-sm"><i class="fas fa-external-link-alt"></i> Detailed Buffer Workspace</a>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Monitored Site</th>
+                <th>Protected Buffer Zone</th>
+                <th>Detected Structural Change</th>
+                <th>Risk Rating</th>
+                <th>Last Survey Date</th>
+                <th>Imagery Evidence</th>
+              </tr>
+            </thead>
+            <tbody id="admin-encroachment-tbody">
+              <tr>
+                <td colspan="6" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading encroachment observations...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Alert Action Modal -->
+  <div id="admin-alert-action-modal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(23,63,53,0.65); display:none; align-items:center; justify-content:center; z-index:999; backdrop-filter:blur(4px);">
+    <div class="kpi-card" style="max-width:600px; width:92%; padding:2rem; text-align:left; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.75rem;">
+        <div>
+          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Early Warning Action Dispatch</span>
+          <h3 id="modal-alert-uid" style="font-family:var(--font-serif); font-size:1.3rem; color:var(--primary);">ALT-XXXX</h3>
+        </div>
+        <button onclick="CommandCenter.closeAlertActionModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.25rem; cursor:pointer;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div style="font-size:0.88rem; margin-bottom:1.25rem; background:var(--bg-card-alt); padding:1rem; border-radius:var(--radius-sm);">
+        <div style="margin-bottom:0.35rem;"><strong>Site:</strong> <span id="modal-alert-site" style="color:var(--primary); font-weight:600;"></span></div>
+        <div style="margin-bottom:0.35rem;"><strong>Alert:</strong> <span id="modal-alert-title"></span></div>
+        <div><strong>Recommended Protocol:</strong> <span id="modal-alert-recommended" style="color:var(--accent); font-weight:600;"></span></div>
+      </div>
+
+      <form id="admin-alert-action-form">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-tag"></i> Alert Status *</label>
+            <select id="modal-alert-status" class="form-control" required>
+              <option value="Active">Active (Ongoing Hazard)</option>
+              <option value="Acknowledged">Acknowledged (Officer Notified)</option>
+              <option value="In Progress">In Progress (Field Action Underway)</option>
+              <option value="Resolved">Resolved (Mitigation Complete)</option>
+              <option value="Dismissed">Dismissed (False Alarm / Mitigated)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-flag"></i> Adjust Priority *</label>
+            <select id="modal-alert-priority" class="form-control" required>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-user-shield"></i> Assign Conservation Officer / Circle Desk</label>
+          <input type="text" id="modal-alert-assigned" class="form-control" placeholder="e.g. ASI Agra Circle – Conservation Cell">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-comment-dots"></i> Action Notes & Dispatch Instructions</label>
+          <textarea id="modal-alert-notes" class="form-control" rows="3" placeholder="Enter instructions dispatched to field officers..."></textarea>
+        </div>
+
+        <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+          <button type="submit" class="btn btn-primary btn-sm" style="flex:1;">
+            <i class="fas fa-paper-plane"></i> Save & Dispatch
+          </button>
+          <button type="button" onclick="CommandCenter.closeAlertActionModal()" class="btn btn-secondary btn-sm" style="flex:1;">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Report Moderation Modal -->
+  <div id="admin-report-moderation-modal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(23,63,53,0.65); display:none; align-items:center; justify-content:center; z-index:999; backdrop-filter:blur(4px);">
+    <div class="kpi-card" style="max-width:680px; width:92%; padding:2rem; text-align:left; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border-subtle); padding-bottom:0.75rem;">
+        <div>
+          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Citizen Watch Moderation Desk</span>
+          <h3 id="mod-report-uid" style="font-family:var(--font-serif); font-size:1.3rem; color:var(--primary);">HV-2026-XXXX</h3>
+        </div>
+        <button onclick="CommandCenter.closeReportModerationModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.25rem; cursor:pointer;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.85rem; margin-bottom:1rem; background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm);">
+        <div><strong>Monument:</strong> <span id="mod-site-name" style="color:var(--primary); font-weight:600;"></span></div>
+        <div><strong>Reporter:</strong> <span id="mod-reporter-name"></span></div>
+        <div><strong>Category:</strong> <span id="mod-issue-type"></span></div>
+        <div><strong>Specific Location:</strong> <span id="mod-location"></span></div>
+      </div>
+
+      <!-- AI Preliminary Assessment Box -->
+      <div style="background:rgba(184,92,56,0.06); border:1px solid rgba(184,92,56,0.2); padding:0.85rem; border-radius:var(--radius-sm); margin-bottom:1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+          <strong style="font-size:0.8rem; color:var(--accent); text-transform:uppercase;">
+            <i class="fas fa-brain"></i> AI Preliminary Damage Assessment
+          </strong>
+          <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted);" id="mod-ai-confidence">85% conf.</span>
+        </div>
+        <div style="font-size:0.82rem; color:var(--text-main); display:grid; grid-template-columns:1fr 1fr; gap:0.35rem;">
+          <div><strong>Detected:</strong> <span id="mod-ai-category"></span> (<span id="mod-ai-severity"></span>)</div>
+          <div><strong>Urgency:</strong> <span id="mod-ai-urgency"></span></div>
+          <div style="grid-column:span 2;"><strong>Visible Signs:</strong> <span id="mod-ai-signs"></span></div>
+        </div>
+        <p class="ai-disclaimer" style="margin-top:0.4rem; font-size:0.72rem;">* AI-assisted preliminary assessment / recommendation — professional verification required.</p>
+      </div>
+
+      <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm); margin-bottom:1rem;">
+        <strong style="display:block; font-size:0.75rem; color:var(--primary); text-transform:uppercase; margin-bottom:0.25rem;">Citizen Description:</strong>
+        <p id="mod-description" style="font-size:0.85rem; color:var(--text-main); line-height:1.5;"></p>
+      </div>
+
+      <div id="mod-evidence-box" style="margin-bottom:1.25rem; text-align:center;"></div>
+
+      <form id="admin-report-moderate-form">
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-tag"></i> Update Official Status *</label>
+          <select id="mod-status-select" class="form-control" required>
+            <option value="Submitted">Submitted (Awaiting Assessment)</option>
+            <option value="Under Review">Under Review (Assessing Evidence)</option>
+            <option value="Verified">Verified (Confirmed Field Incident)</option>
+            <option value="Action Required">Action Required (Dispatch Conservation Team)</option>
+            <option value="Resolved">Resolved (Preservation Work Done)</option>
+            <option value="Rejected">Rejected (Spam / Inaccurate / Duplicate)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-comment-alt"></i> Official Archaeological Remarks & Remediation Notes</label>
+          <textarea id="mod-admin-remarks" class="form-control" rows="3" placeholder="Enter conservation team dispatch details, mortar composition required, or resolution notes..."></textarea>
+        </div>
+
+        <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+          <button type="submit" class="btn btn-primary btn-sm" style="flex:1;">
+            <i class="fas fa-save"></i> Save Status & Remarks
+          </button>
+          <button type="button" onclick="CommandCenter.closeReportModerationModal()" class="btn btn-secondary btn-sm" style="flex:1;">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 0.75rem;">
+            <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+            <div>
+              <span class="brand-text">HERITAGEVERSE</span>
+              <span class="brand-sub">PRESERVATION INTELLIGENCE PLATFORM</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+            A unified national intelligence platform empowering archaeological custodians, conservators, and citizens with real-time risk telemetry, automated damage assessment, and buffer zone protection.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Intelligence Modules</h4>
+          <ul class="footer-links">
+            <li><a href="/sites.html">Monitored Heritage Registry</a></li>
+            <li><a href="/encroachment.html">Buffer Zone Encroachment Desk</a></li>
+            <li><a href="/alerts.html">Early Warning Alerts Desk</a></li>
+            <li><a href="/report.html">Citizen Heritage Watch</a></li>
+            <li><a href="/track.html">Public Incident Tracker</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Conservation Standards</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+            Compliant with the Ancient Monuments and Archaeological Sites and Remains (AMASR) Act, UNESCO World Heritage Periodic Reporting, and IS 13828 heritage engineering guidelines.
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; Archaeological Survey & Preservation Intelligence.</span>
+        <span>Pipeline: DETECT &bull; ANALYSE &bull; SCORE &bull; PRIORITIZE &bull; ALERT &bull; ACT &bull; TRACK</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      CommandCenter.init();
+    });
+  </script>
+</body>
+</html>

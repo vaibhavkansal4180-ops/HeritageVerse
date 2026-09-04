@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Heritage Watch – Report Incident</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+    .report-form-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 639px) {
+      .report-form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Civic Alert Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div><i class="fas fa-bullhorn"></i> <strong>Citizen Heritage Watch Portal</strong> &bull; Crowdsourced Preservation Stream</div>
+      <div><a href="/track.html" style="color:#FFFFFF; text-decoration:underline;">Track Existing Report</a></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Overview</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-vector-square"></i> Encroachment Watch</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-my-reports-link" style="display:none;"><a href="/my-reports.html" class="nav-link"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link" style="color:var(--accent);"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/report.html" class="btn-nav-watch active"><i class="fas fa-eye"></i> Citizen Watch</a>
+        <div id="nav-auth-container">
+          <a href="/login.html" class="auth-btn"><i class="fas fa-user-shield"></i> Portal Login</a>
+        </div>
+        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container" style="max-width:860px;">
+      
+      <div class="page-header" style="text-align:center; margin-bottom:2rem;">
+        <span class="badge" style="background:rgba(184,92,56,0.12); color:var(--accent); font-weight:700;"><i class="fas fa-shield-alt"></i> Civic Vigilance Desk</span>
+        <h1 class="page-title">Citizen Heritage Watch Incident Report</h1>
+        <p class="page-subtitle" style="margin:0 auto;">
+          Report structural damage, defacement, illegal construction, encroachment, or environmental hazards at any protected monument. Every submission receives an instant AI preliminary analysis and tracking UID.
+        </p>
+      </div>
+
+      <div class="card" style="padding:2.25rem; border-top:4px solid var(--accent);">
+        <form id="citizen-report-form" enctype="multipart/form-data">
+          
+          <!-- Monument Selector -->
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-landmark"></i> Protected Heritage Monument *</label>
+            <select id="report-site-select" name="heritage_site_id" class="form-control" required>
+              <option value="">Loading monuments list...</option>
+            </select>
+          </div>
+
+          <!-- Category & Incident Date Grid -->
+          <div class="report-form-grid">
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-tag"></i> Damage / Issue Category *</label>
+              <select id="report-issue-type" name="issue_type" class="form-control" required>
+                <option value="Structural Damage">Structural Damage (Fissures, Masonry Displacement, Spalling)</option>
+                <option value="Vandalism">Vandalism (Graffiti, Carvings, Defacement)</option>
+                <option value="Encroachment">Encroachment (Unauthorized Occupancy in Buffer Zone)</option>
+                <option value="Illegal Construction">Illegal Construction (Modern Structures within 100m/300m)</option>
+                <option value="Flood/Water Damage">Flood / Water Ingress (Seepage, Waterlogging, Efflorescence)</option>
+                <option value="Pollution">Pollution (Discoloration, Soot, Acid Weathering)</option>
+                <option value="Garbage">Garbage / Littering (Solid Waste Accumulation)</option>
+                <option value="Fire Damage">Fire / Smoke Damage</option>
+                <option value="Other">Other Unclassified Hazard</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-calendar-alt"></i> Incident Date *</label>
+              <input type="date" id="report-date" name="incident_date" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Exact Location -->
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-map-pin"></i> Specific Location at the Monument *</label>
+            <input type="text" id="report-location" name="location" class="form-control" placeholder="e.g. Western Corridor Pillar No. 14, East Plinth near Entrance" required>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-align-left"></i> Description & Observed Symptoms *</label>
+            <textarea id="report-description" name="description" class="form-control" rows="4" placeholder="Describe the visible damage, depth of cracking, unauthorized activity, or environmental condition in detail..." required></textarea>
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.3rem;">
+              <i class="fas fa-lightbulb"></i> Type your description to trigger live AI preliminary damage assessment.
+            </div>
+          </div>
+
+          <!-- Live AI Preliminary Damage Assessment Box -->
+          <div id="ai-preview-container" style="display:none;"></div>
+
+          <!-- Photographic Evidence Upload -->
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-camera"></i> Upload Photographic Evidence (Recommended)</label>
+            <input type="file" id="report-image-input" name="evidence_image" class="form-control" accept="image/jpeg,image/png,image/webp">
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.25rem;">
+              Supported formats: JPG, PNG, WEBP (Max size: 5MB).
+            </div>
+          </div>
+
+          <!-- Uploaded Preview -->
+          <div id="image-preview-wrap" style="display:none; margin-bottom:1.5rem;">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--primary); margin-bottom:0.35rem;">Evidence Preview:</div>
+            <img id="image-preview-img" src="" alt="Preview" style="max-height:180px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          </div>
+
+          <!-- Submit Button -->
+          <div style="margin-top:1.75rem;">
+            <button type="submit" id="report-submit-btn" class="btn btn-accent" style="width:100%; font-size:1rem; padding:0.85rem;">
+              <i class="fas fa-paper-plane"></i> Submit Incident Report & Generate Tracking UID
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Submission Success Modal -->
+  <div class="modal-overlay" id="report-success-modal" style="display:none;">
+    <div class="modal-card" style="text-align:center;">
+      <div style="width:60px; height:60px; border-radius:50%; background:var(--risk-low-bg); color:var(--risk-low); display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin:0 auto 1rem auto;">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2 style="font-family:var(--font-serif); font-size:1.5rem; color:var(--primary); margin-bottom:0.5rem;">
+        Incident Report Successfully Logged
+      </h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+        Thank you for contributing to India's heritage preservation. Your report has undergone AI preliminary assessment and been dispatched to the conservation verification queue.
+      </p>
+
+      <div style="background:var(--bg-card-alt); border:1px dashed var(--primary); padding:1rem; border-radius:var(--radius-sm); margin-bottom:1.5rem;">
+        <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; font-weight:700;">Your Unique Tracking UID</div>
+        <div style="font-family:var(--font-serif); font-size:1.8rem; font-weight:700; color:var(--primary); letter-spacing:1px; margin-top:0.25rem;" id="modal-report-uid">
+          HV-2026-XXXXXX
+        </div>
+      </div>
+
+      <div style="display:flex; gap:0.75rem; justify-content:center;">
+        <a href="/track.html" id="modal-view-track-btn" class="btn btn-primary"><i class="fas fa-search-location"></i> Track Incident Progress</a>
+        <a href="/" class="btn btn-secondary">Return to Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; National Heritage Preservation Intelligence Platform</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/reports.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      CitizenWatch.init();
+      // Set today's date as default
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('report-date');
+      if (dateInput) dateInput.value = today;
+    });
+  </script>
+</body>
+</html>

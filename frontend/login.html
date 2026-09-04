@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Authentication – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+    .auth-wrapper {
+      width: min(100% - 32px, 480px);
+      margin: 0 auto;
+    }
+    .demo-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    @media (max-width: 400px) {
+      .demo-btn-group {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-draw-polygon"></i> Encroachments</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-bell"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="/report.html" class="btn btn-accent btn-sm"><i class="fas fa-bullhorn"></i> Submit Incident</a>
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 3.5rem 0; display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 180px);">
+    <div class="auth-wrapper">
+      
+      <!-- Auth Card -->
+      <div class="card" style="padding: clamp(1.5rem, 5vw, 2.25rem); text-align: left;">
+        
+        <!-- Auth Header / Tabs -->
+        <div style="display: flex; border-bottom: 2px solid var(--border-subtle); margin-bottom: 1.5rem;">
+          <button id="tab-login-btn" style="flex: 1; background: none; border: none; border-bottom: 2px solid var(--primary); color: var(--primary); font-weight: 700; font-size: 0.95rem; padding: 0.75rem; cursor: pointer; transition: var(--transition);">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+          <button id="tab-register-btn" style="flex: 1; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; padding: 0.75rem; cursor: pointer; transition: var(--transition);">
+            <i class="fas fa-user-plus"></i> Register
+          </button>
+        </div>
+
+        <!-- Quick Demo Accounts Box -->
+        <div style="background: var(--bg-card-alt); border: 1px solid var(--border-subtle); padding: 0.85rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+          <div style="font-size: 0.72rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.4rem; letter-spacing: 0.5px;">
+            <i class="fas fa-bolt"></i> Demo Access (One-Click Auto-Fill)
+          </div>
+          <div class="demo-btn-group">
+            <button type="button" onclick="fillDemo('admin')" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; padding: 0.4rem;">
+              <i class="fas fa-user-shield"></i> Demo Admin
+            </button>
+            <button type="button" onclick="fillDemo('user')" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; padding: 0.4rem;">
+              <i class="fas fa-user"></i> Demo Citizen
+            </button>
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block">
+              <i class="fas fa-sign-in-alt"></i> Sign In to Account
+            </button>
+          </div>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" style="display: none;">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="Aarav Sharma" required minlength="2">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-lock"></i> Password (min 6 chars)</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="••••••••" required minlength="6">
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" id="btn-register-submit" class="btn btn-accent btn-block">
+              <i class="fas fa-user-plus"></i> Create Citizen Account
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <span>&copy; 2026 HeritageVerse &bull; Archaeological Survey & Preservation Intelligence.</span>
+        <span>Secure Portal Authentication</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    const tabLogin = document.getElementById('tab-login-btn');
+    const tabRegister = document.getElementById('tab-register-btn');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    tabLogin.addEventListener('click', () => {
+      tabLogin.style.borderBottomColor = 'var(--primary)';
+      tabLogin.style.color = 'var(--primary)';
+      tabRegister.style.borderBottomColor = 'transparent';
+      tabRegister.style.color = 'var(--text-muted)';
+      loginForm.style.display = 'block';
+      registerForm.style.display = 'none';
+    });
+
+    tabRegister.addEventListener('click', () => {
+      tabRegister.style.borderBottomColor = 'var(--primary)';
+      tabRegister.style.color = 'var(--primary)';
+      tabLogin.style.borderBottomColor = 'transparent';
+      tabLogin.style.color = 'var(--text-muted)';
+      registerForm.style.display = 'block';
+      loginForm.style.display = 'none';
+    });
+
+    function fillDemo(type) {
+      if (type === 'admin') {
+        document.getElementById('login-email').value = 'admin@heritageverse.in';
+        document.getElementById('login-password').value = 'Admin@123';
+      } else {
+        document.getElementById('login-email').value = 'user@heritageverse.in';
+        document.getElementById('login-password').value = 'User@123';
+      }
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const data = await Auth.login(email, password);
+        if (data && data.user && data.user.role === 'admin') {
+          window.location.href = '/admin.html';
+        } else {
+          window.location.href = '/';
+        }
+      } catch (err) {
+        // Error shown in Toast
+      }
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+
+      try {
+        await Auth.register(name, email, password);
+        window.location.href = '/';
+      } catch (err) {
+        // Error shown in Toast
+      }
+    });
+  </script>
+</body>
+</html>

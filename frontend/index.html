@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeritageVerse – National Heritage Preservation Intelligence Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Civic Alert & Status Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div>
+        <i class="fas fa-shield-alt"></i> <strong>Archaeological Preservation Intelligence Network</strong> &bull; Ministry of Culture & ASI Monitoring Stream
+      </div>
+      <div>
+        <span id="top-active-alerts-count"><i class="fas fa-bell"></i> 3 Active Early Warnings</span> &bull; 
+        <a href="/alerts.html" style="color:#FFFFFF; text-decoration:underline;">View Alert Center</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link active"><i class="fas fa-home"></i> Overview</a></li>
+          <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-vector-square"></i> Encroachment Watch</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-my-reports-link" style="display:none;"><a href="/my-reports.html" class="nav-link"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link" style="color:var(--accent);"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/report.html" class="btn-nav-watch"><i class="fas fa-eye"></i> Citizen Watch</a>
+        <div id="nav-auth-container">
+          <a href="/login.html" class="auth-btn"><i class="fas fa-user-shield"></i> Portal Login</a>
+        </div>
+        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Preservation Pipeline Strip -->
+  <section class="pipeline-strip">
+    <div class="container">
+      <div class="pipeline-steps">
+        <div class="pipe-step"><i class="fas fa-satellite"></i> 1. Detect</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-brain"></i> 2. Analyse</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-calculator"></i> 3. Score</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-sort-amount-down"></i> 4. Prioritize</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-bell"></i> 5. Alert</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-hard-hat"></i> 6. Act</div>
+        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="pipe-step"><i class="fas fa-clipboard-check"></i> 7. Track</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Hero Section -->
+  <section style="background:#FFFFFF; border-bottom:1px solid var(--border-subtle); padding:3.5rem 0;">
+    <div class="container">
+      <div class="index-hero-grid">
+        <div>
+          <span style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.3rem 0.75rem; background:rgba(23,63,53,0.08); color:var(--primary); font-size:0.78rem; font-weight:700; border-radius:var(--radius-full); text-transform:uppercase; margin-bottom:1rem;">
+            <i class="fas fa-shield-alt"></i> Civic Heritage Intelligence Platform
+          </span>
+          <h1 style="font-family:var(--font-serif); font-size:2.8rem; line-height:1.15; color:var(--primary); margin-bottom:1rem;">
+            Preserving India's Architectural Legacy Through Data & AI Intelligence
+          </h1>
+          <p style="font-size:1.05rem; color:var(--text-muted); line-height:1.65; margin-bottom:1.75rem;">
+            An integrated threat detection and risk intelligence platform that evaluates structural vulnerabilities, buffer zone encroachments, environmental degradation, and tourist pressure to prioritize critical conservation action.
+          </p>
+          <div style="display:flex; gap:0.85rem; flex-wrap:wrap;">
+            <a href="/sites.html" class="btn btn-primary"><i class="fas fa-archway"></i> Explore Monitored Registry</a>
+            <a href="/report.html" class="btn btn-accent"><i class="fas fa-bullhorn"></i> Submit Citizen Watch Report</a>
+            <a href="/admin.html" class="btn btn-secondary"><i class="fas fa-tachometer-alt"></i> Command Center</a>
+          </div>
+        </div>
+
+        <!-- Fast Citizen Report Tracker Widget -->
+        <div class="card" style="border-top:4px solid var(--accent); padding:2rem;">
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.4rem;">
+            <i class="fas fa-search-location" style="color:var(--accent);"></i> Public Report Tracker
+          </h3>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Track the live inspection, verification, and administrative resolution status of any citizen-submitted incident report.
+          </p>
+          <form id="fast-track-form">
+            <div class="form-group">
+              <label class="form-label">Enter Tracking UID</label>
+              <input type="text" id="track-uid-input" class="form-control" placeholder="e.g. HV-2026-7A1B2C" required style="font-family:monospace; font-size:1rem; letter-spacing:1px; text-transform:uppercase;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">
+              <i class="fas fa-search"></i> Track Incident Status
+            </button>
+          </form>
+          <div style="margin-top:1rem; font-size:0.75rem; color:var(--text-dim); text-align:center;">
+            Sample UID for demo: <a href="/track.html?uid=HV-2026-7A1B2C" style="color:var(--accent); font-weight:600;">HV-2026-7A1B2C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- National Preservation KPIs -->
+  <main class="main-content">
+    <div class="container">
+      
+      <div class="page-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 class="page-title">National Preservation Status Overview</h2>
+          <p class="page-subtitle">Real-time aggregate telemetry and vulnerability metrics across India's monitored monuments.</p>
+        </div>
+        <div style="font-size:0.8rem; color:var(--text-dim);">
+          <i class="fas fa-sync-alt"></i> Automated Assessment Stream Active
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fas fa-monument"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-total-sites">0</div>
+            <div class="kpi-label">Monitored Monuments</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap success-icon"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-healthy-sites">0</div>
+            <div class="kpi-label">Healthy Sites (&gt;85)</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap warning-icon"><i class="fas fa-exclamation"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-attention-sites">0</div>
+            <div class="kpi-label">Attention Required</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap alert-icon"><i class="fas fa-radiation"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-critical-sites">0</div>
+            <div class="kpi-label">Critical / High Risk</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap alert-icon"><i class="fas fa-bell"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-active-alerts">0</div>
+            <div class="kpi-label">Active Warnings</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap"><i class="fas fa-clipboard-list"></i></div>
+          <div>
+            <div class="kpi-number" id="stat-open-reports">0</div>
+            <div class="kpi-label">Open Citizen Reports</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monitored Heritage Risk Registry -->
+      <div class="card" style="padding:2rem; margin-bottom:3rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h3 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--primary);">
+              <i class="fas fa-table" style="color:var(--accent);"></i> Monitored Heritage Monuments Registry
+            </h3>
+            <p style="font-size:0.85rem; color:var(--text-muted);">
+              Comprehensive health scores, risk levels, environmental stress, and quick access to site dossiers.
+            </p>
+          </div>
+          <a href="/sites.html" class="btn btn-secondary btn-sm"><i class="fas fa-list"></i> View All Sites</a>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Monument & Location</th>
+                <th>Category</th>
+                <th>Heritage Health Score</th>
+                <th>Overall Risk</th>
+                <th>Preservation Status</th>
+                <th>Active Reports</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="home-sites-tbody">
+              <tr>
+                <td colspan="7" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading monitored monuments...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Active Early Warnings & AI Decision Support Highlight -->
+      <div class="index-framework-grid">
+        
+        <!-- Early Warning Alert Center -->
+        <div class="card" style="padding:1.75rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+            <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary);">
+              <i class="fas fa-exclamation-triangle" style="color:var(--risk-crit);"></i> Active Early Warning Alerts
+            </h3>
+            <a href="/alerts.html" style="font-size:0.8rem; font-weight:700; color:var(--accent);">Alert Center &rarr;</a>
+          </div>
+          <div id="home-alerts-container">
+            <div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Loading live alerts...</div>
+          </div>
+        </div>
+
+        <!-- Platform Architectural Framework -->
+        <div class="card" style="padding:1.75rem; background:var(--bg-card-alt); border-left:4px solid var(--primary);">
+          <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary); margin-bottom:0.5rem;">
+            <i class="fas fa-cogs" style="color:var(--primary);"></i> Preservation Intelligence Framework
+          </h3>
+          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
+            HeritageVerse ingests multi-source data to generate objective, transparent Heritage Health Scores (0–100) and actionable decision support:
+          </p>
+          <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem;">
+            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
+              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
+              <div><strong>Citizen Heritage Watch:</strong> Crowdsourced photo evidence with automated AI preliminary damage estimation.</div>
+            </div>
+            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
+              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
+              <div><strong>Encroachment Monitor:</strong> Multi-temporal satellite and drone observation in 100m/300m protected statutory buffer zones.</div>
+            </div>
+            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
+              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
+              <div><strong>Multi-Hazard Risk Engine:</strong> Automated tracking of flood inundation, seismic vulnerability, and micro-climate AQI corrosion.</div>
+            </div>
+            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
+              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
+              <div><strong>AI Preservation Assistant:</strong> On-site field inspection checklists and prioritized mitigation recommendations.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><i class="fas fa-landmark"></i> HERITAGEVERSE</div>
+          <p class="footer-desc">
+            National Heritage Preservation Intelligence Platform. Dedicated to automated threat detection, multi-hazard risk assessment, early warning alerts, and actionable conservation decision support for India's archaeological treasures.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-title">Platform Intelligence</h4>
+          <ul class="footer-links">
+            <li><a href="/sites.html">Monitored Heritage Sites</a></li>
+            <li><a href="/encroachment.html">Encroachment & Buffer Zones</a></li>
+            <li><a href="/alerts.html">Early Warning Alert Center</a></li>
+            <li><a href="/admin.html">Command Center Dashboard</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Citizen Engagement</h4>
+          <ul class="footer-links">
+            <li><a href="/report.html">Submit Incident Report</a></li>
+            <li><a href="/track.html">Track Existing Report</a></li>
+            <li><a href="/login.html">Officer / Admin Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; Civic Heritage Preservation Platform</span>
+        <span>Built with Python Flask &bull; MySQL &bull; AI Decision Support</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/reports.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      CitizenWatch.bindEvents();
+
+      try {
+        const res = await APIClient.get('/api/preservation/dashboard');
+        const data = res.data;
+        const s = data.summary || {};
+
+        document.getElementById('stat-total-sites').textContent = s.total_monitored_sites || 0;
+        document.getElementById('stat-healthy-sites').textContent = s.healthy_sites || 0;
+        document.getElementById('stat-attention-sites').textContent = s.attention_sites || 0;
+        document.getElementById('stat-critical-sites').textContent = (s.high_risk_sites || 0) + (s.critical_sites || 0);
+        document.getElementById('stat-active-alerts').textContent = s.active_alerts_count || 0;
+        document.getElementById('stat-open-reports').textContent = s.open_reports_count || 0;
+
+        document.getElementById('top-active-alerts-count').innerHTML = `<i class="fas fa-bell"></i> ${s.active_alerts_count || 0} Active Early Warnings`;
+
+        // Load Sites Registry Table
+        const sitesRes = await APIClient.get('/api/heritage');
+        const sites = sitesRes.data || [];
+        const tbody = document.getElementById('home-sites-tbody');
+
+        tbody.innerHTML = sites.map(site => {
+          let scoreClass = 'score-healthy';
+          if (site.current_health_score < 50) scoreClass = 'score-critical';
+          else if (site.current_health_score < 70) scoreClass = 'score-high';
+          else if (site.current_health_score < 85) scoreClass = 'score-attention';
+
+          return `
+            <tr>
+              <td>
+                <strong style="font-family:var(--font-serif); font-size:1rem; color:var(--primary);">
+                  <a href="/site-detail.html?id=${site.id}">${site.name}</a>
+                </strong>
+                <div style="font-size:0.78rem; color:var(--text-dim);">${site.city}, ${site.state_name || 'India'}</div>
+              </td>
+              <td><span class="badge" style="background:var(--bg-card-alt); font-size:0.75rem; font-weight:600;">${site.heritage_category}</span></td>
+              <td>
+                <span class="health-score-badge ${scoreClass}">
+                  <i class="fas fa-heartbeat"></i> ${site.current_health_score}/100
+                </span>
+              </td>
+              <td>
+                <span class="risk-badge risk-${site.risk_level.toLowerCase()}">${site.risk_level}</span>
+              </td>
+              <td><span style="font-size:0.82rem; color:var(--text-muted);">${site.preservation_status}</span></td>
+              <td>
+                <span style="font-weight:700; color:var(--accent); font-size:0.85rem;">
+                  <i class="fas fa-flag"></i> ${site.reports_count || 0}
+                </span>
+              </td>
+              <td>
+                <a href="/site-detail.html?id=${site.id}" class="btn btn-secondary btn-sm">
+                  <i class="fas fa-file-alt"></i> Dossier
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        // Load Alerts
+        const alertsContainer = document.getElementById('home-alerts-container');
+        const alerts = data.active_early_warnings || [];
+
+        if (alerts.length === 0) {
+          alertsContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">No critical alerts currently active.</div>`;
+        } else {
+          alertsContainer.innerHTML = alerts.slice(0, 4).map(a => `
+            <div class="alert-card priority-${a.priority}" style="margin-bottom:0.75rem; padding:1rem;">
+              <div>
+                <span class="risk-badge risk-${a.priority.toLowerCase()}">${a.priority}</span>
+              </div>
+              <div>
+                <div style="font-size:0.75rem; color:var(--accent); font-weight:700;">${a.alert_type}</div>
+                <h5 style="font-family:var(--font-serif); font-size:0.95rem; color:var(--primary); margin:0.1rem 0;">
+                  <a href="/site-detail.html?id=${a.heritage_site_id}">${a.heritage_site_name || 'Monument'}</a> — ${a.title}
+                </h5>
+                <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.description}</p>
+              </div>
+            </div>
+          `).join('');
+        }
+
+      } catch (err) {
+        console.error('[Index] Error loading data:', err);
+      }
+    });
+  </script>
+</body>
+</html>

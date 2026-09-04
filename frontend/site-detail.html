@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Preservation Dossier – HeritageVerse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+    .dossier-hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .dossier-main-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2.5rem;
+    }
+    .dossier-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .detail-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-subtle);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(23, 63, 53, 0.90);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .gallery-verified-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(23, 63, 53, 0.85);
+      color: #EDE8DE;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      z-index: 2;
+    }
+    .case-file-id-badge {
+      font-family: monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: var(--bg-card-alt);
+      color: var(--primary);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+    @media print {
+      .top-civic-strip, .site-header, .site-footer, .nav-actions, .btn {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #CCC !important;
+      }
+    }
+    @media (max-width: 1023px) {
+      .dossier-hero-grid, .dossier-main-grid, .dossier-split-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Civic Alert Strip -->
+  <div class="top-civic-strip">
+    <div class="container">
+      <div><i class="fas fa-shield-alt"></i> <strong>Archaeological Preservation Intelligence Network</strong> &bull; Site Case File</div>
+      <div><a href="/sites.html" style="color:#FFFFFF; text-decoration:underline;">&larr; Back to National Registry</a></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+        <div>
+          <span class="brand-text">HERITAGEVERSE</span>
+          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="site-nav-menu">
+          <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Overview</a></li>
+          <li><a href="/sites.html" class="nav-link active"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-vector-square"></i> Encroachment Watch</a></li>
+          <li><a href="/alerts.html" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Early Warnings</a></li>
+          <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
+          <li id="nav-my-reports-link" style="display:none;"><a href="/my-reports.html" class="nav-link"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
+          <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link" style="color:var(--accent);"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/report.html" class="btn-nav-watch"><i class="fas fa-eye"></i> Citizen Watch</a>
+        <div id="nav-auth-container">
+          <a href="/login.html" class="auth-btn"><i class="fas fa-user-shield"></i> Portal Login</a>
+        </div>
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Site Dossier Hero Header with 16:9 Featured Imagery -->
+  <section style="background:#FFFFFF; border-bottom:1px solid var(--border-subtle); padding:2.5rem 0;">
+    <div class="container">
+      <div class="dossier-hero-grid">
+        <div>
+          <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap;">
+            <span class="case-file-id-badge" id="site-dossier-uid"><i class="fas fa-fingerprint"></i> REG-NAT-000</span>
+            <span class="badge" style="background:var(--bg-card-alt); font-weight:700; color:var(--primary);" id="site-category-badge">Monuments & Forts</span>
+            <span class="risk-badge risk-low" id="site-risk-badge">Low Risk</span>
+          </div>
+          <h1 style="font-family:var(--font-serif); font-size:2.4rem; color:var(--primary); line-height:1.2; margin-bottom:0.5rem;" id="site-name-heading">Monument Name</h1>
+          <div style="font-size:0.95rem; color:var(--text-muted); display:flex; gap:1.25rem; flex-wrap:wrap; margin-bottom:1.25rem;">
+            <span><i class="fas fa-map-marker-alt"></i> <strong id="site-location-text">City, State</strong></span>
+            <span><i class="fas fa-globe"></i> <strong id="site-coords-text">20.55&deg; N, 75.70&deg; E</strong></span>
+            <span><i class="fas fa-hourglass-half"></i> <strong id="site-era-text">Historical Era</strong></span>
+            <span><i class="fas fa-tools"></i> <strong id="site-status-text">Well Preserved</strong></span>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <a href="#" id="site-hero-report-btn" class="btn btn-accent btn-sm"><i class="fas fa-bullhorn"></i> Log Threat Report</a>
+            <a href="/encroachment.html" class="btn btn-secondary btn-sm"><i class="fas fa-draw-polygon"></i> Buffer Encroachment</a>
+            <button onclick="window.print()" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i> Print Case File</button>
+          </div>
+        </div>
+
+        <!-- Featured Image & Health Score Badge Pane with 16:9 Aspect Ratio -->
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-subtle); background:var(--bg-card-alt); box-shadow:var(--shadow-card);">
+            <img id="site-hero-image" src="/assets/images/heritage-placeholder.svg" alt="Monitored Heritage Site" style="width:100%; height:100%; object-fit:cover;" onerror="handleImageError(this)">
+            <div style="position:absolute; top:12px; right:12px;">
+              <span class="health-score-badge score-healthy" id="site-hero-score-badge">
+                <i class="fas fa-heartbeat"></i> <span id="site-hero-score-num">--</span>/100
+              </span>
+            </div>
+            <div style="position:absolute; bottom:10px; left:12px; background:rgba(23,63,53,0.85); color:#EDE8DE; padding:0.25rem 0.65rem; border-radius:var(--radius-sm); font-size:0.75rem; font-weight:600;">
+              <i class="fas fa-camera"></i> <span id="site-hero-caption">Verified Reference Image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dossier Content -->
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Primary 2-Column Split: Left AI Brief & Gallery, Right Math & Sensors -->
+      <div class="dossier-main-grid">
+        
+        <!-- LEFT COLUMN -->
+        <div>
+          
+          <!-- AI Preservation Decision Support Brief -->
+          <div class="card" style="padding:1.75rem; border-top:4px solid var(--accent); margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h2 style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary);">
+                <i class="fas fa-brain" style="color:var(--accent);"></i> AI Preservation Decision Support
+              </h2>
+              <span class="badge" style="background:rgba(184,92,56,0.12); color:var(--accent); font-weight:700;"><i class="fas fa-robot"></i> Intelligent Brief</span>
+            </div>
+
+            <div id="ai-assistant-content">
+              <div style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Generating decision support brief...</div>
+            </div>
+          </div>
+
+          <!-- Encroachment & Protected Buffer Zone Module -->
+          <div class="card" style="padding:1.75rem; margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary);">
+                <i class="fas fa-vector-square" style="color:var(--primary);"></i> Protected Buffer Zone & Encroachment Desk
+              </h3>
+              <span class="badge" style="background:rgba(184,92,56,0.12); color:var(--accent); font-size:0.72rem; font-weight:700;">
+                <i class="fas fa-satellite"></i> Demonstration monitoring imagery (Multi-temporal survey simulation)
+              </span>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+              Optical surveillance comparison within statutory AMASR Act 100m Prohibited & 300m Regulated zones.
+            </p>
+            <div id="encroachment-section-content">
+              <div style="text-align:center; padding:1.5rem; color:var(--text-muted);">No critical buffer zone breaches recorded. Statutory perimeter intact.</div>
+            </div>
+          </div>
+
+          <!-- Authentic Multi-Angle Photographic Documentation Gallery -->
+          <div class="card" style="padding:1.75rem; margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary);">
+                <i class="fas fa-images" style="color:var(--accent);"></i> Verified Architectural Documentation
+              </h3>
+              <span style="font-size:0.75rem; color:var(--text-dim);"><i class="fas fa-check-circle" style="color:var(--risk-low);"></i> High-Resolution Reference</span>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1rem;">
+              Authentic multi-perspective photographic surveys documenting structural condition and stone surfaces.
+            </p>
+            <div id="site-gallery-container" class="detail-gallery-grid">
+              <div style="text-align:center; padding:1.5rem; grid-column:1/-1; color:var(--text-muted);">Loading photographic survey...</div>
+            </div>
+          </div>
+
+          <!-- Historical Condition Timeline (2022 - 2026) -->
+          <div class="card" style="padding:1.75rem;">
+            <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.4rem;">
+              <i class="fas fa-history" style="color:var(--accent);"></i> Historical Condition Evolution (2022 – 2026)
+            </h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+              Chronological audit log recording physical health ratings, environmental shocks, and conservation actions.
+            </p>
+            <div class="condition-timeline" id="condition-timeline-container">
+              <div style="padding:1rem; color:var(--text-muted);">Loading condition timeline...</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+          
+          <!-- Transparent Health Score Breakdown & Factor Math -->
+          <div class="card" id="health-breakdown-section" style="padding:1.75rem; margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary);">
+                <i class="fas fa-calculator" style="color:var(--primary);"></i> Health Score Factor Math (0–100)
+              </h3>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem;">
+              Transparent multi-dimensional factor scoring showing exact point contributions:
+            </p>
+            <div id="factor-breakdown-list" style="display:flex; flex-direction:column; gap:1rem;">
+              <div style="text-align:center; padding:1.5rem;"><i class="fas fa-spinner fa-spin"></i> Calculating factor breakdown...</div>
+            </div>
+          </div>
+
+          <!-- Atmospheric & Environmental Telemetry -->
+          <div class="card" style="padding:1.75rem; margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary);">
+                <i class="fas fa-cloud-sun" style="color:var(--accent);"></i> Microclimate & Sensor Telemetry
+              </h3>
+              <span class="badge" style="background:var(--bg-card-alt); font-size:0.7rem; font-weight:700;" id="env-source-badge">DEMO DATA</span>
+            </div>
+            <div id="environmental-sensor-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+              <div style="text-align:center; padding:1.5rem; grid-column:1/-1;">Loading sensors...</div>
+            </div>
+          </div>
+
+          <!-- Tourist Pressure & Carrying Capacity -->
+          <div class="card" style="padding:1.75rem; margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary);">
+                <i class="fas fa-users" style="color:var(--primary);"></i> Tourist Pressure & Carrying Capacity
+              </h3>
+              <span id="tourist-pressure-badge" class="risk-badge risk-moderate">Moderate</span>
+            </div>
+            <div id="tourist-pressure-content">
+              <div style="text-align:center; padding:1.5rem;">Loading footfall analytics...</div>
+            </div>
+          </div>
+
+          <!-- Active Early Warning Alerts for this site -->
+          <div class="card" style="padding:1.75rem; border-left:4px solid var(--risk-crit); margin-bottom:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.15rem; color:var(--primary);">
+                <i class="fas fa-bell" style="color:var(--risk-crit);"></i> Active Early Warning Alerts
+              </h3>
+            </div>
+            <div id="site-alerts-list">
+              <p style="font-size:0.85rem; color:var(--text-muted);">No active warnings for this monument.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Lower Split Section: Historical Significance, Citizen Log & Admin Trail -->
+      <div class="card" style="padding:2rem; margin-bottom:3rem;">
+        <div class="dossier-split-grid">
+          <div>
+            <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.6rem;">
+              <i class="fas fa-book-reader" style="color:var(--accent);"></i> Historical Significance & Architectural Profile
+            </h3>
+            <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.7; margin-bottom:1rem;" id="site-description-text">
+              Loading historical profile...
+            </p>
+            <div style="background:var(--bg-card-alt); padding:1rem; border-radius:var(--radius-sm); font-size:0.88rem; line-height:1.6; margin-bottom:1rem;" id="site-cultural-text">
+              Loading cultural context...
+            </div>
+            <div style="background:var(--bg-card-alt); padding:1rem; border-radius:var(--radius-sm); font-size:0.88rem; line-height:1.6;" id="site-architecture-text">
+              Loading architectural details...
+            </div>
+          </div>
+
+          <!-- Citizen Reports on this Site -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary);">
+                <i class="fas fa-flag" style="color:var(--accent);"></i> Citizen Watch Incident Log
+              </h3>
+              <a href="#" id="site-submit-report-btn" class="btn btn-accent btn-sm"><i class="fas fa-plus"></i> Submit Report</a>
+            </div>
+            <div id="site-citizen-reports-list">
+              <p style="font-size:0.85rem; color:var(--text-muted);">No citizen incident reports on record.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 HeritageVerse &bull; National Heritage Preservation Intelligence Platform</span>
+        <span>Archaeological Survey &amp; Preservation Intelligence</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const siteId = params.get('id') || 1;
+
+      try {
+        const res = await APIClient.get(`/api/preservation/site/${siteId}/dossier`);
+        const site = res.data;
+
+        // 1. Header & Meta
+        document.title = `${site.name} – Preservation Intelligence Dossier`;
+        document.getElementById('site-name-heading').textContent = site.name;
+        document.getElementById('site-dossier-uid').textContent = `NAT-ASI-00${site.id}`;
+        document.getElementById('site-category-badge').textContent = site.heritage_category || 'Monuments & Forts';
+        document.getElementById('site-location-text').textContent = `${site.city}, ${site.state_name || 'India'}`;
+        document.getElementById('site-coords-text').textContent = (site.latitude && site.longitude) ? `${site.latitude.toFixed(4)}° N, ${site.longitude.toFixed(4)}° E` : 'Coordinates Recorded';
+        document.getElementById('site-era-text').textContent = site.historical_period || 'Historical Era';
+        document.getElementById('site-status-text').textContent = site.preservation_status || 'Well Preserved';
+
+        const riskBadge = document.getElementById('site-risk-badge');
+        riskBadge.textContent = `${site.risk_level} Risk`;
+        riskBadge.className = `risk-badge risk-${site.risk_level.toLowerCase()}`;
+
+        // Hero Image & Score
+        const heroImg = document.getElementById('site-hero-image');
+        heroImg.src = site.image_url || '/assets/images/heritage-placeholder.svg';
+        heroImg.alt = `${site.name} architectural survey`;
+        document.getElementById('site-hero-caption').textContent = `${site.name} — Verified Reference Image`;
+
+        const heroScoreBadge = document.getElementById('site-hero-score-badge');
+        document.getElementById('site-hero-score-num').textContent = site.current_health_score;
+        let scoreCls = 'score-healthy';
+        if (site.current_health_score < 50) scoreCls = 'score-critical';
+        else if (site.current_health_score < 70) scoreCls = 'score-high';
+        else if (site.current_health_score < 85) scoreCls = 'score-attention';
+        heroScoreBadge.className = `health-score-badge ${scoreCls}`;
+
+        document.getElementById('site-description-text').textContent = site.description;
+        document.getElementById('site-cultural-text').innerHTML = `<strong>Cultural Significance:</strong> ${site.cultural_significance || 'A premier national architectural treasure.'}`;
+        document.getElementById('site-architecture-text').innerHTML = `<strong>Architectural Profile:</strong> ${site.architecture || 'Classical heritage construction with specialized structural features.'}`;
+
+        document.getElementById('site-submit-report-btn').href = `/report.html?site_id=${site.id}`;
+        document.getElementById('site-hero-report-btn').href = `/report.html?site_id=${site.id}`;
+
+        // 2. Render AI Preservation Assistant Brief
+        const ai = site.ai_preservation_assistant || {};
+        const aiContainer = document.getElementById('ai-assistant-content');
+        aiContainer.innerHTML = `
+          <div style="margin-bottom:1rem;">
+            <div style="font-size:0.8rem; font-weight:700; color:var(--accent); text-transform:uppercase;">Priority Assessment</div>
+            <div style="font-size:1.15rem; font-weight:700; color:var(--primary); margin:0.2rem 0;">${ai.priority_label}</div>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">${ai.priority_rationale}</p>
+          </div>
+
+          <div style="background:var(--bg-card-alt); padding:1rem; border-radius:var(--radius-sm); margin-bottom:1.25rem;">
+            <strong style="color:var(--primary); font-size:0.85rem;"><i class="fas fa-exclamation-circle" style="color:var(--accent);"></i> Immediate Recommended Action:</strong>
+            <p style="font-size:0.88rem; color:var(--text-main); margin-top:0.25rem;">${ai.first_issue_to_address}</p>
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--primary); margin-bottom:0.5rem;"><i class="fas fa-clipboard-check"></i> Field Inspection Checklist</h4>
+            <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem;">
+              ${(ai.inspection_checklist || []).map(chk => `
+                <div style="display:flex; gap:0.5rem; align-items:flex-start;">
+                  <i class="fas fa-check-square" style="color:var(--primary); margin-top:0.2rem;"></i>
+                  <div><strong>${chk.item}:</strong> <span style="color:var(--text-muted);">${chk.detail}</span></div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="ai-disclaimer"><i class="fas fa-info-circle"></i> ${ai.disclaimer}</div>
+        `;
+
+        // 3. Render Photographic Gallery with Verified Reference Badges
+        const galleryContainer = document.getElementById('site-gallery-container');
+        const gallery = site.gallery || [];
+        if (gallery.length > 0) {
+          galleryContainer.innerHTML = gallery.map(img => `
+            <div class="gallery-item">
+              <span class="gallery-verified-badge"><i class="fas fa-check-circle" style="color:var(--risk-low);"></i> Verified reference image</span>
+              <img src="${img.image_url}" alt="${img.caption || site.name}" loading="lazy" onerror="handleImageError(this)">
+              <div class="gallery-caption">${img.caption || site.name}</div>
+            </div>
+          `).join('');
+        } else {
+          galleryContainer.innerHTML = `
+            <div class="gallery-item">
+              <span class="gallery-verified-badge"><i class="fas fa-check-circle" style="color:var(--risk-low);"></i> Verified reference image</span>
+              <img src="${site.image_url || '/assets/images/heritage-placeholder.svg'}" alt="${site.name}" onerror="handleImageError(this)">
+              <div class="gallery-caption">${site.name} — Primary Perspective</div>
+            </div>
+          `;
+        }
+
+        // 4. Render Health Factor Breakdown Math
+        const factors = site.health_score_breakdown?.factor_breakdown || {};
+        const factorContainer = document.getElementById('factor-breakdown-list');
+        factorContainer.innerHTML = Object.entries(factors).map(([key, f]) => `
+          <div>
+            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; color:var(--primary); margin-bottom:0.25rem;">
+              <span>${key.replace(/_/g, ' ').toUpperCase()}</span>
+              <span>${f.points_earned} / ${f.max_points} pts (${f.percentage}%)</span>
+            </div>
+            <div style="width:100%; height:6px; background:var(--bg-card-alt); border-radius:3px; overflow:hidden;">
+              <div style="width:${f.percentage}%; height:100%; background:${f.percentage < 50 ? 'var(--risk-crit)' : (f.percentage < 75 ? 'var(--risk-mod)' : 'var(--risk-low)')};"></div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.2rem;">${f.description}</div>
+          </div>
+        `).join('');
+
+        // 5. Render Encroachment Observations
+        const encContainer = document.getElementById('encroachment-section-content');
+        const encroachments = site.encroachments || [];
+        if (encroachments.length > 0) {
+          encContainer.innerHTML = encroachments.map(enc => `
+            <div style="border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1rem; margin-bottom:0.75rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <span style="font-weight:700; font-size:0.85rem; color:var(--accent);">${enc.monitored_zone}</span>
+                <span class="risk-badge risk-${enc.risk_level.toLowerCase()}">${enc.risk_level} Risk</span>
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.75rem;">${enc.detected_change}</p>
+              
+              <div class="comparison-wrapper">
+                <div class="comparison-pane">
+                  <div class="comparison-badge">Baseline: ${enc.baseline_date}</div>
+                  <img src="${enc.baseline_image_url || site.image_url}" alt="Baseline" onerror="handleImageError(this)">
+                </div>
+                <div class="comparison-pane">
+                  <div class="comparison-badge" style="background:var(--accent);">Recent: ${enc.latest_date}</div>
+                  <img src="${enc.latest_image_url || site.image_url}" alt="Latest" onerror="handleImageError(this)">
+                </div>
+              </div>
+              <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.5rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+                <span>Altered Footprint: <strong>${enc.change_area_sqm} sq.m</strong> &bull; AI Confidence: <strong>${enc.confidence_pct}%</strong></span>
+                <span style="color:var(--primary); font-weight:600;"><i class="fas fa-check-shield"></i> ${enc.verified_by_admin ? 'Admin Verified' : 'Under Investigation'}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // 6. Render Historical Condition Timeline
+        const timelineContainer = document.getElementById('condition-timeline-container');
+        const timeline = site.timeline || [];
+        if (timeline.length > 0) {
+          timelineContainer.innerHTML = timeline.map(t => `
+            <div class="timeline-item" style="margin-bottom:1rem; padding-left:1rem; border-left:2px solid var(--border-subtle);">
+              <div style="font-size:0.78rem; font-weight:700; color:var(--accent);">${t.period_label || t.year} &bull; Condition: ${t.condition_status} (${t.health_score}/100)</div>
+              <div style="font-size:0.92rem; font-weight:700; color:var(--primary); margin:0.15rem 0;">${t.event_type}</div>
+              <div style="font-size:0.85rem; color:var(--text-muted);">${t.summary}</div>
+              ${t.action_taken ? `<div style="font-size:0.78rem; color:var(--primary); font-weight:600; margin-top:0.2rem;"><i class="fas fa-check"></i> Action: ${t.action_taken}</div>` : ''}
+            </div>
+          `).join('');
+        }
+
+        // 7. Render Environmental Telemetry
+        const env = site.latest_environmental || {};
+        document.getElementById('env-source-badge').textContent = env.data_source || 'DEMO SENSOR TELEMETRY';
+        const envGrid = document.getElementById('environmental-sensor-grid');
+        envGrid.innerHTML = `
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm); text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-dim);">Air Quality Index (AQI)</div>
+            <div style="font-size:1.4rem; font-weight:700; color:${env.air_quality_aqi > 150 ? 'var(--risk-crit)' : 'var(--primary)'};">${env.air_quality_aqi || 95}</div>
+            <div style="font-size:0.75rem; font-weight:600;">${env.aqi_category || 'Moderate'}</div>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm); text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-dim);">Relative Humidity</div>
+            <div style="font-size:1.4rem; font-weight:700; color:var(--primary);">${env.humidity_pct || 55}%</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${env.temperature_c || 28}&deg;C Ambient</div>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm); text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-dim);">Rain Precipitation</div>
+            <div style="font-size:1.4rem; font-weight:700; color:var(--primary);">${env.rainfall_mm || 0} mm</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">24-hr Accumulation</div>
+          </div>
+          <div style="background:var(--bg-card-alt); padding:0.85rem; border-radius:var(--radius-sm); text-align:center;">
+            <div style="font-size:0.75rem; color:var(--text-dim);">Exposure Risk Status</div>
+            <div style="font-size:1rem; font-weight:700; color:var(--accent); margin-top:0.35rem;">${env.exposure_risk_status || 'Normal'}</div>
+          </div>
+        `;
+
+        // 8. Render Tourist Pressure
+        const tour = site.latest_tourist_pressure || {};
+        const pBadge = document.getElementById('tourist-pressure-badge');
+        pBadge.textContent = `${tour.pressure_level || 'Moderate'} Pressure`;
+        pBadge.className = `risk-badge risk-${(tour.pressure_level || 'Moderate').toLowerCase()}`;
+
+        document.getElementById('tourist-pressure-content').innerHTML = `
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">
+            Daily Recorded Footfall: <strong>${(tour.daily_visitors || 3000).toLocaleString()} visitors</strong> vs Limit <strong>${(tour.carrying_capacity || 5000).toLocaleString()}</strong>
+          </div>
+          <div style="width:100%; height:8px; background:var(--bg-card-alt); border-radius:4px; overflow:hidden; margin-bottom:0.5rem;">
+            <div style="width:${Math.min(100, (tour.occupancy_ratio || 0.6) * 100)}%; height:100%; background:var(--primary);"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-dim);">
+            <span>Capacity Occupancy: ${Math.round((tour.occupancy_ratio || 0.6) * 100)}%</span>
+            <span>Trend: <strong>${tour.trend || 'Stable'}</strong></span>
+          </div>
+        `;
+
+        // 9. Render Site Alerts
+        const alertsList = document.getElementById('site-alerts-list');
+        const siteAlerts = site.alerts || [];
+        if (siteAlerts.length > 0) {
+          alertsList.innerHTML = siteAlerts.map(a => `
+            <div style="margin-bottom:0.75rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border-card);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="risk-badge risk-${a.priority.toLowerCase()}">${a.priority}</span>
+                <span style="font-size:0.72rem; color:var(--text-dim);">${a.alert_uid}</span>
+              </div>
+              <h5 style="font-family:var(--font-serif); font-size:0.95rem; color:var(--primary); margin:0.25rem 0;">${a.title}</h5>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.35rem;">${a.description}</p>
+              <div style="font-size:0.75rem; color:var(--accent); font-weight:600;"><i class="fas fa-shield-alt"></i> Protocol: ${a.recommended_action}</div>
+            </div>
+          `).join('');
+        }
+
+        // 10. Render Citizen Reports
+        const reportsContainer = document.getElementById('site-citizen-reports-list');
+        const reports = site.recent_reports || [];
+        if (reports.length > 0) {
+          reportsContainer.innerHTML = reports.map(r => `
+            <div style="border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:0.85rem; margin-bottom:0.6rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:var(--primary); font-size:0.85rem;">#${r.report_uid} &bull; ${r.issue_type}</strong>
+                <span class="risk-badge risk-${r.severity.toLowerCase()}">${r.severity}</span>
+              </div>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin:0.35rem 0;">${r.description}</p>
+              <div style="font-size:0.75rem; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center;">
+                <span>Status: <strong>${r.status}</strong></span>
+                <a href="/track.html?uid=${r.report_uid}" style="color:var(--accent); font-weight:600;">Track Progress &rarr;</a>
+              </div>
+            </div>
+          `).join('');
+        }
+
+      } catch (err) {
+        console.error('[Dossier] Load error:', err);
+        Toast.error('Failed to load site preservation dossier.');
+      }
+    });
+  </script>
+</body>
+</html>

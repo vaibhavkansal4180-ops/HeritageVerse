@@ -1,0 +1,22 @@
+/* ==========================================================================
+   HERITAGEVERSE RESPONSIVE HELPERS (Clean Complement to style.css)
+   ========================================================================== */
+
+/* Utility Responsive Classes */
+.hidden-mobile {
+  display: block;
+}
+@media (max-width: 767px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+.visible-mobile-only {
+  display: none;
+}
+@media (max-width: 767px) {
+  .visible-mobile-only {
+    display: block !important;
+  }
+}
