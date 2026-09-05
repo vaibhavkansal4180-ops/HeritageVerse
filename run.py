@@ -45,8 +45,8 @@ def main():
             print(f"\n[Step 1/2] Database check error: {e}")
 
     # Start Flask Web Server
-    port = int(os.getenv("PORT", 5000))
-    debug_mode = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
+    port = int(os.getenv("PORT") or 5000)
+    debug_mode = (os.getenv("DEBUG") or "false").lower() in ("true", "1", "yes")
     print(f"\n[Step 2/2] Starting Conservation Intelligence Web Server...")
     print(f"  * Open Platform:   http://localhost:{port}")
     print(f"  * Admin Portal:    admin@heritageverse.in / Admin@123")

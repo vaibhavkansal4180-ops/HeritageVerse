@@ -12,30 +12,30 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 class Config:
     # Security
-    SECRET_KEY = os.getenv("SECRET_KEY", "heritageverse-super-secret-key-2026-royal-india")
-    FLASK_ENV = os.getenv("FLASK_ENV", "development")
-    DEBUG = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
+    SECRET_KEY = os.getenv("SECRET_KEY") or "heritageverse-super-secret-key-2026-royal-india"
+    FLASK_ENV = os.getenv("FLASK_ENV") or "development"
+    DEBUG = (os.getenv("DEBUG") or "false").lower() in ("true", "1", "yes")
 
     # Environment detection: Identifies Vercel serverless or production hosting
-    IS_VERCEL = os.getenv("VERCEL") == "1"
+    IS_VERCEL = (os.getenv("VERCEL") or "") == "1"
     IS_PRODUCTION = (
         FLASK_ENV.lower() == "production"
         or IS_VERCEL
-        or os.getenv("ENV", "").lower() == "production"
-        or os.getenv("NODE_ENV", "").lower() == "production"
+        or (os.getenv("ENV") or "").lower() == "production"
+        or (os.getenv("NODE_ENV") or "").lower() == "production"
     )
 
-    # Upload Settings (Gracefully handles read-only serverless filesystems)
+    # Upload Settings (Gracefully handles read-only serverless filesystems and empty env vars)
     _default_upload = str(BASE_DIR / "uploads")
-    UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", _default_upload)
-    MAX_CONTENT_LENGTH = int(os.getenv("MAX_CONTENT_LENGTH", 5 * 1024 * 1024))  # 5 MB limit
+    UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER") or _default_upload
+    MAX_CONTENT_LENGTH = int(os.getenv("MAX_CONTENT_LENGTH") or 5 * 1024 * 1024)  # 5 MB limit
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
 
     # Database Settings
     # Supports PostgreSQL via DATABASE_URL (Neon, Supabase, Vercel Postgres, AWS RDS, etc.)
     # Automatically converts legacy 'postgres://' to 'postgresql://' for SQLAlchemy compatibility
     _raw_db_url = os.getenv("DATABASE_URL")
-    if _raw_db_url:
+    if _raw_db_url and _raw_db_url.strip():
         _clean_url = _raw_db_url.strip()
         if _clean_url.startswith("postgres://"):
             _clean_url = _clean_url.replace("postgres://", "postgresql://", 1)
@@ -64,8 +64,8 @@ class Config:
     }
 
     # CORS Settings
-    _cors_raw = os.getenv("CORS_ORIGINS", "*")
+    _cors_raw = os.getenv("CORS_ORIGINS") or "*"
     CORS_ORIGINS = [o.strip() for o in _cors_raw.split(",")] if "," in _cors_raw else _cors_raw
 
     # Static Assets Directory
-    FRONTEND_DIR = os.getenv("FRONTEND_DIR", str(PROJECT_ROOT / "frontend"))
+    FRONTEND_DIR = os.getenv("FRONTEND_DIR") or str(PROJECT_ROOT / "frontend")

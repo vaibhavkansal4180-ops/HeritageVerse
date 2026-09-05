@@ -124,8 +124,8 @@ def init_db(app):
 app = create_app()
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    debug_mode = os.getenv("DEBUG", "false").lower() in ("true", "1", "yes")
+    port = int(os.getenv("PORT") or 5000)
+    debug_mode = (os.getenv("DEBUG") or "false").lower() in ("true", "1", "yes")
     print("=" * 60)
     print(f" HERITAGEVERSE PRESERVATION PLATFORM RUNNING AT PORT {port}")
     print(f" Debug Mode: {debug_mode}")
