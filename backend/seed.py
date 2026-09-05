@@ -510,9 +510,9 @@ def seed_database(drop_existing=False):
             db.session.add(EncroachmentObservation(
                 heritage_site_id=konark.id,
                 monitored_zone="100m Prohibited Buffer Zone (South-East Coast Perimeter)",
-                baseline_image_url="https://images.unsplash.com/photo-1609825488888-3a766db05542?auto=format&fit=crop&w=600&q=80",
+                baseline_image_url="https://cdn.britannica.com/19/251919-050-D3E64798/konark-sun-temple-orissa-india-unesco-heritage-site.jpg",
                 baseline_date=date(2023, 4, 15),
-                latest_image_url="https://images.unsplash.com/photo-1621847468516-1ed5d0df56fe?auto=format&fit=crop&w=600&q=80",
+                latest_image_url="https://i.pinimg.com/originals/c6/4b/5e/c64b5e5284470c89b87763868614fbf9.jpg",
                 latest_date=date(2026, 8, 20),
                 detected_change="Unauthorized commercial parking structure and concrete perimeter wall within 65m of outer boundary.",
                 change_area_sqm=380.0,
@@ -526,9 +526,9 @@ def seed_database(drop_existing=False):
             db.session.add(EncroachmentObservation(
                 heritage_site_id=hampi.id,
                 monitored_zone="300m Regulated Zone (Vittala Bazaar North Axis)",
-                baseline_image_url="https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=600&q=80",
+                baseline_image_url="https://th.bing.com/th/id/R.f10a6bbde9457a12ea4732f440cdd197?rik=M9AwgeYYzuyLsg&riu=http%3a%2f%2fwww.thehistoryhub.com%2fwp-content%2fuploads%2f2014%2f04%2fHampi-Chariot.jpg&ehk=MX5BNohAmJnqbpQiCNi9qn%2fg%2fGeP4wF7LIiyhuF5Ixo%3d&risl=&pid=ImgRaw&r=0",
                 baseline_date=date(2024, 1, 10),
-                latest_image_url="https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=600&q=80",
+                latest_image_url="https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg",
                 latest_date=date(2026, 8, 25),
                 detected_change="Temporary guest house expansion and unauthorized tin shed stalls in agricultural buffer strip.",
                 change_area_sqm=195.0,

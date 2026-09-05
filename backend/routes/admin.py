@@ -184,18 +184,20 @@ def get_audit_logs(current_user):
 
 @admin_bp.route("/init-seed", methods=["POST", "GET"])
 def initialize_database_seed():
-    """Initializes and seeds the database with official heritage baseline records if empty."""
+    """Initializes and seeds the database with official heritage baseline records if empty or on refresh."""
     from backend.seed import seed_database
+    refresh = request.args.get("refresh", "false").lower() in ("true", "1", "yes")
     site_count = HeritageSite.query.count()
-    if site_count == 0:
+    if site_count == 0 or refresh:
         seed_database(drop_existing=False)
         site_count = HeritageSite.query.count()
         return success_response(
             data={"seeded": True, "site_count": site_count},
-            message=f"Database successfully initialized and seeded with {site_count} heritage monuments."
+            message=f"Database successfully synchronized and seeded with {site_count} heritage monuments."
         )
     return success_response(
         data={"seeded": False, "site_count": site_count},
         message=f"Database already initialized with {site_count} monitored heritage sites."
     )
+
 
