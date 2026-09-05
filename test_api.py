@@ -25,6 +25,11 @@ class HeritageVersePreservationTestSuite(unittest.TestCase):
         cls.app_context = cls.app.app_context()
         cls.app_context.push()
 
+        # Ensure seed data exists for automated testing in fresh environments
+        from backend.seed import seed_database
+        if User.query.count() == 0:
+            seed_database()
+
         # Pre-authenticate admin and user for reliable test state
         admin_res = cls.client.post('/api/auth/login', json={
             "email": "admin@heritageverse.in",
