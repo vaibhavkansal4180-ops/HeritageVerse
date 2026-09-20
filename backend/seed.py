@@ -25,8 +25,17 @@ from backend.models import (
     HeritageTrail, TrailStop, ThenVsNow, CommunityStory, HeritageSurrounding
 )
 
-def seed_database(drop_existing=False):
-    app = create_app()
+def seed_database(drop_existing=False, app=None):
+    if not app:
+        try:
+            from flask import current_app
+            if current_app:
+                app = current_app._get_current_object()
+        except Exception:
+            pass
+    if not app:
+        app = create_app()
+
     with app.app_context():
         print("🌱 Seeding HeritageVerse Preservation Intelligence Platform Database...")
         if drop_existing:

@@ -186,10 +186,11 @@ def get_audit_logs(current_user):
 def initialize_database_seed():
     """Initializes and seeds the database with official heritage baseline records if empty or on refresh."""
     from backend.seed import seed_database
+    from flask import current_app
     refresh = request.args.get("refresh", "false").lower() in ("true", "1", "yes")
     site_count = HeritageSite.query.count()
     if site_count == 0 or refresh:
-        seed_database(drop_existing=False)
+        seed_database(drop_existing=False, app=current_app._get_current_object())
         site_count = HeritageSite.query.count()
         return success_response(
             data={"seeded": True, "site_count": site_count},
@@ -199,5 +200,6 @@ def initialize_database_seed():
         data={"seeded": False, "site_count": site_count},
         message=f"Database already initialized with {site_count} monitored heritage sites."
     )
+
 
 
