@@ -4,7 +4,8 @@ from backend.utils.response import success_response, error_response
 
 heritage_bp = Blueprint("heritage", __name__, url_prefix="/api/heritage")
 
-@heritage_bp.route("", methods=["GET"])
+@heritage_bp.route("", methods=["GET"], strict_slashes=False)
+@heritage_bp.route("/", methods=["GET"], strict_slashes=False)
 def get_all_heritage_sites():
     """
     List all monitored heritage sites with filtering by state, category, risk level, or health score.
