@@ -42,6 +42,18 @@ def seed_database(drop_existing=False, app=None):
             db.drop_all()
         db.create_all()
 
+        # Safe schema migration for existing tables (SQLite & PostgreSQL)
+        try:
+            with db.engine.connect() as conn:
+                for col_name, col_type in [("attribution", "VARCHAR(255)"), ("license_status", "VARCHAR(100)")]:
+                    try:
+                        conn.execute(db.text(f"ALTER TABLE heritage_crafts ADD COLUMN {col_name} {col_type}"))
+                        conn.commit()
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
         # 1. Create Default Users (Admin & Citizen)
         admin = User.query.filter_by(email="admin@heritageverse.in").first()
         if not admin:
@@ -752,90 +764,92 @@ def seed_database(drop_existing=False, app=None):
             {
                 "site_name": "Taj Mahal",
                 "state_code": "UP",
-                "name": "Pietra Dura (Parchin Kari) Marble Inlay",
-                "category": "Stone Craft",
-                "description": "Exquisite hand-carved floral mosaic art where semi-precious gemstones (lapis lazuli, malachite, jasper, carnelian) are precisely ground and inlaid into Makrana white marble recesses.",
-                "materials_and_technique": "Emery wheel grinding, diamond-tipped chisels, handmade organic mastic glue, white Makrana marble.",
-                "cultural_significance": "Living royal Mughal craft tradition passed down unbroken for 12 generations among 3,000 artisan families in Agra.",
-                "artisan_cluster_location": "Taj Ganj & Gokulpura Artisan Quarters, Agra",
-                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pietra_Dura_Taj_Mahal.jpg/640px-Pietra_Dura_Taj_Mahal.jpg"
+                "name": "Pietra Dura",
+                "category": "CRAFT",
+                "description": "Pietra Dura (also known as Parchin Kari) is an intricate stone-inlay decorative tradition associated with the Indian subcontinent and Mughal-era craftsmanship, where semi-precious gemstones are precisely fitted into carved marble recesses.",
+                "materials_and_technique": "White Makrana marble, semi-precious gemstone inlays (lapis lazuli, malachite, jasper, carnelian), diamond-tipped chisels, natural organic mastic.",
+                "cultural_significance": "Mughal imperial decorative arts tradition preserved across generations in Agra's Taj Ganj quarter.",
+                "artisan_cluster_location": "Taj Ganj & Gokulpura Artisan Quarters, Agra, Uttar Pradesh",
+                "image_url": "https://www.shutterstock.com/image-photo/parchin-kari-parchinkari-indian-subcontinent-600w-1120736069.jpg",
+                "source_name": "Shutterstock",
+                "source_type": "COMMERCIAL SOURCE",
+                "attribution": "Source: Shutterstock",
+                "license_status": "Commercial Stock Photography (Not Freely Licensed)"
             },
             {
                 "site_name": "Konark Sun Temple (Black Pagoda)",
                 "state_code": "OR",
                 "name": "Chlorite & Khondalite Stone Sculpting",
-                "category": "Stone Craft",
-                "description": "Traditional Odishan stone carving producing miniature replicas of Konark sundials, Nayika figures, and temple deities using ancient Silpa Sastras guidelines.",
-                "materials_and_technique": "Soft soapstone, green chlorite, red laterite, hand hammers, and tempered steel fine chisels.",
-                "cultural_significance": "Direct lineage to the 1,200 master sculptors of the 13th-century Sun Temple chariot.",
-                "artisan_cluster_location": "Konark Artisan Village & Puri Shilha Kala Kendra, Odisha",
-                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Konarke_sun_temple.jpg/640px-Konarke_sun_temple.jpg"
+                "category": "STONE SCULPTURE",
+                "description": "Stone carving and sculptural craftsmanship associated with Odisha's temple heritage and the Konark tradition, carrying forward the architectural and sculptural legacy of the Sun Temple's master builders.",
+                "materials_and_technique": "Green chlorite stone, weathered khondalite, hand hammers, tempered steel chisels.",
+                "cultural_significance": "Direct lineage to the 1,200 master sculptors and ancient Odishan Silpa Sastra stone carving traditions.",
+                "artisan_cluster_location": "Konark Artisan Village & Puri Shilpa Kendra, Odisha",
+                "image_url": "https://cdn.exoticindia.com/articlebodies/files/1765019371.webp",
+                "source_name": "Exotic India",
+                "source_type": "SOURCE PROVIDED",
+                "attribution": "Source: Exotic India",
+                "license_status": "Supplied Source (Exotic India)"
             },
             {
                 "site_name": "Hampi Monuments & Stone Chariot",
                 "state_code": "KA",
-                "name": "Bell-Metal Dhokra Casting & Granite Reliefs",
-                "category": "Metalwork & Stone",
-                "description": "Lost-wax bronze and bell-metal casting of temple lamps, bells, and deities, complemented by granite architectural carving.",
-                "materials_and_technique": "Beeswax armature models, alluvial clay moulds, molten bronze bell-metal alloys.",
-                "cultural_significance": "Supplied the ritual implements and statues of the grand Vittala and Virupaksha shrines during the Vijayanagara golden age.",
+                "name": "Bell Metal & Dhokra Casting",
+                "category": "METAL CRAFT",
+                "description": "Dhokra is a traditional Indian non-ferrous metal-casting craft using the lost-wax technique, creating sacred votive figures, ritual bells, and traditional artifacts with distinctive rustic geometry.",
+                "materials_and_technique": "Lost-wax casting (cire perdue), beeswax armature, alluvial clay core moulds, molten bell-metal bronze alloy.",
+                "cultural_significance": "Ancient metallurgical living craft tradition connected to regional temple rituals and folklore in the Deccan plateau.",
                 "artisan_cluster_location": "Anegundi Crafts Collective & Sandur Artisan Guild, Karnataka",
-                "image_url": "https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg"
+                "image_url": "https://4.imimg.com/data4/GH/TN/MY-3389772/bellmetal-dhokra-nandi-250x250.jpg",
+                "source_name": "IndiaMART / supplied image source",
+                "source_type": "SOURCE PROVIDED",
+                "attribution": "Source: IndiaMART / supplied image source",
+                "license_status": "Supplied Source (Commercial/Catalogue)"
             },
             {
                 "site_name": "Brihadisvara Temple (Big Temple)",
                 "state_code": "TN",
-                "name": "Tanjore Painting with 22k Gold Leaf & Chola Bronzes",
-                "category": "Painting & Bronze",
-                "description": "Classical South Indian art characterized by dense composition, glowing 22-carat gold foil relief, semi-precious Jaipur stones, alongside world-famous lost-wax Nataraja bronzes.",
-                "materials_and_technique": "Teak wood board, unbleached cloth, chalk powder paste (gesso work), pure 22k gold foil, vegetable dyes.",
-                "cultural_significance": "Royal Chola and Maratha patronized sacred iconography preserved under GI (Geographical Indication) tag.",
-                "artisan_cluster_location": "Swamimalai Bronze Village & Thanjavur Royal Palace Quarter",
-                "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/78f3ef58411245.59fb28367b6f4.jpg"
+                "name": "Tanjore Painting",
+                "category": "PAINTING",
+                "description": "The traditional Thanjavur/Tanjore painting style is celebrated for its dense composition, surface gesso relief work, and characteristic use of rich ornamentation and genuine 22-karat gold foil.",
+                "materials_and_technique": "Teak wood plank, unbleached cloth, limestone/chalk powder gesso paste, pure 22k gold leaf, natural mineral colors.",
+                "cultural_significance": "Classical South Indian visual art tradition flourishing since the Chola and Maratha royal eras, recognized under GI tag.",
+                "artisan_cluster_location": "Thanjavur Royal Palace Quarter & Swamimalai, Tamil Nadu",
+                "image_url": "https://www.balajitanjoreartgallery.com/images/29-12-202161cc0cc7c790d3560.jpg",
+                "source_name": "Balaji Tanjore Art Gallery",
+                "source_type": "SOURCE PROVIDED",
+                "attribution": "Source: Balaji Tanjore Art Gallery",
+                "license_status": "Supplied Source (Balaji Tanjore Art Gallery)"
             },
             {
                 "site_name": "Amber Fort & Palace",
                 "state_code": "RJ",
-                "name": "Meenakari Enamelling & Blue Pottery",
-                "category": "Pottery & Jewelry",
-                "description": "Vibrant enamel work fusing colored glass oxides into gold and silver engravings, paired with quartz-based Persian blue glazed pottery.",
-                "materials_and_technique": "Ground quartz stone, Fuller's earth, gum, cobalt oxide and copper oxide natural mineral colors.",
-                "cultural_significance": "Introduced to Amber by Raja Man Singh I from Lahore in the 16th century; staple of Rajasthani royal courtly aesthetics.",
-                "artisan_cluster_location": "Amber Town, Sanganer & Johari Bazaar, Jaipur",
-                "image_url": "https://tse2.mm.bing.net/th/id/OIP.JRwu95b6i6VIMXXB4aOEKAHaD4?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
-            },
-            {
-                "site_name": "Ajanta Caves",
-                "state_code": "MH",
-                "name": "Mineral Pigment Fresco Painting & Mud-Plaster Tempera",
-                "category": "Painting",
-                "description": "Ancient mural painting technique using cow dung, clay, rice husk plaster, and organic earth pigments to render glowing spiritual figures.",
-                "materials_and_technique": "Lapis lazuli (blue), red ochre, yellow ochre, lamp black, lime white, plant binders.",
-                "cultural_significance": "Technique formulated in the Chitrasutra of Vishnudharmottara Purana, forming the root of classical Asian painting.",
-                "artisan_cluster_location": "Fardapur & Aurangabad Traditional Art Studios, Maharashtra",
-                "image_url": "https://www.easeindiatrip.com/blog/wp-content/uploads/2025/03/Maharashtra-Aurangabad-Ajanta-Caves-02.jpg"
+                "name": "Meenakari — Blue Enamelling",
+                "category": "ENAMELLING",
+                "description": "Reference image: Persian/Isfahan enamel craftsmanship. Indian Meenakari is a related South Asian enamelling tradition introduced to Amber and Jaipur, fusing vibrant mineral glass oxides into engraved metal surfaces.",
+                "materials_and_technique": "Mineral glass oxides (cobalt blue, copper turquoise, gold red), silver/gold metal engraving, high-temperature kiln firing.",
+                "cultural_significance": "Royal courtly enamelling craft patronized by Rajput and Mughal courts, closely tied to Jaipur's jewelry tradition.",
+                "artisan_cluster_location": "Amber Town & Johari Bazaar, Jaipur, Rajasthan",
+                "image_url": "https://thumbs.dreamstime.com/b/persian-minakari-handcrafted-enamel-vase-isfahan-intricate-floral-geometric-patterns-rich-blue-gold-tones-museum-471080873.jpg?w=576",
+                "source_name": "Dreamstime",
+                "source_type": "REFERENCE IMAGE",
+                "attribution": "Source: Dreamstime (Reference image: Persian/Isfahan enamel craftsmanship)",
+                "license_status": "Reference Image (Commercial Stock Photo — Persian Enamel Reference)"
             },
             {
                 "site_name": "Terracotta Temples of Bishnupur",
                 "state_code": "WB",
-                "name": "Baluchari Silk Weaving & Terracotta Craft",
-                "category": "Textile & Terracotta",
-                "description": "Intricate jacquard silk sarees with mythological temple scenes woven into pallus, alongside baked clay votive Bankura horses and tiles.",
-                "materials_and_technique": "Mulberry silk yarn, hand jacquard looms, local Gangetic alluvial clay, wood-fired kilns.",
-                "cultural_significance": "GI-tagged heritage textile directly illustrating the same Mahabharata narratives as the Bishnupur temple walls.",
-                "artisan_cluster_location": "Bishnupur Silk Weavers Colony & Panchmura Terracotta Village, West Bengal",
-                "image_url": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80"
-            },
-            {
-                "site_name": "Qutub Minar & Complex",
-                "state_code": "DL",
-                "name": "Zardozi Metallic Embroidery & Sandstone Inscription Jali",
-                "category": "Textile & Stone",
-                "description": "Heavy three-dimensional embroidery using genuine silver and gold-plated wire on silk and velvet, mirroring the calligraphic friezes of the minaret.",
-                "materials_and_technique": "Kora, Dabka, Salma metallic threads, sequins, wooden frame (Adda), fine needlework.",
-                "cultural_significance": "Imperial atelier craft flourished under Delhi Sultanate and Mughal patronage in Shahjahanabad.",
-                "artisan_cluster_location": "Mehrauli Crafts Village & Old Delhi Chandni Chowk Guilds",
-                "image_url": "https://tse2.mm.bing.net/th/id/OIP.e_hkBJNBPV7gUsACS3zv1wHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                "name": "Bishnupur Baluchari Saree",
+                "category": "TEXTILE",
+                "description": "The Baluchari weaving tradition of Bishnupur, West Bengal, is celebrated for its intricate narrative textile motifs depicting epics and royal court scenes woven into the silk pallu, mirroring the terracotta temple panels.",
+                "materials_and_technique": "Pure mulberry silk yarn, traditional jacquard handlooms, supplementary weft narrative weaving.",
+                "cultural_significance": "GI-tagged heritage textile directly reflecting the terracotta temple architecture and cultural heritage of Bishnupur.",
+                "artisan_cluster_location": "Bishnupur Silk Weavers Colony & Bankura District, West Bengal",
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Baluchari_saree_of_Bishnupur_DSC06031.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail_unscaled&_=20210221115056",
+                "source_name": "Wikimedia Commons",
+                "source_type": "WIKIMEDIA COMMONS",
+                "attribution": "Source: Wikimedia Commons (CC BY-SA 4.0)",
+                "license_status": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
             }
         ]
 
@@ -854,8 +868,10 @@ def seed_database(drop_existing=False, app=None):
                     cultural_significance=cr["cultural_significance"],
                     artisan_cluster_location=cr["artisan_cluster_location"],
                     image_url=cr["image_url"],
-                    source_name="National Crafts Registry & Living Traditions Documentation",
-                    source_type="CURATED"
+                    source_name=cr.get("source_name", "National Living Crafts Registry"),
+                    source_type=cr.get("source_type", "CURATED"),
+                    attribution=cr.get("attribution"),
+                    license_status=cr.get("license_status")
                 ))
         db.session.commit()
         print("  ✔ Seeded Living Heritage Crafts & Artisan Guilds.")

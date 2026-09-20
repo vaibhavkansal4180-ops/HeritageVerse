@@ -226,9 +226,15 @@ function renderLivingCulture(crafts, traditions) {
                 <strong><i class="fas fa-tools" style="color:var(--accent);"></i> Materials & Technique:</strong> ${cr.materials_and_technique}
               </div>
             ` : ''}
-            <div class="craft-cluster-tag">
+            <div class="craft-cluster-tag" style="margin-bottom:0.5rem;">
               <i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> <strong>Artisan Cluster:</strong> ${cr.artisan_cluster_location || 'Regional Guilds'}
             </div>
+            ${cr.attribution ? `
+              <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.5rem; padding-top:0.5rem; border-top:1px dashed var(--border-light); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.35rem;">
+                <span><i class="fas fa-camera"></i> ${cr.attribution}</span>
+                <span class="badge" style="font-size:0.68rem; background:var(--bg-card-alt); color:var(--primary); font-weight:600;">${cr.source_type || 'CURATED'}</span>
+              </div>
+            ` : ''}
           </div>
         </div>
       `).join('');

@@ -53,7 +53,9 @@ class HeritageCraft(db.Model):
     artisan_cluster_location = db.Column(db.String(200), nullable=True) # e.g. "Taj Ganj Artisan Quarter, Agra"
     image_url = db.Column(db.String(255), nullable=True)
     source_name = db.Column(db.String(200), default="National Handicrafts Registry & Living Traditions Documentation")
-    source_type = db.Column(db.String(50), default="CURATED")
+    source_type = db.Column(db.String(50), default="CURATED") # CURATED, SOURCE PROVIDED, COMMERCIAL SOURCE, WIKIMEDIA COMMONS, REFERENCE IMAGE
+    attribution = db.Column(db.String(255), nullable=True)     # e.g. "Source: Shutterstock", "Source: Exotic India", "Source: Wikimedia Commons (CC BY-SA)"
+    license_status = db.Column(db.String(100), default="Unknown / Retained Rights") # Commercial Source, CC BY-SA 4.0, Reference Image
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def to_dict(self):
@@ -71,6 +73,8 @@ class HeritageCraft(db.Model):
             "image_url": self.image_url,
             "source_name": self.source_name,
             "source_type": self.source_type,
+            "attribution": self.attribution or self.source_name,
+            "license_status": self.license_status,
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
