@@ -20,7 +20,9 @@ from backend.models import (
     db, User, State, HeritageSite, HeritageImage,
     HeritageReport, ReportImage, RiskAssessment,
     EnvironmentalData, TouristPressure, EncroachmentObservation,
-    ConditionTimeline, Alert, AdminAction
+    ConditionTimeline, Alert, AdminAction,
+    MonumentHistoryEvent, HeritageCraft, CulturalTradition,
+    HeritageTrail, TrailStop, ThenVsNow, CommunityStory, HeritageSurrounding
 )
 
 def seed_database(drop_existing=False):
@@ -669,8 +671,552 @@ def seed_database(drop_existing=False):
                 ai_urgency="Conservation Poultice Treatment & Security Review"
             ))
 
+        # 8. Seed Chronological History Events for All 8 Monuments
+        history_events_data = [
+            # Konark Sun Temple
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "year": 1250, "year_display": "1250 CE", "title": "Construction by King Narasimhadeva I", "description": "King Narasimhadeva I of the Eastern Ganga Dynasty commissions the grand Sun Temple chariot, employing 1,200 master sculptors led by Bisu Maharana over 12 years.", "category": "Construction", "source_name": "Madala Panji & ASI Records", "source_type": "OFFICIAL"},
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "year": 1568, "year_display": "1568 CE", "title": "Kalapahad Military Incursion & Abandonment", "description": "General Kalapahad invades Odisha; the temple complex sustains damage and the main sanctum (rekha deula) collapses, leading to temple desanctification.", "category": "Historical Event", "source_name": "Odisha State Archives", "source_type": "ACADEMIC"},
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "year": 1901, "year_display": "1901 CE", "title": "Lord Curzon Structural Stabilization & Sand Infill", "description": "Lieutenant Governor Sir John Woodburn and Lord Curzon order the Jagamohana assembly hall to be filled with sand and stones to prevent total collapse.", "category": "Restoration", "source_name": "British Archaeological Survey Records", "source_type": "OFFICIAL"},
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "year": 1984, "year_display": "1984 CE", "title": "UNESCO World Heritage Inscription", "description": "Inscribed as a UNESCO World Heritage Site under criteria (i), (iii), and (vi) for outstanding universal value in Kalinga architectural design.", "category": "Modern Status", "source_name": "UNESCO World Heritage Centre", "source_type": "OFFICIAL"},
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "year": 2026, "year_display": "2026 CE Present", "title": "Continuous Sensor Telemetry & Sand Evacuation Feasibility", "description": "ASI deploys endoscope camera arrays and subterranean drainage telemetry to assess stability during safe internal sand clearing.", "category": "Conservation", "source_name": "HeritageVerse Active Monitoring Cell", "source_type": "CURATED"},
+
+            # Taj Mahal
+            {"site_name": "Taj Mahal", "year": 1631, "year_display": "1631 CE", "title": "Imperial Commission by Shah Jahan", "description": "Emperor Shah Jahan commissions the mausoleum along the Yamuna River following the demise of Empress Mumtaz Mahal during childbirth in Burhanpur.", "category": "Construction", "source_name": "Badshahnama & Imperial Court Records", "source_type": "OFFICIAL"},
+            {"site_name": "Taj Mahal", "year": 1648, "year_display": "1648 CE", "title": "Completion of Central Marble Mausoleum", "description": "Master architect Ustad Ahmad Lahori and gemstone inlayer Chiranjilal complete the central white Makrana marble dome and inner octagonal cenotaph chamber.", "category": "Architectural Change", "source_name": "UNESCO Dossier & Royal Mughal Chronicles", "source_type": "ACADEMIC"},
+            {"site_name": "Taj Mahal", "year": 1983, "year_display": "1983 CE", "title": "UNESCO World Heritage Recognition", "description": "Designated a World Heritage Site as the 'jewel of Muslim art in India and one of the universally admired masterpieces of the world's heritage.'", "category": "Modern Status", "source_name": "UNESCO Archives", "source_type": "OFFICIAL"},
+            {"site_name": "Taj Mahal", "year": 1996, "year_display": "1996 CE", "title": "Supreme Court Taj Trapezium Zone (TTZ) Directive", "description": "Historic environmental judgment establishes 10,400 sq km TTZ buffer to ban polluting coal-based industries and switch to natural gas.", "category": "Conservation", "source_name": "Supreme Court of India (M.C. Mehta Case)", "source_type": "OFFICIAL"},
+            {"site_name": "Taj Mahal", "year": 2026, "year_display": "2026 CE Present", "title": "Bio-Poulticing (Multani Mitti) & Yamuna Aquifer Care", "description": "Application of non-abrasive herbal clay packs to absorb atmospheric carbon deposits while monitoring low-level subterranean teak foundations.", "category": "Conservation", "source_name": "ASI Agra Chemical Division", "source_type": "CURATED"},
+
+            # Hampi Monuments
+            {"site_name": "Hampi Monuments & Stone Chariot", "year": 1336, "year_display": "1336 CE", "title": "Founding of Vijayanagara Empire", "description": "Brothers Harihara I and Bukka Raya I establish the Vijayanagara Empire on the south bank of Tungabhadra river, turning Kishkindha into an imperial metropolis.", "category": "Historical Event", "source_name": "Karnataka Epigraphia & Inscriptional Records", "source_type": "OFFICIAL"},
+            {"site_name": "Hampi Monuments & Stone Chariot", "year": 1513, "year_display": "1513 CE", "title": "Krishnadevaraya's Vittala & Hazara Rama Enhancements", "description": "Emperor Krishnadevaraya dedicates the Garuda Stone Chariot and grand musical pillared halls celebrating his victory over Gajapatis of Odisha.", "category": "Construction", "source_name": "Vijayanagara Dynastic Chronicles", "source_type": "ACADEMIC"},
+            {"site_name": "Hampi Monuments & Stone Chariot", "year": 1565, "year_display": "1565 CE", "title": "Battle of Talikota & Abandonment", "description": "Deccan Sultanates defeat Rama Raya; the city is sacked and burnt over five months, leaving behind the evocative granite ruins.", "category": "Historical Event", "source_name": "Ferishta Historical Accounts", "source_type": "ACADEMIC"},
+            {"site_name": "Hampi Monuments & Stone Chariot", "year": 1986, "year_display": "1986 CE", "title": "UNESCO World Heritage Listing", "description": "Group of Monuments at Hampi inscribed as a World Heritage site spanning 4,100 hectares of living sacred and military architecture.", "category": "Modern Status", "source_name": "UNESCO World Heritage Centre", "source_type": "OFFICIAL"},
+
+            # Qutub Minar
+            {"site_name": "Qutub Minar & Complex", "year": 1199, "year_display": "1199 CE", "title": "Foundation Laid by Qutb-ud-din Aibak", "description": "Construction commences on the victory tower and the adjacent Quwwat-ul-Islam Mosque incorporating 27 reused sandstone temple colonnades.", "category": "Construction", "source_name": "Archaeological Survey of India Memoir", "source_type": "OFFICIAL"},
+            {"site_name": "Qutub Minar & Complex", "year": 1368, "year_display": "1368 CE", "title": "Firuz Shah Tughlaq Lightning Repair & Marble Storeys", "description": "Lightning strikes the minaret top; Sultan Firuz Shah Tughlaq repairs the structure, replacing the fourth storey and adding a fifth storey faced in white marble.", "category": "Restoration", "source_name": "Tarikh-i-Firuz Shahi", "source_type": "ACADEMIC"},
+            {"site_name": "Qutub Minar & Complex", "year": 1993, "year_display": "1993 CE", "title": "UNESCO World Heritage Status", "description": "Inscribed as UNESCO World Heritage monument alongside the 4th-century rust-resistant Gupta Iron Pillar and Alai Darwaza.", "category": "Modern Status", "source_name": "UNESCO Archives", "source_type": "OFFICIAL"},
+
+            # Amber Fort
+            {"site_name": "Amber Fort & Palace", "year": 1592, "year_display": "1592 CE", "title": "Raja Man Singh I Palace Foundation", "description": "Raja Man Singh I of the Kachwaha Rajput clan builds the red sandstone and marble fortress palace overlooking Maota Lake.", "category": "Construction", "source_name": "Jaipur State Archives & Pothi Khana", "source_type": "OFFICIAL"},
+            {"site_name": "Amber Fort & Palace", "year": 1727, "year_display": "1727 CE", "title": "Sawai Jai Singh II Expands Sheesh Mahal & Shifts Capital", "description": "Mirza Raja Jai Singh builds the Sheesh Mahal (Hall of Mirrors) and Jai Mandir before Sawai Jai Singh II founds Jaipur down in the plains.", "category": "Architectural Change", "source_name": "Amber Royal Chronicles", "source_type": "ACADEMIC"},
+            {"site_name": "Amber Fort & Palace", "year": 2013, "year_display": "2013 CE", "title": "UNESCO Inscription as Hill Forts of Rajasthan", "description": "Amber Fort is inscribed as UNESCO World Heritage Site along with Chittorgarh, Kumbhalgarh, Gagron, Ranthambore, and Jaisalmer.", "category": "Modern Status", "source_name": "UNESCO World Heritage Centre", "source_type": "OFFICIAL"},
+
+            # Ajanta Caves
+            {"site_name": "Ajanta Caves", "year": -200, "year_display": "2nd Century BCE", "title": "First Hinayana Monastic Excavations", "description": "Early Buddhist monks carve Cave 9, 10, 12, 13, and 15A into the horseshoe gorge of the Waghur River under Satavahana patronage.", "category": "Construction", "source_name": "Archaeological Survey of India Cave Reports", "source_type": "OFFICIAL"},
+            {"site_name": "Ajanta Caves", "year": 475, "year_display": "5th Century CE", "title": "Mahayana Painting Renaissance under Harisena", "description": "King Harisena of Vakataka Empire sponsors exquisite tempera murals depicting Jataka tales, Bodhisattva Padmapani, and celestial courts.", "category": "Cultural Event", "source_name": "Walter Spink Chronology Studies", "source_type": "ACADEMIC"},
+            {"site_name": "Ajanta Caves", "year": 1819, "year_display": "1819 CE", "title": "Captain John Smith Accidental Rediscovery", "description": "British cavalry officer John Smith spots Cave 10 while hunting tigers in the Waghur gorge, bringing Ajanta back to world attention.", "category": "Historical Event", "source_name": "Royal Asiatic Society Proceedings", "source_type": "ACADEMIC"},
+            {"site_name": "Ajanta Caves", "year": 1983, "year_display": "1983 CE", "title": "UNESCO World Heritage Inscription", "description": "Recognized as masterpieces of Buddhist religious art and foundation of Indian classical painting tradition.", "category": "Modern Status", "source_name": "UNESCO World Heritage Centre", "source_type": "OFFICIAL"},
+
+            # Brihadisvara Temple
+            {"site_name": "Brihadisvara Temple (Big Temple)", "year": 1010, "year_display": "1010 CE", "title": "Consecration by Rajaraja Chola I", "description": "Emperor Rajaraja I completes the 216-foot granite vimana on the 275th day of his 25th regnal year, dedicating it as Rajarajeswaram.", "category": "Construction", "source_name": "Thanjavur Temple South Wall Inscriptions", "source_type": "OFFICIAL"},
+            {"site_name": "Brihadisvara Temple (Big Temple)", "year": 1987, "year_display": "1987 CE", "title": "UNESCO World Heritage Inscription", "description": "Inscribed as the primary monument of the 'Great Living Chola Temples' showcasing continuous living Dravidian rituals for over 1,000 years.", "category": "Modern Status", "source_name": "UNESCO World Heritage Centre", "source_type": "OFFICIAL"},
+            {"site_name": "Brihadisvara Temple (Big Temple)", "year": 2010, "year_display": "2010 CE", "title": "Millennial 1,000-Year Consecration Celebrations", "description": "Government of Tamil Nadu and Archaeological Survey host monumental 1,000th anniversary with 1,000 classical Bharatanatyam dancers performing simultaneously in the courtyard.", "category": "Cultural Event", "source_name": "ASI & Ministry of Culture Documentation", "source_type": "OFFICIAL"},
+
+            # Terracotta Temples of Bishnupur
+            {"site_name": "Terracotta Temples of Bishnupur", "year": 1600, "year_display": "1600 CE", "title": "Rasmancha Built by King Bir Hambir", "description": "Malla King Bir Hambir converts to Gaudiya Vaishnavism and builds the pyramidal Rasmancha to host deities from all surrounding village shrines during Ras Utsav.", "category": "Construction", "source_name": "Malla Dynasty Chronicles & ASI Kolkata Circle", "source_type": "OFFICIAL"},
+            {"site_name": "Terracotta Temples of Bishnupur", "year": 1655, "year_display": "1655 CE", "title": "Jor Bangla & Shyam Rai Carved Relief Marvels", "description": "King Raghunath Singha commissions the twin-hut Jor Bangla temple with exquisite terracotta friezes of Ramayana, Mahabharata, and rural river life.", "category": "Architectural Change", "source_name": "Bengal Temple Architecture Studies", "source_type": "ACADEMIC"},
+            {"site_name": "Terracotta Temples of Bishnupur", "year": 1998, "year_display": "1998 CE", "title": "Tentative UNESCO World Heritage List", "description": "Submitted to the UNESCO Tentative List as unique universal representation of Bengal terracotta brick temple construction.", "category": "Modern Status", "source_name": "UNESCO Tentative Submissions", "source_type": "OFFICIAL"}
+        ]
+
+        MonumentHistoryEvent.query.delete()
+        for he in history_events_data:
+            site = site_objects.get(he["site_name"])
+            if site:
+                db.session.add(MonumentHistoryEvent(
+                    heritage_site_id=site.id,
+                    year=he["year"],
+                    year_display=he["year_display"],
+                    title=he["title"],
+                    description=he["description"],
+                    category=he["category"],
+                    source_name=he["source_name"],
+                    source_type=he["source_type"],
+                    verification_status="VERIFIED"
+                ))
         db.session.commit()
-        print("✨ Database successfully seeded with Verified Accurate Heritage Imagery & Baseline Telemetry!")
+        print("  ✔ Seeded Chronological History Events for All 8 National Monuments.")
+
+        # 9. Seed Living Crafts & Artisan Guilds
+        crafts_data = [
+            {
+                "site_name": "Taj Mahal",
+                "state_code": "UP",
+                "name": "Pietra Dura (Parchin Kari) Marble Inlay",
+                "category": "Stone Craft",
+                "description": "Exquisite hand-carved floral mosaic art where semi-precious gemstones (lapis lazuli, malachite, jasper, carnelian) are precisely ground and inlaid into Makrana white marble recesses.",
+                "materials_and_technique": "Emery wheel grinding, diamond-tipped chisels, handmade organic mastic glue, white Makrana marble.",
+                "cultural_significance": "Living royal Mughal craft tradition passed down unbroken for 12 generations among 3,000 artisan families in Agra.",
+                "artisan_cluster_location": "Taj Ganj & Gokulpura Artisan Quarters, Agra",
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pietra_Dura_Taj_Mahal.jpg/640px-Pietra_Dura_Taj_Mahal.jpg"
+            },
+            {
+                "site_name": "Konark Sun Temple (Black Pagoda)",
+                "state_code": "OR",
+                "name": "Chlorite & Khondalite Stone Sculpting",
+                "category": "Stone Craft",
+                "description": "Traditional Odishan stone carving producing miniature replicas of Konark sundials, Nayika figures, and temple deities using ancient Silpa Sastras guidelines.",
+                "materials_and_technique": "Soft soapstone, green chlorite, red laterite, hand hammers, and tempered steel fine chisels.",
+                "cultural_significance": "Direct lineage to the 1,200 master sculptors of the 13th-century Sun Temple chariot.",
+                "artisan_cluster_location": "Konark Artisan Village & Puri Shilha Kala Kendra, Odisha",
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Konarke_sun_temple.jpg/640px-Konarke_sun_temple.jpg"
+            },
+            {
+                "site_name": "Hampi Monuments & Stone Chariot",
+                "state_code": "KA",
+                "name": "Bell-Metal Dhokra Casting & Granite Reliefs",
+                "category": "Metalwork & Stone",
+                "description": "Lost-wax bronze and bell-metal casting of temple lamps, bells, and deities, complemented by granite architectural carving.",
+                "materials_and_technique": "Beeswax armature models, alluvial clay moulds, molten bronze bell-metal alloys.",
+                "cultural_significance": "Supplied the ritual implements and statues of the grand Vittala and Virupaksha shrines during the Vijayanagara golden age.",
+                "artisan_cluster_location": "Anegundi Crafts Collective & Sandur Artisan Guild, Karnataka",
+                "image_url": "https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg"
+            },
+            {
+                "site_name": "Brihadisvara Temple (Big Temple)",
+                "state_code": "TN",
+                "name": "Tanjore Painting with 22k Gold Leaf & Chola Bronzes",
+                "category": "Painting & Bronze",
+                "description": "Classical South Indian art characterized by dense composition, glowing 22-carat gold foil relief, semi-precious Jaipur stones, alongside world-famous lost-wax Nataraja bronzes.",
+                "materials_and_technique": "Teak wood board, unbleached cloth, chalk powder paste (gesso work), pure 22k gold foil, vegetable dyes.",
+                "cultural_significance": "Royal Chola and Maratha patronized sacred iconography preserved under GI (Geographical Indication) tag.",
+                "artisan_cluster_location": "Swamimalai Bronze Village & Thanjavur Royal Palace Quarter",
+                "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/78f3ef58411245.59fb28367b6f4.jpg"
+            },
+            {
+                "site_name": "Amber Fort & Palace",
+                "state_code": "RJ",
+                "name": "Meenakari Enamelling & Blue Pottery",
+                "category": "Pottery & Jewelry",
+                "description": "Vibrant enamel work fusing colored glass oxides into gold and silver engravings, paired with quartz-based Persian blue glazed pottery.",
+                "materials_and_technique": "Ground quartz stone, Fuller's earth, gum, cobalt oxide and copper oxide natural mineral colors.",
+                "cultural_significance": "Introduced to Amber by Raja Man Singh I from Lahore in the 16th century; staple of Rajasthani royal courtly aesthetics.",
+                "artisan_cluster_location": "Amber Town, Sanganer & Johari Bazaar, Jaipur",
+                "image_url": "https://tse2.mm.bing.net/th/id/OIP.JRwu95b6i6VIMXXB4aOEKAHaD4?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            },
+            {
+                "site_name": "Ajanta Caves",
+                "state_code": "MH",
+                "name": "Mineral Pigment Fresco Painting & Mud-Plaster Tempera",
+                "category": "Painting",
+                "description": "Ancient mural painting technique using cow dung, clay, rice husk plaster, and organic earth pigments to render glowing spiritual figures.",
+                "materials_and_technique": "Lapis lazuli (blue), red ochre, yellow ochre, lamp black, lime white, plant binders.",
+                "cultural_significance": "Technique formulated in the Chitrasutra of Vishnudharmottara Purana, forming the root of classical Asian painting.",
+                "artisan_cluster_location": "Fardapur & Aurangabad Traditional Art Studios, Maharashtra",
+                "image_url": "https://www.easeindiatrip.com/blog/wp-content/uploads/2025/03/Maharashtra-Aurangabad-Ajanta-Caves-02.jpg"
+            },
+            {
+                "site_name": "Terracotta Temples of Bishnupur",
+                "state_code": "WB",
+                "name": "Baluchari Silk Weaving & Terracotta Craft",
+                "category": "Textile & Terracotta",
+                "description": "Intricate jacquard silk sarees with mythological temple scenes woven into pallus, alongside baked clay votive Bankura horses and tiles.",
+                "materials_and_technique": "Mulberry silk yarn, hand jacquard looms, local Gangetic alluvial clay, wood-fired kilns.",
+                "cultural_significance": "GI-tagged heritage textile directly illustrating the same Mahabharata narratives as the Bishnupur temple walls.",
+                "artisan_cluster_location": "Bishnupur Silk Weavers Colony & Panchmura Terracotta Village, West Bengal",
+                "image_url": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80"
+            },
+            {
+                "site_name": "Qutub Minar & Complex",
+                "state_code": "DL",
+                "name": "Zardozi Metallic Embroidery & Sandstone Inscription Jali",
+                "category": "Textile & Stone",
+                "description": "Heavy three-dimensional embroidery using genuine silver and gold-plated wire on silk and velvet, mirroring the calligraphic friezes of the minaret.",
+                "materials_and_technique": "Kora, Dabka, Salma metallic threads, sequins, wooden frame (Adda), fine needlework.",
+                "cultural_significance": "Imperial atelier craft flourished under Delhi Sultanate and Mughal patronage in Shahjahanabad.",
+                "artisan_cluster_location": "Mehrauli Crafts Village & Old Delhi Chandni Chowk Guilds",
+                "image_url": "https://tse2.mm.bing.net/th/id/OIP.e_hkBJNBPV7gUsACS3zv1wHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            }
+        ]
+
+        HeritageCraft.query.delete()
+        for cr in crafts_data:
+            site = site_objects.get(cr["site_name"])
+            st_id = state_map.get(cr["state_code"])
+            if site:
+                db.session.add(HeritageCraft(
+                    heritage_site_id=site.id,
+                    state_id=st_id,
+                    name=cr["name"],
+                    category=cr["category"],
+                    description=cr["description"],
+                    materials_and_technique=cr["materials_and_technique"],
+                    cultural_significance=cr["cultural_significance"],
+                    artisan_cluster_location=cr["artisan_cluster_location"],
+                    image_url=cr["image_url"],
+                    source_name="National Crafts Registry & Living Traditions Documentation",
+                    source_type="CURATED"
+                ))
+        db.session.commit()
+        print("  ✔ Seeded Living Heritage Crafts & Artisan Guilds.")
+
+        # 10. Seed Cultural Traditions & Festivals
+        traditions_data = [
+            {
+                "site_name": "Konark Sun Temple (Black Pagoda)",
+                "state_code": "OR",
+                "title": "Konark Dance & Music Festival & Magha Saptami",
+                "tradition_type": "Festival & Performing Art",
+                "season_or_timing": "December Annually & Magha Saptami (February)",
+                "description": "World-renowned 5-day festival of classical Indian dance (Odissi, Bharatanatyam, Kathak, Manipuri) performed on an open-air stage against the floodlit Sun Temple backdrop. Concurrently, half a million pilgrims take a holy dip in the Chandrabhaga beach at sunrise on Magha Saptami.",
+                "community_role": "Brings together local fishermen, temple dancers, handicraft artisans, and international scholars.",
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Konarke_sun_temple.jpg/640px-Konarke_sun_temple.jpg"
+            },
+            {
+                "site_name": "Taj Mahal",
+                "state_code": "UP",
+                "title": "Taj Mahotsav & Annual Urs of Shah Jahan",
+                "tradition_type": "Festival & Ritual Practice",
+                "season_or_timing": "February 18-27 Annually & Rajab Month",
+                "description": "10-day cultural celebration at Shilpgram showcasing classical Awadhi and Braj vocal music, Kathak recitals, ghazals, and artisan exhibitions. During the 3-day annual Urs, the subterranean original crypts are traditionally opened for floral chadar offerings.",
+                "community_role": "Unites local Agra citizens, Sufi qawwals, and master artisans in honoring syncretic Ganga-Jamuni tehzeeb.",
+                "image_url": "https://i.pinimg.com/originals/f2/cf/71/f2cf717c1bf0c4e1a77fdd97489fae7d.jpg"
+            },
+            {
+                "site_name": "Hampi Monuments & Stone Chariot",
+                "state_code": "KA",
+                "title": "Hampi Utsav (Vijaya Utsava)",
+                "tradition_type": "Festival",
+                "season_or_timing": "November Annually (Winter Solstice Window)",
+                "description": "Mega cultural extravaganza celebrating the glory of the Vijayanagara Empire with night-time sound and light shows across the Vittala and Virupaksha monuments, Janapada folk songs, Togalu Gombeyaata shadow puppetry, and traditional fireworks.",
+                "community_role": "Organized jointly with local Bellary and Koppal farming communities, folklore troupes, and classical musicians.",
+                "image_url": "https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg"
+            },
+            {
+                "site_name": "Brihadisvara Temple (Big Temple)",
+                "state_code": "TN",
+                "title": "Maha Shivaratri Natyanjali & Brahan Natyanjali",
+                "tradition_type": "Performing Art & Sacred Ritual",
+                "season_or_timing": "February / March (Maha Shivaratri Eve)",
+                "description": "All-night spiritual dance offering in the vast granite courtyard where hundreds of classical Bharatanatyam, Kuchipudi, and Mohiniyattam exponents offer their art to Lord Nataraja under the towering vimana shadow.",
+                "community_role": "Continuous temple ritual tradition supported by hereditary Oduvars (temple hymn singers) and nadaswaram instrumentalists.",
+                "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/78f3ef58411245.59fb28367b6f4.jpg"
+            },
+            {
+                "site_name": "Amber Fort & Palace",
+                "state_code": "RJ",
+                "title": "Shila Devi Navratri Puja & Teej Royal Procession",
+                "tradition_type": "Ritual Practice & Folklore",
+                "season_or_timing": "Ashvin Navratri (October) & Shravan Teej (August)",
+                "description": "Deep religious devotion at the 16th-century Shila Devi Temple inside the fort gate, marked by royal elephant processions, Kalbelia folk dances, and traditional Shekhawati drum ceremonies.",
+                "community_role": "Fosters living community devotion among Jaipur and Amber resident families who make annual pilgrimages.",
+                "image_url": "https://tse2.mm.bing.net/th/id/OIP.JRwu95b6i6VIMXXB4aOEKAHaD4?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            },
+            {
+                "site_name": "Terracotta Temples of Bishnupur",
+                "state_code": "WB",
+                "title": "Bishnupur Mela & Classical Bishnupur Gharana Dhrupad",
+                "tradition_type": "Festival & Musical Tradition",
+                "season_or_timing": "December 23-27 Annually",
+                "description": "Celebration of Bengal's only classical Dhrupad music gharana founded under Malla patronage, combined with regional folk Baul songs, terracotta pottery fairs, and sacred Ras Yatra processions.",
+                "community_role": "Entire town participates in community feasts, conch shell blowing competitions, and traditional silk fairs.",
+                "image_url": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1200&q=80"
+            }
+        ]
+
+        CulturalTradition.query.delete()
+        for tr in traditions_data:
+            site = site_objects.get(tr["site_name"])
+            st_id = state_map.get(tr["state_code"])
+            if site:
+                db.session.add(CulturalTradition(
+                    heritage_site_id=site.id,
+                    state_id=st_id,
+                    title=tr["title"],
+                    tradition_type=tr["tradition_type"],
+                    season_or_timing=tr["season_or_timing"],
+                    description=tr["description"],
+                    community_role=tr["community_role"],
+                    image_url=tr["image_url"],
+                    source_name="Living Traditions & Festivals Documentation",
+                    source_type="CURATED"
+                ))
+        db.session.commit()
+        print("  ✔ Seeded Living Cultural Traditions & Festivals.")
+
+        # 11. Seed Curated Thematic Trails & Sequential Stops
+        trails_data = [
+            {
+                "title": "Imperial Grand Axis: Sultanates to Mughal Opulence",
+                "slug": "imperial-grand-axis",
+                "theme": "Imperial Dynastic Architecture",
+                "description": "Trace the architectural evolution of northern India across five centuries — from the 72m fluted sandstone towers of the Delhi Sultanate to the symmetrical white marble gardens of Agra and the regal hill ramparts of Rajputana.",
+                "historical_era": "12th - 18th Century CE",
+                "estimated_duration": "3 - 4 Days",
+                "difficulty": "Moderate Overland Journey",
+                "featured_image_url": "https://i.pinimg.com/originals/f2/cf/71/f2cf717c1bf0c4e1a77fdd97489fae7d.jpg",
+                "is_featured": True,
+                "stops": [
+                    {
+                        "site_name": "Qutub Minar & Complex",
+                        "stop_order": 1,
+                        "stop_title": "First Pillar of Indo-Islamic Engineering",
+                        "narrative_focus": "Examine how reused temple colonnades and early Arabic calligraphy forged a new hybrid architectural vocabulary in the Mehrauli plains.",
+                        "recommended_time_hours": 3.0
+                    },
+                    {
+                        "site_name": "Taj Mahal",
+                        "stop_order": 2,
+                        "stop_title": "Zenith of Marble Geometry & Riverfront Planning",
+                        "narrative_focus": "Analyze bilateral Charbagh geometry, optical illusions in minaret canting, and Pietra Dura floral masterworks along the Yamuna.",
+                        "recommended_time_hours": 4.5
+                    },
+                    {
+                        "site_name": "Amber Fort & Palace",
+                        "stop_order": 3,
+                        "stop_title": "Rajput Imperial Bastions & Sheesh Mahal Mosaics",
+                        "narrative_focus": "Explore the strategic marriage of Mughal court elegance with Rajput defensive hill fortress architecture.",
+                        "recommended_time_hours": 4.0
+                    }
+                ]
+            },
+            {
+                "title": "Sacred Stone & Cosmic Astronomy Trail",
+                "slug": "sacred-stone-astronomy",
+                "theme": "Temple Astronomy & Monumental Sculpting",
+                "description": "Embark on a spiritual and scientific exploration of India's most breathtaking monumental temples. Witness how ancient astronomers and sculptors transformed chlorite, granite, and terracotta into living cosmic calculators.",
+                "historical_era": "11th - 18th Century CE",
+                "estimated_duration": "4 - 5 Days",
+                "difficulty": "Multi-State Heritage Discovery",
+                "featured_image_url": "https://cdn.britannica.com/19/251919-050-D3E64798/konark-sun-temple-orissa-india-unesco-heritage-site.jpg",
+                "is_featured": True,
+                "stops": [
+                    {
+                        "site_name": "Brihadisvara Temple (Big Temple)",
+                        "stop_order": 1,
+                        "stop_title": "Chola Granite Engineering & Shadowless Vimana",
+                        "narrative_focus": "Marvel at the 80-tonne monolithic cupola hoisted onto a 216-foot interlocking granite vimana with no binding mortar.",
+                        "recommended_time_hours": 3.5
+                    },
+                    {
+                        "site_name": "Konark Sun Temple (Black Pagoda)",
+                        "stop_order": 2,
+                        "stop_title": "The 24-Wheeled Solar Chariot & Precision Sundials",
+                        "narrative_focus": "Decode the exact shadow-casting time-telling spokes of the 24 massive chlorite chariot wheels aligned to solar equinoxes.",
+                        "recommended_time_hours": 4.0
+                    },
+                    {
+                        "site_name": "Terracotta Temples of Bishnupur",
+                        "stop_order": 3,
+                        "stop_title": "Fired Earth Epics of the Bengal Delta",
+                        "narrative_focus": "Discover how clay tiles were sculpted and wood-fired to depict sacred literature when stone was absent across the deltaic floodplains.",
+                        "recommended_time_hours": 3.0
+                    }
+                ]
+            },
+            {
+                "title": "Deccan Rock-Cut & Granite Monolith Circuit",
+                "slug": "deccan-rock-cut-circuit",
+                "theme": "Subterranean & Monolithic Carving",
+                "description": "From the sheer basalt canyon wall caves of Ajanta to the vast granite boulder labyrinth of Vijayanagara, witness the pinnacle of subterranean and surface rock sculpture.",
+                "historical_era": "2nd Century BCE - 16th Century CE",
+                "estimated_duration": "3 Days",
+                "difficulty": "Active Terrain Trail",
+                "featured_image_url": "https://th.bing.com/th/id/R.f10a6bbde9457a12ea4732f440cdd197?rik=M9AwgeYYzuyLsg&riu=http%3a%2f%2fwww.thehistoryhub.com%2fwp-content%2fuploads%2f2014%2f04%2fHampi-Chariot.jpg&ehk=MX5BNohAmJnqbpQiCNi9qn%2fg%2fGeP4wF7LIiyhuF5Ixo%3d&risl=&pid=ImgRaw&r=0",
+                "is_featured": True,
+                "stops": [
+                    {
+                        "site_name": "Ajanta Caves",
+                        "stop_order": 1,
+                        "stop_title": "Basalt Rock-Cut Chaityas & Tempera Murals",
+                        "narrative_focus": "Walk inside 30 hand-chiseled Buddhist caves preserving the world's most delicate ancient wall paintings.",
+                        "recommended_time_hours": 5.0
+                    },
+                    {
+                        "site_name": "Hampi Monuments & Stone Chariot",
+                        "stop_order": 2,
+                        "stop_title": "Vittala Musical Pillars & Granite Bazaar City",
+                        "narrative_focus": "Explore the stone chariot of Garuda, acoustic musical columns, and 4,100 hectares of medieval urban grandeur.",
+                        "recommended_time_hours": 6.0
+                    }
+                ]
+            }
+        ]
+
+        HeritageTrail.query.delete()
+        TrailStop.query.delete()
+        for tr_data in trails_data:
+            stops_info = tr_data.pop("stops", [])
+            trail = HeritageTrail(**tr_data)
+            db.session.add(trail)
+            db.session.flush()
+
+            for st_info in stops_info:
+                target_site = site_objects.get(st_info["site_name"])
+                if target_site:
+                    db.session.add(TrailStop(
+                        trail_id=trail.id,
+                        heritage_site_id=target_site.id,
+                        stop_order=st_info["stop_order"],
+                        stop_title=st_info["stop_title"],
+                        narrative_focus=st_info["narrative_focus"],
+                        recommended_time_hours=st_info.get("recommended_time_hours", 3.0)
+                    ))
+        db.session.commit()
+        print("  ✔ Seeded Curated Thematic Trails & Sequential Stops.")
+
+        # 12. Seed Archival Then vs Now Visual Comparisons
+        then_vs_now_data = [
+            {
+                "site_name": "Konark Sun Temple (Black Pagoda)",
+                "title": "Jagamohana & Chariot Wheel Plinth Conservation (1868 vs 2026)",
+                "historical_year": "1868 CE Archival Survey",
+                "historical_image_url": "https://cdn.britannica.com/19/251919-050-D3E64798/konark-sun-temple-orissa-india-unesco-heritage-site.jpg",
+                "historical_image_caption": "Archival photographic plate showing shifting coastal sand dunes partially burying the lower chariot wheels and collapsed sikhara rubble.",
+                "current_year": "2026 CE Present Telemetry",
+                "current_image_url": "https://i.pinimg.com/originals/c6/4b/5e/c64b5e5284470c89b87763868614fbf9.jpg",
+                "current_image_caption": "Contemporary view with excavated plinth, manicured casuarina windbreaks, and automated moisture sensors monitoring saline exposure.",
+                "comparison_category": "Restoration & Landscape",
+                "observations_text": "Over 150 years of conservation have stabilized the Jagamohana assembly hall. Current efforts focus on safely evacuating the 1901 internal sand packing while defending against cyclonic moisture intrusion.",
+                "source_name": "Archaeological Survey of India Photographic Archives"
+            },
+            {
+                "site_name": "Taj Mahal",
+                "title": "Yamuna Riverfront & White Marble Radiance (1904 vs 2026)",
+                "historical_year": "1904 CE Lord Curzon Survey",
+                "historical_image_url": "https://i.pinimg.com/originals/f2/cf/71/f2cf717c1bf0c4e1a77fdd97489fae7d.jpg",
+                "historical_image_caption": "Early 20th-century colonial survey showing the original British-style lawn restoration and low industrial presence in Agra.",
+                "current_year": "2026 CE Present Day",
+                "current_image_url": "https://i.pinimg.com/originals/f2/cf/71/f2cf717c1bf0c4e1a77fdd97489fae7d.jpg",
+                "current_image_caption": "High-resolution modern monitoring verifying surface reflectance following non-invasive Multani Mitti clay poultice cycles.",
+                "comparison_category": "Surroundings & Air Quality",
+                "observations_text": "While structural stability remains top-tier (88/100), modern challenges focus on the low riverbed water table of the Yamuna and atmospheric particulate deposition from the surrounding urban basin.",
+                "source_name": "ASI Agra Chemical Division & National Archives"
+            },
+            {
+                "site_name": "Hampi Monuments & Stone Chariot",
+                "title": "Vittala Temple Stone Chariot Preservation (1856 vs 2026)",
+                "historical_year": "1856 CE Alexander Greenlaw Calotype",
+                "historical_image_url": "https://th.bing.com/th/id/R.f10a6bbde9457a12ea4732f440cdd197?rik=M9AwgeYYzuyLsg&riu=http%3a%2f%2fwww.thehistoryhub.com%2fwp-content%2fuploads%2f2014%2f04%2fHampi-Chariot.jpg&ehk=MX5BNohAmJnqbpQiCNi9qn%2fg%2fGeP4wF7LIiyhuF5Ixo%3d&risl=&pid=ImgRaw&r=0",
+                "historical_image_caption": "Earliest known photograph of Hampi's stone chariot with the original brick-and-mortar sikhara tower intact on its upper tier.",
+                "current_year": "2026 CE Present Protection",
+                "current_image_url": "https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg",
+                "current_image_caption": "Present-day stabilized shrine with protective perimeter wooden stanchions to prevent tourist climbing damage.",
+                "comparison_category": "Structure & Preservation",
+                "observations_text": "The brick sikhara was dismantled in the late 19th century to prevent weight collapse onto the carved granite axle. Protective stanchions installed in 2021 have successfully eliminated direct physical abrasion on the wheel hubs.",
+                "source_name": "British Library Calotype Collection & ASI Hampi Circle"
+            }
+        ]
+
+        ThenVsNow.query.delete()
+        for tvn in then_vs_now_data:
+            site = site_objects.get(tvn["site_name"])
+            if site:
+                db.session.add(ThenVsNow(
+                    heritage_site_id=site.id,
+                    title=tvn["title"],
+                    historical_year=tvn["historical_year"],
+                    historical_image_url=tvn["historical_image_url"],
+                    historical_image_caption=tvn["historical_image_caption"],
+                    current_year=tvn["current_year"],
+                    current_image_url=tvn["current_image_url"],
+                    current_image_caption=tvn["current_image_caption"],
+                    comparison_category=tvn["comparison_category"],
+                    observations_text=tvn["observations_text"],
+                    source_name=tvn["source_name"],
+                    source_type="CURATED"
+                ))
+        db.session.commit()
+        print("  ✔ Seeded Archival Then vs Now Visual Comparisons.")
+
+        # 13. Seed Contextual Surroundings Factors
+        surroundings_data = [
+            {"site_name": "Taj Mahal", "factor_type": "River Basin", "name": "Yamuna River Floodplain & Desiccation Zone", "distance_meters": 50, "description": "The seasonal flow variation of River Yamuna impacts the moisture level of subterranean ebony/sal wood foundation wells.", "impact_nature": "Monitored Concern"},
+            {"site_name": "Taj Mahal", "factor_type": "Buffer Greenery", "name": "Mehtab Bagh Northern Buffer Gardens", "distance_meters": 250, "description": "Lush Mughal garden across the river provides a natural particulate buffer against northern winds.", "impact_nature": "Buffer Protection"},
+            {"site_name": "Taj Mahal", "factor_type": "Craft Cluster", "name": "Taj Ganj Historic Artisan Quarter", "distance_meters": 150, "description": "Centuries-old settlement hosting 12th-generation Pietra Dura marble inlay and zardozi master artisans.", "impact_nature": "Cultural Asset"},
+            {"site_name": "Konark Sun Temple (Black Pagoda)", "factor_type": "Buffer Greenery", "name": "Chandrabhaga Coastal Casuarina Shelterbelt", "distance_meters": 1200, "description": "Dense coastal plantation engineered to absorb maritime wind kinetic force and reduce airborne saline sand intrusion.", "impact_nature": "Buffer Protection"},
+            {"site_name": "Hampi Monuments & Stone Chariot", "factor_type": "River Basin", "name": "Tungabhadra River Riparian Ecosystem", "distance_meters": 100, "description": "Perennial river corridor sustaining riparian wildlife, agricultural banana groves, and ancient boulder geology.", "impact_nature": "Positive Ecosystem"}
+        ]
+
+        HeritageSurrounding.query.delete()
+        for sr in surroundings_data:
+            site = site_objects.get(sr["site_name"])
+            if site:
+                db.session.add(HeritageSurrounding(
+                    heritage_site_id=site.id,
+                    factor_type=sr["factor_type"],
+                    name=sr["name"],
+                    distance_meters=sr["distance_meters"],
+                    description=sr["description"],
+                    impact_nature=sr["impact_nature"],
+                    status="Active"
+                ))
+        db.session.commit()
+        print("  ✔ Seeded Contextual Surroundings & Environmental Factors.")
+
+        # 14. Seed Verified Citizen Oral History Community Stories
+        community_stories_data = [
+            {
+                "site_name": "Taj Mahal",
+                "author_name": "Imran Khan",
+                "author_role": "Pietra Dura Master Artisan",
+                "author_email": "imran.tajganj@crafts.in",
+                "title": "Twelve Generations of Inlaying Gemstones in Taj Ganj",
+                "story_content": "My great-great-grandfather worked on the marble restoration under Lord Curzon. He used to tell us how they ground lapis lazuli on emery wheels by hand with mustard oil. Every morning when the Taj glows pink in the sunrise, our workshop begins by chipping floral petals out of malachite. For us, the Taj isn't just a monument; it is our living teacher of patience, geometry, and devotion.",
+                "story_type": "Oral History",
+                "historical_period": "Living Memory (1940s-Present)",
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pietra_Dura_Taj_Mahal.jpg/640px-Pietra_Dura_Taj_Mahal.jpg"
+            },
+            {
+                "site_name": "Konark Sun Temple (Black Pagoda)",
+                "author_name": "Subhasish Mohapatra",
+                "author_role": "Local Historian & Resident",
+                "author_email": "subhasish.puri@heritage.org",
+                "title": "My Grandfather's Tales of the Shifting Chandrabhaga Sands",
+                "story_content": "When I was seven years old, my grandfather took me to the eastern face of the Sun Temple on Magha Saptami. He pointed to the carved chariot wheels and explained how the spokes cast shadows to tell the exact time of day down to three minutes. He remembered when the casuarina trees were first planted to stop the sand dunes from swallowing the lower tier. Konark lives in the rhythm of the Bay of Bengal.",
+                "story_type": "Memory",
+                "historical_period": "1960s Living Memory",
+                "image_url": "https://cdn.britannica.com/19/251919-050-D3E64798/konark-sun-temple-orissa-india-unesco-heritage-site.jpg"
+            },
+            {
+                "site_name": "Hampi Monuments & Stone Chariot",
+                "author_name": "Venkatachalaiah",
+                "author_role": "Anegundi Village Elder",
+                "author_email": "venkat.hampi@karnataka.in",
+                "title": "Hearing the Musical Pillars Resonate on Cool Monsoon Evenings",
+                "story_content": "In 1965, before the stone barricades were erected, my music guru would tap the slender granite pillars of the Vittala Maha Mandapa with sandalwood rods. Seven different musical notes rang out clear as bronze bells through the boulder hills. Though we now protect them from touching, that acoustic resonance taught our entire village the sacred mathematics of stone.",
+                "story_type": "Oral History",
+                "historical_period": "1965 Living Tradition",
+                "image_url": "https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg"
+            },
+            {
+                "site_name": "Brihadisvara Temple (Big Temple)",
+                "author_name": "Dr. Meenakshi Sundaram",
+                "author_role": "Epigraphist & Temple Researcher",
+                "author_email": "meenakshi.chola@tamiluniv.ac.in",
+                "title": "Decoding the 108 Dance Poses Carved into the Second Tier",
+                "story_content": "Climbing the narrow granite stairs inside the Big Temple vimana in 1988 with an ASI permit was the most moving experience of my life. Along the corridor walls, King Rajaraja had carved 108 Karana dance sculptures of Lord Shiva in pure black granite. Each sculptured pose holds the movement of cosmic energy. It is not stone; it is music made solid.",
+                "story_type": "Memory",
+                "historical_period": "1980s Archival Research",
+                "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/78f3ef58411245.59fb28367b6f4.jpg"
+            }
+        ]
+
+        CommunityStory.query.delete()
+        for cs in community_stories_data:
+            site = site_objects.get(cs["site_name"])
+            if site:
+                db.session.add(CommunityStory(
+                    heritage_site_id=site.id,
+                    user_id=user.id,
+                    author_name=cs["author_name"],
+                    author_role=cs["author_role"],
+                    author_email=cs["author_email"],
+                    title=cs["title"],
+                    story_content=cs["story_content"],
+                    story_type=cs["story_type"],
+                    historical_period=cs["historical_period"],
+                    image_url=cs["image_url"],
+                    status="Verified",
+                    source_type="COMMUNITY"
+                ))
+        db.session.commit()
+        print("  ✔ Seeded Verified Citizen Oral Histories & Community Stories.")
+
+        db.session.commit()
+        print("✨ Database successfully seeded with Complete Discovery, Living Culture, Trails & Preservation Intelligence Data!")
 
 if __name__ == "__main__":
     seed_database()
+

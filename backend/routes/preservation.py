@@ -5,6 +5,8 @@ from backend.models import (
     ConditionTimeline, Alert
 )
 from backend.services.health_score_service import HealthScoreService
+from backend.services.what_if_service import WhatIfSimulationService
+from backend.services.heritage_doctor_service import HeritageDoctorService
 from backend.ai.preservation_assistant import generate_site_preservation_brief
 from backend.utils.response import success_response, error_response
 
@@ -134,3 +136,47 @@ def get_all_encroachments():
     
     observations = query.order_by(EncroachmentObservation.created_at.desc()).all()
     return success_response(data=[o.to_dict() for o in observations], message="Encroachment observations retrieved")
+
+
+@preservation_bp.route("/what-if", methods=["POST", "GET"])
+def simulate_what_if():
+    """
+    Predictive Heritage Scenario Simulation Engine.
+    Simulates projected health score and risk level shifts under hypothetical environmental,
+    tourist, encroachment, and maintenance parameter adjustments.
+    """
+    if request.method == "POST":
+        params = request.get_json() or {}
+    else:
+        params = request.args.to_dict()
+
+    site_id = params.get("site_id")
+    if not site_id:
+        # Default to first site if none specified
+        first_site = HeritageSite.query.first()
+        if not first_site:
+            return error_response("No heritage sites available in database", status_code=404)
+        site = first_site
+    else:
+        site = db.session.get(HeritageSite, int(site_id))
+        if not site:
+            return error_response(f"Heritage site #{site_id} not found", status_code=404)
+
+    simulation_result = WhatIfSimulationService.simulate_scenario(site, params)
+    return success_response(data=simulation_result, message=f"What-If scenario simulated for '{site.name}'")
+
+
+@preservation_bp.route("/doctor/<int:site_id>", methods=["GET"])
+def diagnose_monument(site_id):
+    """
+    Heritage Doctor: Diagnostic Condition Assessment & Prescription Engine.
+    Provides evidence-based clinical diagnostics, pathology identification,
+    and structured conservation treatment protocols for a heritage monument.
+    """
+    site = db.session.get(HeritageSite, site_id)
+    if not site:
+        return error_response(f"Heritage site #{site_id} not found", status_code=404)
+
+    diagnosis = HeritageDoctorService.diagnose_site(site)
+    return success_response(data=diagnosis, message=f"Heritage Doctor diagnosis for '{site.name}'")
+

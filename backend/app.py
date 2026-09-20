@@ -15,7 +15,8 @@ from backend.config import Config
 from backend.models import db
 from backend.routes import (
     auth_bp, states_bp, heritage_bp, reports_bp,
-    admin_bp, stats_bp, preservation_bp, alerts_bp
+    admin_bp, stats_bp, preservation_bp, alerts_bp,
+    discovery_bp
 )
 from backend.utils.response import error_response
 
@@ -46,6 +47,7 @@ def create_app(config_class=Config):
     app.register_blueprint(stats_bp)
     app.register_blueprint(preservation_bp)
     app.register_blueprint(alerts_bp)
+    app.register_blueprint(discovery_bp)
 
     # Static Uploads Route
     @app.route("/api/uploads/<path:filename>")
@@ -59,6 +61,8 @@ def create_app(config_class=Config):
         "site-detail": "site-detail.html",
         "heritage": "sites.html",
         "heritage-detail": "site-detail.html",
+        "trails": "trails.html",
+        "community": "community.html",
         "report": "report.html",
         "track": "track.html",
         "my-reports": "my-reports.html",

@@ -16,6 +16,17 @@ from backend.models.preservation import (
     AdminAction
 )
 
+from backend.models.discovery import (
+    MonumentHistoryEvent,
+    HeritageCraft,
+    CulturalTradition,
+    HeritageTrail,
+    TrailStop,
+    ThenVsNow,
+    CommunityStory,
+    HeritageSurrounding
+)
+
 __all__ = [
     "db",
     "User",
@@ -31,5 +42,13 @@ __all__ = [
     "EncroachmentObservation",
     "ConditionTimeline",
     "Alert",
-    "AdminAction"
+    "AdminAction",
+    "MonumentHistoryEvent",
+    "HeritageCraft",
+    "CulturalTradition",
+    "HeritageTrail",
+    "TrailStop",
+    "ThenVsNow",
+    "CommunityStory",
+    "HeritageSurrounding"
 ]

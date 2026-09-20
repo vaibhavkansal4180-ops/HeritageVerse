@@ -6,6 +6,7 @@ from backend.routes.admin import admin_bp
 from backend.routes.stats import stats_bp
 from backend.routes.preservation import preservation_bp
 from backend.routes.alerts import alerts_bp
+from backend.routes.discovery import discovery_bp
 
 __all__ = [
     "auth_bp",
@@ -15,5 +16,6 @@ __all__ = [
     "admin_bp",
     "stats_bp",
     "preservation_bp",
-    "alerts_bp"
+    "alerts_bp",
+    "discovery_bp"
 ]

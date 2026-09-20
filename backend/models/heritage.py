@@ -33,6 +33,14 @@ class HeritageSite(db.Model):
     timelines = db.relationship("ConditionTimeline", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
     alerts = db.relationship("Alert", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
 
+    # Discovery & Cultural Relationships
+    history_events = db.relationship("MonumentHistoryEvent", backref="heritage_site", lazy=True, cascade="all, delete-orphan", order_by="MonumentHistoryEvent.year")
+    crafts = db.relationship("HeritageCraft", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
+    traditions = db.relationship("CulturalTradition", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
+    then_vs_now = db.relationship("ThenVsNow", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
+    community_stories = db.relationship("CommunityStory", backref="heritage_site", lazy=True, cascade="all, delete-orphan", order_by="CommunityStory.created_at.desc()")
+    surroundings = db.relationship("HeritageSurrounding", backref="heritage_site", lazy=True, cascade="all, delete-orphan")
+
     def to_dict(self, include_details=False):
         data = {
             "id": self.id,
@@ -56,6 +64,10 @@ class HeritageSite(db.Model):
             "is_featured": self.is_featured,
             "reports_count": len(self.reports),
             "active_alerts_count": len([a for a in self.alerts if a.status in ["Active", "Acknowledged", "Assigned"]]),
+            "history_count": len(self.history_events),
+            "crafts_count": len(self.crafts),
+            "traditions_count": len(self.traditions),
+            "stories_count": len([s for s in self.community_stories if s.status == "Verified"]),
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
@@ -72,6 +84,14 @@ class HeritageSite(db.Model):
             data["timeline"] = [t.to_dict() for t in sorted(self.timelines, key=lambda x: x.year if x.year else 0)]
             data["alerts"] = [a.to_dict() for a in self.alerts]
             data["recent_reports"] = [r.to_dict() for r in sorted(self.reports, key=lambda x: x.created_at, reverse=True)[:5]]
+
+            # Discovery additions
+            data["history_events"] = [h.to_dict() for h in self.history_events]
+            data["crafts"] = [c.to_dict() for c in self.crafts]
+            data["traditions"] = [t.to_dict() for t in self.traditions]
+            data["then_vs_now"] = [tvn.to_dict() for tvn in self.then_vs_now]
+            data["community_stories"] = [s.to_dict() for s in self.community_stories if s.status == "Verified"]
+            data["surroundings"] = [sr.to_dict() for sr in self.surroundings]
 
         return data
 

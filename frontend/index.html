@@ -3,10 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HeritageVerse – National Heritage Preservation Intelligence Platform</title>
+  <title>HeritageVerse – Past, Present &amp; Future of Indian Heritage</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+    .pillar-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+    .pillar-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(184,92,56,0.12);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,7 +43,7 @@
   <div class="top-civic-strip">
     <div class="container">
       <div>
-        <i class="fas fa-shield-alt"></i> <strong>Archaeological Preservation Intelligence Network</strong> &bull; Ministry of Culture & ASI Monitoring Stream
+        <i class="fas fa-landmark"></i> <strong>HeritageVerse National Platform</strong> &bull; Past, Present &amp; Future of Indian Heritage
       </div>
       <div>
         <span id="top-active-alerts-count"><i class="fas fa-bell"></i> 3 Active Early Warnings</span> &bull; 
@@ -30,7 +59,7 @@
         <div class="brand-icon"><i class="fas fa-landmark"></i></div>
         <div>
           <span class="brand-text">HERITAGEVERSE</span>
-          <span class="brand-sub">PRESERVATION INTELLIGENCE</span>
+          <span class="brand-sub">DISCOVERY &amp; PRESERVATION</span>
         </div>
       </a>
 
@@ -38,10 +67,11 @@
         <ul class="nav-menu" id="site-nav-menu">
           <li><a href="/" class="nav-link active"><i class="fas fa-home"></i> Overview</a></li>
           <li><a href="/sites.html" class="nav-link"><i class="fas fa-archway"></i> Monitored Sites</a></li>
+          <li><a href="/trails.html" class="nav-link"><i class="fas fa-route"></i> Heritage Trails</a></li>
+          <li><a href="/community.html" class="nav-link"><i class="fas fa-hands-helping"></i> Living Culture</a></li>
           <li><a href="/encroachment.html" class="nav-link"><i class="fas fa-vector-square"></i> Encroachment Watch</a></li>
           <li><a href="/alerts.html" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Early Warnings</a></li>
           <li><a href="/track.html" class="nav-link"><i class="fas fa-search-location"></i> Track Report</a></li>
-          <li id="nav-my-reports-link" style="display:none;"><a href="/my-reports.html" class="nav-link"><i class="fas fa-clipboard-list"></i> My Reports</a></li>
           <li id="nav-admin-link" style="display:none;"><a href="/admin.html" class="nav-link" style="color:var(--accent);"><i class="fas fa-tachometer-alt"></i> Command Center</a></li>
         </ul>
       </nav>
@@ -51,348 +81,334 @@
         <div id="nav-auth-container">
           <a href="/login.html" class="auth-btn"><i class="fas fa-user-shield"></i> Portal Login</a>
         </div>
-        <button class="mobile-toggle" id="mobile-toggle-btn"><i class="fas fa-bars"></i></button>
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       </div>
     </div>
   </header>
 
-  <!-- Preservation Pipeline Strip -->
-  <section class="pipeline-strip">
-    <div class="container">
-      <div class="pipeline-steps">
-        <div class="pipe-step"><i class="fas fa-satellite"></i> 1. Detect</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-brain"></i> 2. Analyse</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-calculator"></i> 3. Score</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-sort-amount-down"></i> 4. Prioritize</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-bell"></i> 5. Alert</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-hard-hat"></i> 6. Act</div>
-        <div class="pipe-arrow"><i class="fas fa-chevron-right"></i></div>
-        <div class="pipe-step"><i class="fas fa-clipboard-check"></i> 7. Track</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Hero Section -->
-  <section style="background:#FFFFFF; border-bottom:1px solid var(--border-subtle); padding:3.5rem 0;">
+  <!-- 4-Pillar Portal Hero Section -->
+  <section style="background:#FFFFFF; border-bottom:1px solid var(--border-subtle); padding:3.5rem 0 3rem;">
     <div class="container">
       <div class="index-hero-grid">
         <div>
           <span style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.3rem 0.75rem; background:rgba(23,63,53,0.08); color:var(--primary); font-size:0.78rem; font-weight:700; border-radius:var(--radius-full); text-transform:uppercase; margin-bottom:1rem;">
-            <i class="fas fa-shield-alt"></i> Civic Heritage Intelligence Platform
+            <i class="fas fa-shield-alt"></i> Comprehensive National Heritage Platform
           </span>
           <h1 style="font-family:var(--font-serif); font-size:2.8rem; line-height:1.15; color:var(--primary); margin-bottom:1rem;">
-            Preserving India's Architectural Legacy Through Data & AI Intelligence
+            Connecting the Past, Present &amp; Future of Indian Heritage
           </h1>
           <p style="font-size:1.05rem; color:var(--text-muted); line-height:1.65; margin-bottom:1.75rem;">
-            An integrated threat detection and risk intelligence platform that evaluates structural vulnerabilities, buffer zone encroachments, environmental degradation, and tourist pressure to prioritize critical conservation action.
+            HeritageVerse bridges historical storytelling, living artisan culture, architectural context, and preservation intelligence into an explorable national platform with explainable risk scoring, clinical diagnostics, and predictive What-If simulations.
           </p>
           <div style="display:flex; gap:0.85rem; flex-wrap:wrap;">
-            <a href="/sites.html" class="btn btn-primary"><i class="fas fa-archway"></i> Explore Monitored Registry</a>
-            <a href="/report.html" class="btn btn-accent"><i class="fas fa-bullhorn"></i> Submit Citizen Watch Report</a>
-            <a href="/admin.html" class="btn btn-secondary"><i class="fas fa-tachometer-alt"></i> Command Center</a>
+            <a href="/sites.html" class="btn btn-primary"><i class="fas fa-archway"></i> Explore National Registry</a>
+            <a href="/trails.html" class="btn btn-secondary"><i class="fas fa-route"></i> Thematic Trails</a>
+            <a href="/community.html" class="btn btn-secondary"><i class="fas fa-feather-alt"></i> Living Memories</a>
+            <a href="/report.html" class="btn btn-accent"><i class="fas fa-bullhorn"></i> Citizen Watch</a>
           </div>
         </div>
 
-        <!-- Fast Citizen Report Tracker Widget -->
+        <!-- Interactive Quick What-If Simulation Card -->
         <div class="card" style="border-top:4px solid var(--accent); padding:2rem;">
-          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.4rem;">
-            <i class="fas fa-search-location" style="color:var(--accent);"></i> Public Report Tracker
-          </h3>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary);">
+              <i class="fas fa-sliders-h" style="color:var(--accent);"></i> What-If Scenario Simulator
+            </h3>
+            <span class="provenance-tag provenance-simulated">SIMULATED</span>
+          </div>
           <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
-            Track the live inspection, verification, and administrative resolution status of any citizen-submitted incident report.
+            Simulate how visitor footfall surges and air pollution impact monument health scores in real time:
           </p>
-          <form id="fast-track-form">
-            <div class="form-group">
-              <label class="form-label">Enter Tracking UID</label>
-              <input type="text" id="track-uid-input" class="form-control" placeholder="e.g. HV-2026-7A1B2C" required style="font-family:monospace; font-size:1rem; letter-spacing:1px; text-transform:uppercase;">
+
+          <div style="margin-bottom:1rem;">
+            <label style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:600; margin-bottom:0.25rem;">
+              <span>Monument:</span>
+              <span style="color:var(--primary);">Konark Sun Temple</span>
+            </label>
+            <select id="quick-whatif-site" style="width:100%; padding:0.5rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle); background:#FFFFFF; font-size:0.85rem;">
+              <option value="1">Konark Sun Temple (Black Pagoda)</option>
+              <option value="2">Taj Mahal</option>
+              <option value="3">Hampi Monuments &amp; Stone Chariot</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:600; margin-bottom:0.25rem;">
+              <span>Visitor Footfall Multiplier:</span>
+              <span id="quick-tourist-val" style="color:var(--accent);">150% (+50% Surge)</span>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">
-              <i class="fas fa-search"></i> Track Incident Status
-            </button>
-          </form>
-          <div style="margin-top:1rem; font-size:0.75rem; color:var(--text-dim); text-align:center;">
-            Sample UID for demo: <a href="/track.html?uid=HV-2026-7A1B2C" style="color:var(--accent); font-weight:600;">HV-2026-7A1B2C</a>
+            <input type="range" id="quick-tourist-slider" min="0.5" max="2.2" step="0.1" value="1.5" style="width:100%;">
+          </div>
+
+          <div style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:600; margin-bottom:0.25rem;">
+              <span>Air Quality Index (AQI):</span>
+              <span id="quick-aqi-val" style="color:var(--accent);">280 AQI (Unhealthy)</span>
+            </div>
+            <input type="range" id="quick-aqi-slider" min="30" max="450" step="10" value="280" style="width:100%;">
+          </div>
+
+          <div style="background:var(--bg-card-alt); padding:1rem; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Projected Health Score</div>
+              <div style="font-family:var(--font-serif); font-size:1.8rem; font-weight:800; color:var(--primary);" id="quick-result-score">39/100</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="delta-tag delta-neg" id="quick-result-delta">-9.0 pts</span>
+              <div style="font-size:0.78rem; font-weight:700; color:var(--risk-crit); margin-top:0.2rem;" id="quick-result-risk">Critical Alert</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem; text-align:center;">
+            <a href="/site-detail.html?id=1" id="quick-whatif-link" class="btn btn-secondary btn-sm" style="width:100%;">
+              Open Full 360° Monument Dossier &rarr;
+            </a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- National Preservation KPIs -->
-  <main class="main-content">
+  <!-- 4 PLATFORM PILLARS -->
+  <section style="padding: 4rem 0; background: var(--bg-main);">
     <div class="container">
-      
-      <div class="page-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
-        <div>
-          <h2 class="page-title">National Preservation Status Overview</h2>
-          <p class="page-subtitle">Real-time aggregate telemetry and vulnerability metrics across India's monitored monuments.</p>
-        </div>
-        <div style="font-size:0.8rem; color:var(--text-dim);">
-          <i class="fas fa-sync-alt"></i> Automated Assessment Stream Active
-        </div>
+      <div style="text-align:center; max-width:720px; margin:0 auto 3rem;">
+        <span class="provenance-tag provenance-official" style="margin-bottom:0.5rem;"><i class="fas fa-layer-group"></i> Four Integrated Pillars</span>
+        <h2 style="font-family:var(--font-serif); font-size:2.2rem; color:var(--primary); margin:0.5rem 0;">A Dual-Audience Platform for Explorers &amp; Conservators</h2>
+        <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">
+          Bridging cultural appreciation for public explorers with rigorous condition telemetry and clinical diagnostics for conservation authorities.
+        </p>
       </div>
 
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap"><i class="fas fa-monument"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-total-sites">0</div>
-            <div class="kpi-label">Monitored Monuments</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap success-icon"><i class="fas fa-shield-alt"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-healthy-sites">0</div>
-            <div class="kpi-label">Healthy Sites (&gt;85)</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap warning-icon"><i class="fas fa-exclamation"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-attention-sites">0</div>
-            <div class="kpi-label">Attention Required</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap alert-icon"><i class="fas fa-radiation"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-critical-sites">0</div>
-            <div class="kpi-label">Critical / High Risk</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap alert-icon"><i class="fas fa-bell"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-active-alerts">0</div>
-            <div class="kpi-label">Active Warnings</div>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap"><i class="fas fa-clipboard-list"></i></div>
-          <div>
-            <div class="kpi-number" id="stat-open-reports">0</div>
-            <div class="kpi-label">Open Citizen Reports</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Monitored Heritage Risk Registry -->
-      <div class="card" style="padding:2rem; margin-bottom:3rem;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
-          <div>
-            <h3 style="font-family:var(--font-serif); font-size:1.4rem; color:var(--primary);">
-              <i class="fas fa-table" style="color:var(--accent);"></i> Monitored Heritage Monuments Registry
-            </h3>
-            <p style="font-size:0.85rem; color:var(--text-muted);">
-              Comprehensive health scores, risk levels, environmental stress, and quick access to site dossiers.
-            </p>
-          </div>
-          <a href="/sites.html" class="btn btn-secondary btn-sm"><i class="fas fa-list"></i> View All Sites</a>
-        </div>
-
-        <div class="data-table-wrap">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Monument & Location</th>
-                <th>Category</th>
-                <th>Heritage Health Score</th>
-                <th>Overall Risk</th>
-                <th>Preservation Status</th>
-                <th>Active Reports</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="home-sites-tbody">
-              <tr>
-                <td colspan="7" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading monitored monuments...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Active Early Warnings & AI Decision Support Highlight -->
-      <div class="index-framework-grid">
-        
-        <!-- Early Warning Alert Center -->
-        <div class="card" style="padding:1.75rem;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
-            <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary);">
-              <i class="fas fa-exclamation-triangle" style="color:var(--risk-crit);"></i> Active Early Warning Alerts
-            </h3>
-            <a href="/alerts.html" style="font-size:0.8rem; font-weight:700; color:var(--accent);">Alert Center &rarr;</a>
-          </div>
-          <div id="home-alerts-container">
-            <div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Loading live alerts...</div>
-          </div>
-        </div>
-
-        <!-- Platform Architectural Framework -->
-        <div class="card" style="padding:1.75rem; background:var(--bg-card-alt); border-left:4px solid var(--primary);">
-          <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary); margin-bottom:0.5rem;">
-            <i class="fas fa-cogs" style="color:var(--primary);"></i> Preservation Intelligence Framework
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem;">
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-wrap"><i class="fas fa-hourglass-start"></i></div>
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.5rem;">
+            1. Historical Storytelling
           </h3>
-          <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6; margin-bottom:1.25rem;">
-            HeritageVerse ingests multi-source data to generate objective, transparent Heritage Health Scores (0–100) and actionable decision support:
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1rem; flex:1;">
+            Rich chronological event ledgers, construction histories, imperial chronicles, and archival then-vs-now photographic comparisons with verified data provenance.
           </p>
-          <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem;">
-            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
-              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
-              <div><strong>Citizen Heritage Watch:</strong> Crowdsourced photo evidence with automated AI preliminary damage estimation.</div>
-            </div>
-            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
-              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
-              <div><strong>Encroachment Monitor:</strong> Multi-temporal satellite and drone observation in 100m/300m protected statutory buffer zones.</div>
-            </div>
-            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
-              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
-              <div><strong>Multi-Hazard Risk Engine:</strong> Automated tracking of flood inundation, seismic vulnerability, and micro-climate AQI corrosion.</div>
-            </div>
-            <div style="display:flex; gap:0.6rem; align-items:flex-start;">
-              <i class="fas fa-check-circle" style="color:var(--primary); margin-top:0.2rem;"></i>
-              <div><strong>AI Preservation Assistant:</strong> On-site field inspection checklists and prioritized mitigation recommendations.</div>
-            </div>
-          </div>
+          <a href="/trails.html" class="btn btn-secondary btn-sm" style="margin-top:auto;"><i class="fas fa-route"></i> Thematic Trails</a>
         </div>
 
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-wrap" style="background:rgba(47,102,88,0.12); color:var(--secondary);"><i class="fas fa-hands"></i></div>
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.5rem;">
+            2. Living Culture &amp; Crafts
+          </h3>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1rem; flex:1;">
+            Indigenous artisan guilds, master craft techniques (Pietra Dura, Tanjore gold foil, Patola weaving), seasonal festivals, and citizen oral histories.
+          </p>
+          <a href="/community.html" class="btn btn-secondary btn-sm" style="margin-top:auto;"><i class="fas fa-comments"></i> Explore Culture</a>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-wrap" style="background:rgba(23,63,53,0.12); color:var(--primary);"><i class="fas fa-heartbeat"></i></div>
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.5rem;">
+            3. Preservation Intelligence
+          </h3>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1rem; flex:1;">
+            Multi-dimensional transparent 0–100 health indices, environmental micro-climate telemetry, 100m/300m statutory buffer zone encroachment surveillance.
+          </p>
+          <a href="/sites.html" class="btn btn-secondary btn-sm" style="margin-top:auto;"><i class="fas fa-archway"></i> Monitored Sites</a>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-wrap" style="background:rgba(142,68,173,0.12); color:#7D3C98;"><i class="fas fa-user-md"></i></div>
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; color:var(--primary); margin-bottom:0.5rem;">
+            4. Heritage Doctor &amp; What-If
+          </h3>
+          <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1rem; flex:1;">
+            Clinical diagnostic appraisal with pathology prescriptions, NDT inspection checklists, and predictive parameter simulation for preventative decision-support.
+          </p>
+          <a href="/site-detail.html?id=1" class="btn btn-secondary btn-sm" style="margin-top:auto;"><i class="fas fa-stethoscope"></i> View Diagnosis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED MONUMENTS REGISTRY HIGHLIGHTS -->
+  <section style="padding: 4rem 0; background: #FFFFFF; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle);">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+          <span class="provenance-tag provenance-official"><i class="fas fa-check-circle"></i> National Registry</span>
+          <h2 style="font-family:var(--font-serif); font-size:2rem; color:var(--primary); margin-top:0.25rem;">Monitored Heritage Monuments</h2>
+          <p style="color:var(--text-muted); font-size:0.92rem;">Real-time condition ratings, historical profiles, and living culture dossiers.</p>
+        </div>
+        <a href="/sites.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> View All 8 Monuments</a>
       </div>
 
+      <div class="sites-grid" id="featured-sites-grid">
+        <div style="text-align:center; padding:3rem; grid-column:1/-1;">
+          <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--accent);"></i>
+          <p style="margin-top:1rem; color:var(--text-muted);">Loading monitored monuments...</p>
+        </div>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- THEMATIC TRAILS SPOTLIGHT -->
+  <section style="padding: 4rem 0; background: var(--bg-main);">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+        <div>
+          <span class="provenance-tag provenance-curated"><i class="fas fa-route"></i> Curated Circuits</span>
+          <h2 style="font-family:var(--font-serif); font-size:2rem; color:var(--primary); margin-top:0.25rem;">Featured Heritage Trails</h2>
+          <p style="color:var(--text-muted); font-size:0.92rem;">Explore interconnected historical narratives and architectural themes.</p>
+        </div>
+        <a href="/trails.html" class="btn btn-secondary btn-sm"><i class="fas fa-map-marked-alt"></i> All Trails</a>
+      </div>
+
+      <div class="trails-grid" id="homepage-trails-grid">
+        <div style="text-align:center; padding:2rem; grid-column:1/-1; color:var(--text-muted);">Loading featured trails...</div>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand"><i class="fas fa-landmark"></i> HERITAGEVERSE</div>
-          <p class="footer-desc">
-            National Heritage Preservation Intelligence Platform. Dedicated to automated threat detection, multi-hazard risk assessment, early warning alerts, and actionable conservation decision support for India's archaeological treasures.
-          </p>
-        </div>
-        <div>
-          <h4 class="footer-title">Platform Intelligence</h4>
-          <ul class="footer-links">
-            <li><a href="/sites.html">Monitored Heritage Sites</a></li>
-            <li><a href="/encroachment.html">Encroachment & Buffer Zones</a></li>
-            <li><a href="/alerts.html">Early Warning Alert Center</a></li>
-            <li><a href="/admin.html">Command Center Dashboard</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-title">Citizen Engagement</h4>
-          <ul class="footer-links">
-            <li><a href="/report.html">Submit Incident Report</a></li>
-            <li><a href="/track.html">Track Existing Report</a></li>
-            <li><a href="/login.html">Officer / Admin Login</a></li>
-          </ul>
-        </div>
-      </div>
       <div class="footer-bottom">
-        <span>&copy; 2026 HeritageVerse &bull; Civic Heritage Preservation Platform</span>
-        <span>Built with Python Flask &bull; PostgreSQL &bull; AI Decision Support</span>
+        <span>&copy; 2026 HeritageVerse &bull; National Heritage Platform &bull; Discovery, Living Culture &amp; Preservation Intelligence</span>
+        <span>Archaeological Survey of India &bull; UNESCO Data Provenance Integration</span>
       </div>
     </div>
   </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/auth.js"></script>
-  <script src="/js/reports.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      CitizenWatch.bindEvents();
+      loadFeaturedMonuments();
+      loadHomepageTrails();
+      initHomepageWhatIf();
+    });
 
+    async function loadFeaturedMonuments() {
       try {
-        const res = await APIClient.get('/api/preservation/dashboard');
-        const data = res.data;
-        const s = data.summary || {};
+        const res = await fetch('/api/heritage');
+        const json = await res.json();
+        const sites = json.data || [];
+        const grid = document.getElementById('featured-sites-grid');
+        if (!grid) return;
 
-        document.getElementById('stat-total-sites').textContent = s.total_monitored_sites || 0;
-        document.getElementById('stat-healthy-sites').textContent = s.healthy_sites || 0;
-        document.getElementById('stat-attention-sites').textContent = s.attention_sites || 0;
-        document.getElementById('stat-critical-sites').textContent = (s.high_risk_sites || 0) + (s.critical_sites || 0);
-        document.getElementById('stat-active-alerts').textContent = s.active_alerts_count || 0;
-        document.getElementById('stat-open-reports').textContent = s.open_reports_count || 0;
-
-        document.getElementById('top-active-alerts-count').innerHTML = `<i class="fas fa-bell"></i> ${s.active_alerts_count || 0} Active Early Warnings`;
-
-        // Load Sites Registry Table
-        const sitesRes = await APIClient.get('/api/heritage');
-        const sites = sitesRes.data || [];
-        const tbody = document.getElementById('home-sites-tbody');
-
-        tbody.innerHTML = sites.map(site => {
+        grid.innerHTML = sites.slice(0, 4).map(site => {
           let scoreClass = 'score-healthy';
           if (site.current_health_score < 50) scoreClass = 'score-critical';
           else if (site.current_health_score < 70) scoreClass = 'score-high';
           else if (site.current_health_score < 85) scoreClass = 'score-attention';
 
+          const risk = (site.risk_level || 'Low').toLowerCase();
           return `
-            <tr>
-              <td>
-                <strong style="font-family:var(--font-serif); font-size:1rem; color:var(--primary);">
-                  <a href="/site-detail.html?id=${site.id}">${site.name}</a>
-                </strong>
-                <div style="font-size:0.78rem; color:var(--text-dim);">${site.city}, ${site.state_name || 'India'}</div>
-              </td>
-              <td><span class="badge" style="background:var(--bg-card-alt); font-size:0.75rem; font-weight:600;">${site.heritage_category}</span></td>
-              <td>
-                <span class="health-score-badge ${scoreClass}">
-                  <i class="fas fa-heartbeat"></i> ${site.current_health_score}/100
-                </span>
-              </td>
-              <td>
-                <span class="risk-badge risk-${site.risk_level.toLowerCase()}">${site.risk_level}</span>
-              </td>
-              <td><span style="font-size:0.82rem; color:var(--text-muted);">${site.preservation_status}</span></td>
-              <td>
-                <span style="font-weight:700; color:var(--accent); font-size:0.85rem;">
-                  <i class="fas fa-flag"></i> ${site.reports_count || 0}
-                </span>
-              </td>
-              <td>
-                <a href="/site-detail.html?id=${site.id}" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-file-alt"></i> Dossier
-                </a>
-              </td>
-            </tr>
-          `;
-        }).join('');
-
-        // Load Alerts
-        const alertsContainer = document.getElementById('home-alerts-container');
-        const alerts = data.active_early_warnings || [];
-
-        if (alerts.length === 0) {
-          alertsContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">No critical alerts currently active.</div>`;
-        } else {
-          alertsContainer.innerHTML = alerts.slice(0, 4).map(a => `
-            <div class="alert-card priority-${a.priority}" style="margin-bottom:0.75rem; padding:1rem;">
-              <div>
-                <span class="risk-badge risk-${a.priority.toLowerCase()}">${a.priority}</span>
+            <div class="site-card">
+              <div class="site-card-img-wrap">
+                <img src="${site.image_url || '/assets/images/heritage-placeholder.svg'}" alt="${site.name}" class="site-card-img" onerror="this.src='/assets/images/heritage-placeholder.svg'">
+                <div class="site-card-badges-top">
+                  <span class="health-score-badge ${scoreClass}">
+                    <i class="fas fa-heart-pulse"></i> ${site.current_health_score}/100
+                  </span>
+                </div>
+                <div class="site-card-badges-bottom">
+                  <span class="risk-badge risk-${risk}">${site.risk_level} Risk</span>
+                </div>
               </div>
-              <div>
-                <div style="font-size:0.75rem; color:var(--accent); font-weight:700;">${a.alert_type}</div>
-                <h5 style="font-family:var(--font-serif); font-size:0.95rem; color:var(--primary); margin:0.1rem 0;">
-                  <a href="/site-detail.html?id=${a.heritage_site_id}">${a.heritage_site_name || 'Monument'}</a> — ${a.title}
-                </h5>
-                <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.description}</p>
+              <div class="site-card-body">
+                <div class="site-category-tag">${site.heritage_category || 'National Monument'} &bull; ${site.state_name || 'India'}</div>
+                <h3 class="site-title"><a href="/site-detail.html?id=${site.id}">${site.name}</a></h3>
+                <div class="site-meta"><i class="fas fa-history"></i> ${site.historical_period || 'Historical Era'}</div>
+                <p class="site-desc">${site.description}</p>
+                <div class="site-card-footer">
+                  <span style="font-size:0.75rem; color:var(--text-dim);"><i class="fas fa-hands"></i> Living Culture Active</span>
+                  <a href="/site-detail.html?id=${site.id}" class="btn btn-primary btn-sm">360° Dossier &rarr;</a>
+                </div>
               </div>
             </div>
-          `).join('');
-        }
-
-      } catch (err) {
-        console.error('[Index] Error loading data:', err);
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('Failed to load featured monuments:', e);
       }
-    });
+    }
+
+    async function loadHomepageTrails() {
+      try {
+        const res = await fetch('/api/heritage/trails');
+        const data = await res.json();
+        const trails = data.trails || [];
+        const grid = document.getElementById('homepage-trails-grid');
+        if (!grid) return;
+
+        grid.innerHTML = trails.slice(0, 2).map(tr => `
+          <div class="trail-card">
+            <div class="trail-hero-wrap">
+              <img src="${tr.featured_image_url || '/assets/images/heritage-placeholder.svg'}" alt="${tr.title}" onerror="this.src='/assets/images/heritage-placeholder.svg'">
+              <span class="provenance-tag provenance-curated" style="position:absolute; top:12px; left:12px;"><i class="fas fa-route"></i> ${tr.theme}</span>
+              <span class="badge" style="position:absolute; top:12px; right:12px; background:rgba(23,63,53,0.85); color:#FFFFFF; font-weight:700;"><i class="far fa-clock"></i> ${tr.estimated_duration}</span>
+            </div>
+            <div class="trail-body">
+              <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--primary); margin-bottom:0.4rem;">${tr.title}</h3>
+              <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.55; margin-bottom:0.75rem;">${tr.description}</p>
+              <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.78rem; font-weight:600; color:var(--accent);"><i class="fas fa-map-pin"></i> ${tr.total_stops} Monument Stops</span>
+                <a href="/trails.html" class="btn btn-secondary btn-sm">View Trail &rarr;</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error('Failed to load homepage trails:', e);
+      }
+    }
+
+    function initHomepageWhatIf() {
+      const siteSelect = document.getElementById('quick-whatif-site');
+      const touristSlider = document.getElementById('quick-tourist-slider');
+      const aqiSlider = document.getElementById('quick-aqi-slider');
+
+      const updateSimulation = async () => {
+        const sId = siteSelect ? siteSelect.value : '1';
+        const tMult = touristSlider ? parseFloat(touristSlider.value) : 1.5;
+        const aqiVal = aqiSlider ? parseInt(aqiSlider.value) : 280;
+
+        document.getElementById('quick-tourist-val').textContent = `${Math.round(tMult * 100)}% (${tMult > 1 ? '+' : ''}${Math.round((tMult-1)*100)}%)`;
+        document.getElementById('quick-aqi-val').textContent = `${aqiVal} AQI (${aqiVal > 200 ? 'Unhealthy' : (aqiVal > 100 ? 'Moderate' : 'Good')})`;
+        document.getElementById('quick-whatif-link').href = `/site-detail.html?id=${sId}`;
+
+        try {
+          const res = await fetch('/api/preservation/what-if', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ site_id: parseInt(sId), tourist_multiplier: tMult, aqi: aqiVal })
+          });
+          const json = await res.json();
+          const d = json.data;
+          if (d) {
+            document.getElementById('quick-result-score').textContent = `${d.projected.health_score}/100`;
+            const deltaEl = document.getElementById('quick-result-delta');
+            deltaEl.textContent = `${d.score_delta > 0 ? '+' : ''}${d.score_delta} pts`;
+            deltaEl.className = `delta-tag ${d.score_delta >= 0 ? 'delta-pos' : 'delta-neg'}`;
+            document.getElementById('quick-result-risk').textContent = d.projected.risk_level + ' Risk';
+          }
+        } catch (err) {
+          console.error('Homepage what-if error:', err);
+        }
+      };
+
+      [siteSelect, touristSlider, aqiSlider].forEach(el => {
+        if (el) {
+          el.addEventListener('input', updateSimulation);
+          el.addEventListener('change', updateSimulation);
+        }
+      });
+
+      updateSimulation();
+    }
   </script>
 </body>
 </html>

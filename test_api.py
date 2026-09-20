@@ -260,9 +260,138 @@ class HeritageVersePreservationTestSuite(unittest.TestCase):
         self.assertIn("encroachments_detected_count", data)
         print("  [PASS] Public Preservation Statistics verified")
 
+    def test_14_full_site_profile(self):
+        """Test unified Monument Profile 2.0 endpoint."""
+        res = self.client.get(f'/api/heritage/sites/{self.test_site_id}/full-profile')
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()
+        self.assertIn("site", data)
+        self.assertIn("health_analysis", data)
+        self.assertIn("heritage_doctor", data)
+        self.assertIn("history_events", data)
+        self.assertIn("crafts", data)
+        self.assertIn("traditions", data)
+        self.assertIn("then_vs_now", data)
+        self.assertIn("surroundings", data)
+        self.assertIn("community_stories", data)
+        self.assertIn("data_provenance", data)
+        print("  [PASS] Full 360° Monument Dossier profile endpoint verified")
+
+    def test_15_history_events(self):
+        """Test historical chronology timeline events."""
+        res = self.client.get(f'/api/heritage/history/{self.test_site_id}')
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()
+        self.assertIn("timeline", data)
+        self.assertGreater(len(data["timeline"]), 0)
+        print("  [PASS] Chronological History Events ledger verified")
+
+    def test_16_living_crafts_and_traditions(self):
+        """Test living artisan crafts and cultural traditions."""
+        # Crafts
+        res_crafts = self.client.get('/api/heritage/crafts')
+        self.assertEqual(res_crafts.status_code, 200)
+        crafts = res_crafts.get_json()["crafts"]
+        self.assertGreater(len(crafts), 0)
+        self.assertIn("artisan_cluster_location", crafts[0])
+
+        # Traditions
+        res_traditions = self.client.get('/api/heritage/traditions')
+        self.assertEqual(res_traditions.status_code, 200)
+        traditions = res_traditions.get_json()["traditions"]
+        self.assertGreater(len(traditions), 0)
+        self.assertIn("tradition_type", traditions[0])
+        print("  [PASS] Living Artisan Crafts & Cultural Traditions verified")
+
+    def test_17_thematic_trails(self):
+        """Test curated thematic exploration trails."""
+        res = self.client.get('/api/heritage/trails')
+        self.assertEqual(res.status_code, 200)
+        trails = res.get_json()["trails"]
+        self.assertGreater(len(trails), 0)
+        self.assertIn("stops", trails[0])
+        self.assertGreater(len(trails[0]["stops"]), 0)
+
+        # Trail detail by slug
+        slug = trails[0]["slug"]
+        res_detail = self.client.get(f'/api/heritage/trails/{slug}')
+        self.assertEqual(res_detail.status_code, 200)
+        self.assertEqual(res_detail.get_json()["slug"], slug)
+        print("  [PASS] Curated Thematic Trails & Sequential Stops verified")
+
+    def test_18_then_vs_now_comparisons(self):
+        """Test archival Then vs Now photographic comparisons."""
+        res = self.client.get('/api/heritage/then-vs-now')
+        self.assertEqual(res.status_code, 200)
+        comps = res.get_json()["comparisons"]
+        self.assertGreater(len(comps), 0)
+        self.assertIn("historical_year", comps[0])
+        self.assertIn("current_year", comps[0])
+        self.assertIn("observations_text", comps[0])
+        print("  [PASS] Archival Then vs Now Visual Comparisons verified")
+
+    def test_19_heritage_doctor_diagnosis(self):
+        """Test Heritage Doctor clinical condition appraisal."""
+        res = self.client.get(f'/api/preservation/doctor/{self.test_site_id}')
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()["data"]
+        self.assertIn("clinical_grade", data)
+        self.assertIn("grade_badge", data)
+        self.assertIn("diagnostic_confidence_percentage", data)
+        self.assertIn("identified_pathologies", data)
+        self.assertIn("clinical_prescriptions", data)
+        self.assertIn("statutory_compliance", data)
+        print("  [PASS] Heritage Doctor Clinical Diagnostics & Treatment Protocol verified")
+
+    def test_20_what_if_simulation(self):
+        """Test What-If predictive simulation engine."""
+        res = self.client.post('/api/preservation/what-if', json={
+            "site_id": self.test_site_id,
+            "tourist_multiplier": 1.8,
+            "aqi": 320,
+            "monsoon_severity": "heavy",
+            "buffer_intrusion": "severe_regulated_breach",
+            "maintenance_regime": "deferred_3yr",
+            "green_buffer_expanded": False,
+            "visitor_timed_entry": False
+        })
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()["data"]
+        self.assertIn("baseline", data)
+        self.assertIn("projected", data)
+        self.assertIn("score_delta", data)
+        self.assertIn("factor_attribution", data)
+        self.assertIn("recommended_preventative_actions", data)
+        self.assertEqual(data["provenance"], "SIMULATED")
+        print("  [PASS] What-If Predictive Scenario Simulation verified")
+
+    def test_21_community_stories_flow(self):
+        """Test citizen oral history submission and listing."""
+        # List verified stories
+        res_list = self.client.get('/api/community/stories')
+        self.assertEqual(res_list.status_code, 200)
+        stories = res_list.get_json()["stories"]
+        self.assertGreater(len(stories), 0)
+
+        # Submit new story
+        res_submit = self.client.post('/api/community/stories', json={
+            "heritage_site_id": self.test_site_id,
+            "author_name": "Radhika Mehra",
+            "author_role": "Heritage Architecture Student",
+            "title": "Evening Reflections on Ancient Geometry",
+            "story_content": "Studying the precise shadow-casting alignment of the stone carvings during sunset was an unforgettable revelation in ancient trigonometry.",
+            "story_type": "Memory",
+            "historical_period": "Living Memory"
+        })
+        self.assertEqual(res_submit.status_code, 201)
+        new_story = res_submit.get_json()["story"]
+        self.assertEqual(new_story["author_name"], "Radhika Mehra")
+        print("  [PASS] Citizen Oral History Submission & Community Feed verified")
+
 
 if __name__ == '__main__':
     print("\n=======================================================")
     print(" RUNNING HERITAGEVERSE PRESERVATION INTELLIGENCE SUITE")
     print("=======================================================\n")
     unittest.main(verbosity=2)
+
