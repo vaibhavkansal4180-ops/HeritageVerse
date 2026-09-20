@@ -62,16 +62,16 @@ class HeritageSite(db.Model):
             "carrying_capacity_daily": self.carrying_capacity_daily,
             "image_url": self.image_url,
             "is_featured": self.is_featured,
-            "reports_count": len(self.reports),
-            "active_alerts_count": len([a for a in self.alerts if a.status in ["Active", "Acknowledged", "Assigned"]]),
-            "history_count": len(self.history_events),
-            "crafts_count": len(self.crafts),
-            "traditions_count": len(self.traditions),
-            "stories_count": len([s for s in self.community_stories if s.status == "Verified"]),
             "created_at": self.created_at.isoformat() if self.created_at else None
         }
 
         if include_details:
+            data["reports_count"] = len(self.reports)
+            data["active_alerts_count"] = len([a for a in self.alerts if a.status in ["Active", "Acknowledged", "Assigned"]])
+            data["history_count"] = len(self.history_events)
+            data["crafts_count"] = len(self.crafts)
+            data["traditions_count"] = len(self.traditions)
+            data["stories_count"] = len([s for s in self.community_stories if s.status == "Verified"])
             data["gallery"] = [img.to_dict() for img in self.images]
             latest_risk = self.risk_assessments[-1].to_dict() if self.risk_assessments else None
             latest_env = self.environmental_records[-1].to_dict() if self.environmental_records else None

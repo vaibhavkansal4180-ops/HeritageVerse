@@ -26,7 +26,8 @@ def get_all_heritage_sites():
     if is_featured is not None:
         query = query.filter_by(is_featured=(is_featured.lower() == "true"))
 
-    sites = query.order_by(HeritageSite.name.asc()).all()
+    from sqlalchemy.orm import joinedload
+    sites = query.options(joinedload(HeritageSite.state)).order_by(HeritageSite.name.asc()).all()
     return success_response(
         data=[site.to_dict() for site in sites],
         message=f"Retrieved {len(sites)} monitored heritage sites"
