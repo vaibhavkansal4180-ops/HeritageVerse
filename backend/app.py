@@ -122,6 +122,10 @@ def init_db(app):
         try:
             db.create_all()
         except Exception as e:
+            try:
+                db.session.rollback()
+            except Exception:
+                pass
             print(f"[DB Warning] Could not auto-create tables on init: {e}")
 
 

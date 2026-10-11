@@ -6,7 +6,7 @@ class HeritageSite(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     state_id = db.Column(db.Integer, db.ForeignKey("states.id", ondelete="CASCADE"), nullable=False, index=True)
-    name = db.Column(db.String(150), nullable=False, unique=True, index=True)
+    name = db.Column(db.String(150), nullable=False, index=True)
     city = db.Column(db.String(100), nullable=False)
     historical_period = db.Column(db.String(100), nullable=True) # e.g. Mughal, Chola, Rajput, Ancient Maurya
     heritage_category = db.Column(db.String(100), default="Monuments & Forts") # Monuments & Forts, Sacred & Temple Architecture, Cave & Rock-Cut Shrines, Archaeological Excavations, Colonial & Urban Heritage
