@@ -38,7 +38,9 @@ class Config:
     if _raw_db_url and _raw_db_url.strip():
         _clean_url = _raw_db_url.strip()
         if _clean_url.startswith("postgres://"):
-            _clean_url = _clean_url.replace("postgres://", "postgresql://", 1)
+            _clean_url = _clean_url.replace("postgres://", "postgresql+psycopg2://", 1)
+        elif _clean_url.startswith("postgresql://") and not _clean_url.startswith("postgresql+"):
+            _clean_url = _clean_url.replace("postgresql://", "postgresql+psycopg2://", 1)
         if IS_PRODUCTION and _clean_url.startswith("sqlite"):
             raise RuntimeError(
                 "FATAL CONFIGURATION ERROR: SQLite database URI is not supported in a production/Vercel environment. "
