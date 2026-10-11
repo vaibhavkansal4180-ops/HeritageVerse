@@ -118,15 +118,17 @@ def create_app(config_class=Config):
 def init_db(app):
     """Initializes SQLAlchemy database connection and creates tables if they don't exist."""
     db.init_app(app)
-    with app.app_context():
-        try:
-            db.create_all()
-        except Exception as e:
+    # Avoid DB connection overhead and lock contention during serverless cold starts
+    if not app.config.get("IS_PRODUCTION", False):
+        with app.app_context():
             try:
-                db.session.rollback()
-            except Exception:
-                pass
-            print(f"[DB Warning] Could not auto-create tables on init: {e}")
+                db.create_all()
+            except Exception as e:
+                try:
+                    db.session.rollback()
+                except Exception:
+                    pass
+                print(f"[DB Warning] Could not auto-create tables on init: {e}")
 
 
 # Default WSGI application instance

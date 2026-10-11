@@ -34,7 +34,7 @@ class Config:
     # Database Settings
     # Supports PostgreSQL via DATABASE_URL (Neon, Supabase, Vercel Postgres, AWS RDS, etc.)
     # Automatically converts legacy 'postgres://' to 'postgresql://' for SQLAlchemy compatibility
-    _raw_db_url = os.getenv("DATABASE_URL")
+    _raw_db_url = os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL") or os.getenv("POSTGRES_PRISMA_URL")
     if _raw_db_url and _raw_db_url.strip():
         _clean_url = _raw_db_url.strip()
         if _clean_url.startswith("postgres://"):
