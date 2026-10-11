@@ -351,10 +351,10 @@ function renderHeritageDoctor(doctor) {
       <div class="doctor-header-strip">
         <div>
           <div style="font-size:0.78rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px;">
-            <i class="fas fa-user-md"></i> Clinical Diagnostic Condition Assessment
+            <i class="fas fa-stethoscope"></i> Conservation Diagnostics &amp; Appraisal (Prototype)
           </div>
           <div style="font-family:var(--font-serif); font-size:1.35rem; color:var(--primary); font-weight:700; margin-top:0.25rem;">
-            ${doctor.site_name || 'Monument'} Diagnostic Appraisal
+            ${doctor.site_name || 'Monument'} Conservation Diagnostics
           </div>
         </div>
         <div style="display:flex; gap:0.75rem; align-items:center;">
@@ -412,6 +412,10 @@ function renderHeritageDoctor(doctor) {
           </span>
         </div>
       ` : ''}
+
+      <div style="font-size:0.76rem; color:var(--text-dim); background:var(--bg-card-alt); padding:0.65rem 0.9rem; border-radius:var(--radius-sm); margin-top:1rem; border-left:3px solid var(--primary); line-height:1.5;">
+        <i class="fas fa-info-circle" style="color:var(--primary);"></i> <strong>Prototype Decision-Support Indicator:</strong> Heuristic condition appraisal synthesizing environmental telemetry, AMASR Act buffer compliance, and historical baseline surveys. Not official ASI structural engineering certification.
+      </div>
     </div>
   `;
 }

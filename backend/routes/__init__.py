@@ -7,6 +7,7 @@ from backend.routes.stats import stats_bp
 from backend.routes.preservation import preservation_bp
 from backend.routes.alerts import alerts_bp
 from backend.routes.discovery import discovery_bp
+from backend.routes.satellite import satellite_bp
 
 __all__ = [
     "auth_bp",
@@ -17,5 +18,6 @@ __all__ = [
     "stats_bp",
     "preservation_bp",
     "alerts_bp",
-    "discovery_bp"
+    "discovery_bp",
+    "satellite_bp"
 ]

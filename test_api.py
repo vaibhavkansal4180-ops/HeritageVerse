@@ -388,6 +388,49 @@ class HeritageVersePreservationTestSuite(unittest.TestCase):
         self.assertEqual(new_story["author_name"], "Radhika Mehra")
         print("  [PASS] Citizen Oral History Submission & Community Feed verified")
 
+    def test_22_copernicus_satellite_observations(self):
+        """Test Copernicus Data Space Ecosystem (CDSE) Sentinel-2 telemetry endpoint."""
+        res = self.client.get(f'/api/preservation/satellite/observations?site_id={self.test_site_id}')
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()["data"]
+        self.assertIn("copernicus_provider", data)
+        self.assertIn("observations", data)
+        self.assertGreater(len(data["observations"]), 0)
+        obs = data["observations"][0]
+        self.assertIn("platform", obs)
+        self.assertIn("spatial_resolution", obs)
+        print("  [PASS] Copernicus Data Space Sentinel-2 Telemetry & Observations verified")
+
+    def test_23_satellite_land_change_and_review(self):
+        """Test candidate geospatial land-change detection & human conservator review."""
+        res = self.client.get(f'/api/preservation/satellite/land-change?site_id={self.test_site_id}')
+        self.assertEqual(res.status_code, 200)
+        changes = res.get_json()["data"]
+        self.assertIsInstance(changes, list)
+
+        if len(changes) > 0:
+            target_id = changes[0]["id"]
+            # Perform human-review action
+            res_review = self.client.post(f'/api/preservation/satellite/land-change/{target_id}/review', json={
+                "status": "Verified Encroachment",
+                "notes": "On-site conservator inspection confirmed unauthorised perimeter masonry."
+            })
+            self.assertEqual(res_review.status_code, 200)
+            rev_data = res_review.get_json()["data"]
+            self.assertTrue(rev_data["verified_by_admin"])
+        print("  [PASS] Candidate Geospatial Land-Change & Conservator Review verified")
+
+    def test_24_official_visitor_footfall(self):
+        """Test official Ministry of Tourism & ASI ticketed visitor footfall statistics."""
+        res = self.client.get(f'/api/preservation/satellite/footfall?site_id={self.test_site_id}')
+        self.assertEqual(res.status_code, 200)
+        data = res.get_json()["data"]
+        self.assertIn("official_source", data)
+        self.assertIn("annual_footfall_history", data)
+        self.assertIn("daily_carrying_capacity", data)
+        self.assertEqual(data["provenance_tag"], "OFFICIAL_MINISTRY_DATA")
+        print("  [PASS] Official Ministry of Tourism & ASI Visitor Footfall verified")
+
 
 if __name__ == '__main__':
     print("\n=======================================================")

@@ -182,10 +182,22 @@ def get_audit_logs(current_user):
     return success_response(data=[l.to_dict() for l in logs], message="Audit trail logs retrieved")
 
 
+@admin_bp.route("/deduplicate", methods=["POST", "GET"])
+def deduplicate_heritage_monuments():
+    """Explicitly removes duplicate heritage sites and consolidates foreign keys in production database."""
+    from backend.seed import deduplicate_database
+    deduplicate_database()
+    site_count = HeritageSite.query.count()
+    return success_response(
+        data={"deduplicated": True, "site_count": site_count},
+        message=f"Database deduplication completed. Current unique monitored monuments count: {site_count}."
+    )
+
+
 @admin_bp.route("/init-seed", methods=["POST", "GET"])
 def initialize_database_seed():
     """Initializes and seeds the database with official heritage baseline records if empty or on refresh."""
-    from backend.seed import seed_database
+    from backend.seed import seed_database, deduplicate_database
     from flask import current_app
     refresh = request.args.get("refresh", "false").lower() in ("true", "1", "yes")
     site_count = HeritageSite.query.count()
@@ -196,6 +208,9 @@ def initialize_database_seed():
             data={"seeded": True, "site_count": site_count},
             message=f"Database successfully synchronized and seeded with {site_count} heritage monuments."
         )
+    # Always ensure deduplication runs to maintain database hygiene
+    deduplicate_database()
+    site_count = HeritageSite.query.count()
     return success_response(
         data={"seeded": False, "site_count": site_count},
         message=f"Database already initialized with {site_count} monitored heritage sites."

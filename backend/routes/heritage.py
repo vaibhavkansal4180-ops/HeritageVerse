@@ -27,10 +27,23 @@ def get_all_heritage_sites():
         query = query.filter_by(is_featured=(is_featured.lower() == "true"))
 
     from sqlalchemy.orm import joinedload
-    sites = query.options(joinedload(HeritageSite.state)).order_by(HeritageSite.name.asc()).all()
+    sites = query.options(joinedload(HeritageSite.state)).order_by(HeritageSite.id.asc()).all()
+
+    # Deduplicate by normalized monument name ensuring clean unique catalog
+    seen_names = set()
+    unique_sites = []
+    for site in sites:
+        norm_name = site.name.strip().lower()
+        if norm_name not in seen_names:
+            seen_names.add(norm_name)
+            unique_sites.append(site)
+
+    # Sort alphabetically by name
+    unique_sites.sort(key=lambda s: s.name.lower())
+
     return success_response(
-        data=[site.to_dict() for site in sites],
-        message=f"Retrieved {len(sites)} monitored heritage sites"
+        data=[site.to_dict() for site in unique_sites],
+        message=f"Retrieved {len(unique_sites)} monitored heritage sites"
     )
 
 
@@ -50,11 +63,19 @@ def search_heritage_sites():
         (HeritageSite.historical_period.ilike(term)) |
         (HeritageSite.description.ilike(term)) |
         (HeritageSite.heritage_category.ilike(term))
-    ).all()
+    ).order_by(HeritageSite.id.asc()).all()
+
+    seen_names = set()
+    unique_sites = []
+    for site in sites:
+        norm_name = site.name.strip().lower()
+        if norm_name not in seen_names:
+            seen_names.add(norm_name)
+            unique_sites.append(site)
 
     return success_response(
-        data=[site.to_dict() for site in sites],
-        message=f"Found {len(sites)} monuments matching '{query_str}'"
+        data=[site.to_dict() for site in unique_sites],
+        message=f"Found {len(unique_sites)} monuments matching '{query_str}'"
     )
 
 

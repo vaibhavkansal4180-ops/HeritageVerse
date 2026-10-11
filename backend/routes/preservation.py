@@ -167,6 +167,7 @@ def simulate_what_if():
 
 
 @preservation_bp.route("/doctor/<int:site_id>", methods=["GET"])
+@preservation_bp.route("/diagnostics/<int:site_id>", methods=["GET"])
 def diagnose_monument(site_id):
     """
     Heritage Doctor: Diagnostic Condition Assessment & Prescription Engine.

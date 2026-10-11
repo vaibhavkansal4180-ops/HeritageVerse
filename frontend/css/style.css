@@ -3,27 +3,27 @@
    CORE VISUAL DESIGN & RESPONSIVE COMPONENT SYSTEM
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* Core Architectural Palette */
-  --bg-main: #F7F3EA;            /* Warm Ivory */
-  --bg-card: #FFFFFF;            /* Pure White Surfaces */
+  --bg-main: #F7F3EA;            /* Warm Sand / Cream Background */
+  --bg-card: #FFFFFF;            /* Pure Architectural White */
   --bg-card-alt: #F1ECE1;        /* Subtle Ivory / Sand Tint */
-  --primary: #173F35;            /* Deep Forest Green */
+  --primary: #173F35;            /* Deep Heritage Emerald */
   --primary-light: #235A4D;
   --primary-dark: #0F2B24;
-  --secondary: #2F6658;          /* Muted Heritage Green */
+  --secondary: #2F6658;          /* Forest Green / Muted Jade */
   --accent: #B85C38;             /* Terracotta Accent */
   --accent-light: #CF724E;
-  --text-main: #24332E;          /* Dark Charcoal Green Text */
+  --text-main: #34433F;          /* Deep Charcoal Slate for Body Text */
   --text-muted: #576B64;         /* Slate Sage */
   --text-dim: #82948E;
   
   /* Borders & Shadows */
-  --border-subtle: rgba(23, 63, 53, 0.12);
+  --border-subtle: #E5DED0;       /* Subtle Border / Stone Parchment */
   --border-focus: #2F6658;
-  --border-card: rgba(23, 63, 53, 0.08);
+  --border-card: #E5DED0;
   --shadow-sm: 0 2px 6px rgba(23, 63, 53, 0.04);
   --shadow-card: 0 4px 18px rgba(23, 63, 53, 0.06);
   --shadow-hover: 0 8px 26px rgba(23, 63, 53, 0.12);
@@ -39,7 +39,7 @@
   --risk-crit-bg: rgba(220, 38, 38, 0.12);
 
   /* Typography Scale */
-  --font-serif: 'Cinzel', Georgia, serif;
+  --font-serif: 'Lora', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing Scale (8-point System) */
