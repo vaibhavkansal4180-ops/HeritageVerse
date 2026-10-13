@@ -8,6 +8,25 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/responsive.css">
   <style>
+    /* Exclusively applied to Homepage Hero Section & Body */
+    body.homepage {
+      background-image: linear-gradient(rgba(247, 243, 234, 0.95), rgba(247, 243, 234, 0.95)), url('/assets/images/home-hero.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .home-hero-section {
+      position: relative;
+      background-image: 
+        linear-gradient(135deg, rgba(247, 243, 234, 0.88) 0%, rgba(255, 255, 255, 0.82) 45%, rgba(247, 243, 234, 0.90) 100%),
+        url('/assets/images/home-hero.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 3.75rem 0 3.25rem;
+    }
     .pillar-card {
       background: #FFFFFF;
       border-radius: var(--radius-lg);
@@ -37,7 +56,7 @@
     }
   </style>
 </head>
-<body>
+<body class="homepage">
 
   <!-- Top Civic Alert & Status Strip -->
   <div class="top-civic-strip">
@@ -86,8 +105,8 @@
     </div>
   </header>
 
-  <!-- 4-Pillar Portal Hero Section -->
-  <section style="background:#FFFFFF; border-bottom:1px solid var(--border-subtle); padding:3.5rem 0 3rem;">
+  <!-- 4-Pillar Portal Hero Section with Palace Gateway Illustration -->
+  <section class="home-hero-section">
     <div class="container">
       <div class="index-hero-grid">
         <div>

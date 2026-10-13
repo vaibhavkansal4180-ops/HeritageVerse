@@ -584,42 +584,140 @@ def seed_database(drop_existing=False, app=None):
 
         db.session.commit()
 
-        # 4. Seed Encroachment Observations for Buffer Zones with Verified Imagery
+        # 4. Seed Encroachment Observations for Buffer Zones with Verified Local Imagery
+        encroachment_data = [
+            {
+                "site_key": "Hampi Monuments & Stone Chariot",
+                "monitored_zone": "100m Prohibited Buffer Zone (Virupaksha Bazaar Colonnade)",
+                "baseline_image_url": "/assets/images/encroachments/hampi_bazaar_street.jpg",
+                "baseline_date": date(2011, 7, 15),
+                "latest_image_url": "/assets/images/encroachments/hampi_bazaar_street.jpg",
+                "latest_date": date(2026, 8, 15),
+                "detected_change": "Commercial shops and residential structures built inside 14th-century mandapa colonnade removed under Karnataka High Court directives to restore UNESCO buffer zone.",
+                "change_area_sqm": 420.0,
+                "risk_level": "High",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Qutub Minar & Complex",
+                "monitored_zone": "100m Prohibited & 300m Regulated Area (Mehrauli Archaeological Park)",
+                "baseline_image_url": "/assets/images/encroachments/mehrauli_archaeological_park.jpg",
+                "baseline_date": date(2023, 2, 10),
+                "latest_image_url": "/assets/images/encroachments/mehrauli_archaeological_park.jpg",
+                "latest_date": date(2026, 7, 20),
+                "detected_change": "Unauthorized commercial banquets, concrete encroachments, and unapproved buildings on designated green heritage buffer land surveyed during DDA-ASI joint demarcation drives.",
+                "change_area_sqm": 650.0,
+                "risk_level": "High",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Taj Mahal",
+                "monitored_zone": "500m Prohibited Commercial Buffer Zone (Tajganj Southern Perimeter)",
+                "baseline_image_url": "/assets/images/encroachments/tajganj_south_perimeter.jpg",
+                "baseline_date": date(2022, 9, 26),
+                "latest_image_url": "/assets/images/encroachments/tajganj_south_perimeter.jpg",
+                "latest_date": date(2026, 9, 5),
+                "detected_change": "Supreme Court directed enforcement against commercial business activities and unapproved stalls within a 500-metre radius of the Taj Mahal outer peripheral boundary walls.",
+                "change_area_sqm": 280.0,
+                "risk_level": "High",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Konark Sun Temple (Black Pagoda)",
+                "monitored_zone": "100m Prohibited Buffer Zone (Casuarina Plantation & Outer Plaza)",
+                "baseline_image_url": "/assets/images/encroachments/konark_outer_perimeter.jpg",
+                "baseline_date": date(2022, 5, 12),
+                "latest_image_url": "/assets/images/encroachments/konark_outer_perimeter.jpg",
+                "latest_date": date(2026, 8, 20),
+                "detected_change": "Over 120 unauthorized commercial souvenir stalls formerly clustered against outer compound boundary relocated to dedicated heritage corridor plaza to restore landscape sightlines.",
+                "change_area_sqm": 350.0,
+                "risk_level": "Moderate",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Amber Fort & Palace",
+                "monitored_zone": "300m Regulated Area (Maota Lake Catchment & Amer Town Settlement)",
+                "baseline_image_url": "/assets/images/encroachments/amber_fort_maota_lake.jpg",
+                "baseline_date": date(2022, 11, 4),
+                "latest_image_url": "/assets/images/encroachments/amber_fort_maota_lake.jpg",
+                "latest_date": date(2026, 6, 18),
+                "detected_change": "Active regulatory monitoring of commercial shops and building height compliance in historic Amer settlement buffer abutting the Maota Lake hydrological catchment.",
+                "change_area_sqm": 180.0,
+                "risk_level": "Moderate",
+                "confidence_pct": 100,
+                "verified_by_admin": False
+            },
+            {
+                "site_key": "Brihadisvara Temple (Big Temple)",
+                "monitored_zone": "100m Prohibited / 300m Regulated Area (Sivaganga Moat Perimeter)",
+                "baseline_image_url": "/assets/images/encroachments/brihadisvara_temple_moat.jpg",
+                "baseline_date": date(2023, 3, 14),
+                "latest_image_url": "/assets/images/encroachments/brihadisvara_temple_moat.jpg",
+                "latest_date": date(2026, 7, 30),
+                "detected_change": "Quarterly boundary inspections monitor historic moat and defensive ramparts against modern commercial hoardings and unpermitted shop extensions under AMASR Rule 38.",
+                "change_area_sqm": 95.0,
+                "risk_level": "Low",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Ajanta Caves",
+                "monitored_zone": "Waghur River Canyon Forest Reserve (4 km Ecological Barrier)",
+                "baseline_image_url": "/assets/images/encroachments/ajanta_canyon_buffer.jpg",
+                "baseline_date": date(2023, 1, 10),
+                "latest_image_url": "/assets/images/encroachments/ajanta_canyon_buffer.jpg",
+                "latest_date": date(2026, 8, 1),
+                "detected_change": "Benchmark intact statutory forest buffer with total commercial and vehicular exclusion inside the horseshoe canyon gorge; eco-friendly shuttle transit operational.",
+                "change_area_sqm": 0.0,
+                "risk_level": "Low",
+                "confidence_pct": 100,
+                "verified_by_admin": True
+            },
+            {
+                "site_key": "Terracotta Temples of Bishnupur",
+                "monitored_zone": "100m Prohibited Area (Rasmancha Municipal Settlement Boundary)",
+                "baseline_image_url": "/assets/images/encroachments/bishnupur_rasmancha_boundary.jpg",
+                "baseline_date": date(2023, 4, 22),
+                "latest_image_url": "/assets/images/encroachments/bishnupur_rasmancha_boundary.jpg",
+                "latest_date": date(2026, 8, 10),
+                "detected_change": "Periodic boundary demarcation checks inspect lawn perimeter fencing against residential wall extensions and brick-kiln expansion near Lalbandh tank settlement.",
+                "change_area_sqm": 110.0,
+                "risk_level": "Moderate",
+                "confidence_pct": 100,
+                "verified_by_admin": False
+            }
+        ]
+
+        for item in encroachment_data:
+            s_obj = site_objects.get(item["site_key"])
+            if s_obj:
+                EncroachmentObservation.query.filter_by(heritage_site_id=s_obj.id).delete()
+                db.session.add(EncroachmentObservation(
+                    heritage_site_id=s_obj.id,
+                    monitored_zone=item["monitored_zone"],
+                    baseline_image_url=item["baseline_image_url"],
+                    baseline_date=item["baseline_date"],
+                    latest_image_url=item["latest_image_url"],
+                    latest_date=item["latest_date"],
+                    detected_change=item["detected_change"],
+                    change_area_sqm=item["change_area_sqm"],
+                    risk_level=item["risk_level"],
+                    confidence_pct=item["confidence_pct"],
+                    verified_by_admin=item["verified_by_admin"]
+                ))
+
         konark = site_objects.get("Konark Sun Temple (Black Pagoda)")
-        hampi = site_objects.get("Hampi Monuments & Stone Chariot")
         taj = site_objects.get("Taj Mahal")
-
-        if konark:
-            EncroachmentObservation.query.filter_by(heritage_site_id=konark.id).delete()
-            db.session.add(EncroachmentObservation(
-                heritage_site_id=konark.id,
-                monitored_zone="100m Prohibited Buffer Zone (South-East Coast Perimeter)",
-                baseline_image_url="https://cdn.britannica.com/19/251919-050-D3E64798/konark-sun-temple-orissa-india-unesco-heritage-site.jpg",
-                baseline_date=date(2023, 4, 15),
-                latest_image_url="https://i.pinimg.com/originals/c6/4b/5e/c64b5e5284470c89b87763868614fbf9.jpg",
-                latest_date=date(2026, 8, 20),
-                detected_change="Unauthorized commercial parking structure and concrete perimeter wall within 65m of outer boundary.",
-                change_area_sqm=380.0,
-                risk_level="Critical",
-                confidence_pct=94,
-                verified_by_admin=True
-            ))
-
-        if hampi:
-            EncroachmentObservation.query.filter_by(heritage_site_id=hampi.id).delete()
-            db.session.add(EncroachmentObservation(
-                heritage_site_id=hampi.id,
-                monitored_zone="300m Regulated Zone (Vittala Bazaar North Axis)",
-                baseline_image_url="https://th.bing.com/th/id/R.f10a6bbde9457a12ea4732f440cdd197?rik=M9AwgeYYzuyLsg&riu=http%3a%2f%2fwww.thehistoryhub.com%2fwp-content%2fuploads%2f2014%2f04%2fHampi-Chariot.jpg&ehk=MX5BNohAmJnqbpQiCNi9qn%2fg%2fGeP4wF7LIiyhuF5Ixo%3d&risl=&pid=ImgRaw&r=0",
-                baseline_date=date(2024, 1, 10),
-                latest_image_url="https://images.fineartamerica.com/images-medium-large/stone-chariot-at-vittala-temple-complex-in-hampi-india-rohit-chowdhry.jpg",
-                latest_date=date(2026, 8, 25),
-                detected_change="Temporary guest house expansion and unauthorized tin shed stalls in agricultural buffer strip.",
-                change_area_sqm=195.0,
-                risk_level="High",
-                confidence_pct=89,
-                verified_by_admin=False
-            ))
+        hampi = site_objects.get("Hampi Monuments & Stone Chariot")
+        qutub = site_objects.get("Qutub Minar & Complex")
+        amber = site_objects.get("Amber Fort & Palace")
+        ajanta = site_objects.get("Ajanta Caves")
+        brihad = site_objects.get("Brihadisvara Temple (Big Temple)")
+        bishnupur = site_objects.get("Terracotta Temples of Bishnupur")
 
         # 5. Seed Multi-Year Historical Condition Timelines (2022 - 2026)
         if konark:

@@ -134,6 +134,8 @@ class EncroachmentObservation(db.Model):
             "id": self.id,
             "heritage_site_id": self.heritage_site_id,
             "heritage_site_name": self.heritage_site.name if self.heritage_site else None,
+            "city": self.heritage_site.city if self.heritage_site else None,
+            "state_name": self.heritage_site.state.name if (self.heritage_site and self.heritage_site.state) else None,
             "monitored_zone": self.monitored_zone,
             "baseline_image_url": self.baseline_image_url,
             "baseline_date": self.baseline_date.isoformat() if self.baseline_date else None,

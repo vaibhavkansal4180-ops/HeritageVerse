@@ -138,6 +138,26 @@ def get_all_encroachments():
     return success_response(data=[o.to_dict() for o in observations], message="Encroachment observations retrieved")
 
 
+@preservation_bp.route("/encroachments/<int:obs_id>/review", methods=["POST"])
+def review_encroachment(obs_id):
+    """
+    Toggle or update conservator verification status for an encroachment observation.
+    """
+    obs = db.session.get(EncroachmentObservation, obs_id)
+    if not obs:
+        return error_response(f"Observation #{obs_id} not found", status_code=404)
+
+    body = request.get_json() or {}
+    new_verified = body.get("verified")
+    if new_verified is None:
+        obs.verified_by_admin = not obs.verified_by_admin
+    else:
+        obs.verified_by_admin = bool(new_verified)
+
+    db.session.commit()
+    return success_response(data=obs.to_dict(), message="Encroachment verification status updated")
+
+
 @preservation_bp.route("/what-if", methods=["POST", "GET"])
 def simulate_what_if():
     """
